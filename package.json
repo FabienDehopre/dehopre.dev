@@ -11,7 +11,10 @@
     "start": "pnpm run dev",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+		"preview": "pnpm run build && wrangler pages dev",
+		"deploy": "pnpm run build && wrangler pages deploy",
+		"cf-typegen": "wrangler types"
   },
   "private": true,
   "dependencies": {
@@ -46,11 +49,14 @@
     "@angular/build": "^20.0.1",
     "@angular/cli": "^20.0.1",
     "@angular/compiler-cli": "^20.0.2",
+    "h3": "^1.15.3",
     "jsdom": "^22.1.0",
+    "nitropack": "^2.11.12",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^3.2.3"
+    "vitest": "^3.2.3",
+    "wrangler": "^4.19.1"
   },
   "packageManager": "pnpm@10.12.0+sha512.3ab6da6066b7b14d6e9609a31d780191484b8e85f8d0e4581ef333bf4d869799937f5e57cbb8d3da2023019f6d4869a9acc381457fcb1d86e15fc44bfd4eb6a4"
 }
