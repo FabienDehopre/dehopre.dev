@@ -12,9 +12,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-		"preview": "pnpm run build && wrangler pages dev",
-		"deploy": "pnpm run build && wrangler pages deploy",
-		"cf-typegen": "wrangler types"
+    "preview": "pnpm run build && wrangler pages dev",
+    "deploy": "pnpm run build && wrangler pages deploy",
+    "cf-typegen": "wrangler types"
   },
   "private": true,
   "dependencies": {
@@ -49,7 +49,12 @@
     "@angular/build": "^20.0.1",
     "@angular/cli": "^20.0.1",
     "@angular/compiler-cli": "^20.0.2",
+    "@fabdeh/eslint-config": "^0.5.0",
+    "eslint": "^9.28.0",
+    "eslint-plugin-erasable-syntax-only": "^0.3.1",
+    "eslint-plugin-format": "^1.0.1",
     "h3": "^1.15.3",
+    "jiti": "^2.4.2",
     "jsdom": "^22.1.0",
     "nitropack": "^2.11.12",
     "typescript": "~5.8.3",
