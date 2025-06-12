@@ -1,11 +1,11 @@
-import '@angular/compiler';
-import '@analogjs/vitest-angular/setup-zone';
-
+import { getTestBed } from '@angular/core/testing';
 import {
   BrowserTestingModule,
-  platformBrowserTesting,
+  platformBrowserTesting
 } from '@angular/platform-browser/testing';
-import { getTestBed } from '@angular/core/testing';
+
+import '@angular/compiler';
+import '@analogjs/vitest-angular/setup-zone';
 
 getTestBed().initTestEnvironment(
   BrowserTestingModule,

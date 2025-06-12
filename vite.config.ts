@@ -1,11 +1,13 @@
 /// <reference types="vitest" />
 
-import { defineConfig } from 'vite';
+import type { Nitro } from 'nitropack';
+
 import analog from '@analogjs/platform';
 import tailwindcss from '@tailwindcss/vite';
-import { Nitro } from 'nitropack';
+import { defineConfig } from 'vite';
 
-const devBindingsModule = async (nitro: Nitro) => {
+// eslint-disable-next-line @typescript-eslint/naming-convention -- it's a function so it's fine to be in camelCase
+const devBindingsModule = (nitro: Nitro): void => {
   if (nitro.options.dev) {
     nitro.options.plugins.push('./src/dev-bindings.ts');
   }
@@ -24,9 +26,9 @@ export default defineConfig(({ mode }) => ({
       nitro: {
         preset: 'cloudflare-pages',
         modules: [devBindingsModule],
-      }
+      },
     }),
-    tailwindcss()
+    tailwindcss(),
   ],
   test: {
     globals: true,
