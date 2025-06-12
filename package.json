@@ -14,7 +14,9 @@
     "test": "ng test",
     "preview": "pnpm run build && wrangler pages dev",
     "deploy": "pnpm run build && wrangler pages deploy",
-    "cf-typegen": "wrangler types"
+    "cf-typegen": "wrangler types",
+    "lint": "eslint --fix .",
+    "lint:check": "eslint ."
   },
   "private": true,
   "dependencies": {
