@@ -10,7 +10,7 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 
-export const appConfig: ApplicationConfig = {
+export const APP_CONFIG: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
