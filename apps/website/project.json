@@ -23,7 +23,7 @@
         "styles": ["apps/website/src/styles.css"],
         "server": "apps/website/src/main.server.ts",
         "ssr": {
-          "entry": "apps/website/src/server.express.ts"
+          "entry": "apps/website/src/server.ts"
         },
         "outputMode": "server"
       },
