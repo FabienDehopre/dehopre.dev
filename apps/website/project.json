@@ -100,7 +100,7 @@
         "cwd": "{projectRoot}"
       }
     },
-    "dev": {
+    "cf-serve": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
       "options": {
@@ -108,7 +108,7 @@
         "cwd": "{projectRoot}"
       }
     },
-    "deploy": {
+    "cf-deploy": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
       "options": {
