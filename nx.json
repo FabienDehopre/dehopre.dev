@@ -31,6 +31,32 @@
     "@nx/vite:test": {
       "cache": true,
       "inputs": ["default", "^production"]
+    },
+    "cf-types": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": ["{projectRoot}/wrangler.jsonc"],
+      "outputs": ["{projectRoot}/worker-configuration.d.ts"],
+      "options": {
+        "command": "wrangler types",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "cf-serve": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "wrangler dev",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "cf-deploy": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "wrangler deploy",
+        "cwd": "{projectRoot}"
+      }
     }
   },
   "plugins": [
