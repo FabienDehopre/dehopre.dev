@@ -23,7 +23,8 @@
         "styles": ["apps/website/src/styles.css"],
         "server": "apps/website/src/main.server.ts",
         "ssr": {
-          "entry": "apps/website/src/server.ts"
+          "entry": "apps/website/src/server.ts",
+          "experimentalPlatform": "neutral"
         },
         "outputMode": "server"
       },
@@ -88,6 +89,31 @@
         "port": 4200,
         "staticFilePath": "dist/apps/website/browser",
         "spa": true
+      }
+    },
+    "cf-types": {
+      "executor": "nx:run-commands",
+      "inputs": ["{projectRoot}/wrangler.jsonc"],
+      "outputs": ["{projectRoot}/worker-configuration.d.ts"],
+      "options": {
+        "command": "wrangler types",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "wrangler dev",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "wrangler deploy",
+        "cwd": "{projectRoot}"
       }
     }
   }

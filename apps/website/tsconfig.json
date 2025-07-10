@@ -10,7 +10,10 @@
     "moduleResolution": "bundler",
     "isolatedModules": true,
     "emitDecoratorMetadata": false,
-    "module": "preserve"
+    "module": "preserve",
+    "types": [
+      "./worker-configuration.d.ts"
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
