@@ -56,9 +56,6 @@ importers:
       tailwindcss-primeui:
         specifier: ^0.6.1
         version: 0.6.1(tailwindcss@4.1.11)
-      zone.js:
-        specifier: ~0.15.1
-        version: 0.15.1
     devDependencies:
       '@analogjs/vite-plugin-angular':
         specifier: ~1.19.1
@@ -16940,4 +16937,5 @@ snapshots:
 
   zod@3.25.75: {}
 
-  zone.js@0.15.1: {}
+  zone.js@0.15.1:
+    optional: true

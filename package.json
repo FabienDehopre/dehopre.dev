@@ -20,8 +20,7 @@
     "primeng": "^20.0.0",
     "rxjs": "~7.8.2",
     "tailwindcss": "^4.1.11",
-    "tailwindcss-primeui": "^0.6.1",
-    "zone.js": "~0.15.1"
+    "tailwindcss-primeui": "^0.6.1"
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "~1.19.1",
