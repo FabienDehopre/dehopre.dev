@@ -10,6 +10,8 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import {provideHttpClient, withFetch} from "@angular/common/http";
+import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
+import {providePrimeNG} from "primeng/config";
 
 export const APP_CONFIG: ApplicationConfig = {
   providers: [
@@ -18,5 +20,17 @@ export const APP_CONFIG: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(appRoutes),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        options: {
+          darkModeSelector: '.dark',
+          cssLayer: {
+            name: 'primeng',
+            order: 'theme, base, primeng',
+          },
+        }
+      }
+    }),
   ],
 };
