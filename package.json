@@ -16,7 +16,11 @@
     "@angular/ssr": "~20.1.0",
     "h3": "^1.15.3",
     "pathe": "^2.0.3",
+    "primeicons": "^7.0.0",
+    "primeng": "^20.0.0",
     "rxjs": "~7.8.2",
+    "tailwindcss": "^4.1.11",
+    "tailwindcss-primeui": "^0.6.1",
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
@@ -43,6 +47,7 @@
     "@swc-node/register": "~1.9.2",
     "@swc/core": "~1.5.29",
     "@swc/helpers": "~0.5.17",
+    "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "18.16.9",
     "@typescript-eslint/utils": "^8.36.0",
     "@vitest/coverage-v8": "^3.2.4",
@@ -54,6 +59,7 @@
     "jiti": "2.4.2",
     "jsdom": "~22.1.0",
     "nx": "21.2.2",
+    "postcss": "^8.5.6",
     "prettier": "^2.8.8",
     "tslib": "^2.8.1",
     "typescript": "~5.8.3",
