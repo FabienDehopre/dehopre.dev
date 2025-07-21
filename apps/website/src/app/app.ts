@@ -1,14 +1,14 @@
-import {Component, DOCUMENT, inject} from '@angular/core';
-import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router, RouterModule} from '@angular/router';
-import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
-import {filter, map, mergeMap, switchMap} from "rxjs";
-import {Title} from "@angular/platform-browser";
+import {ChangeDetectionStrategy, Component, DOCUMENT, inject} from '@angular/core';
+import {ActivatedRoute, NavigationEnd, Router, RouterModule} from '@angular/router';
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {filter, map, mergeMap} from "rxjs";
 import {Seo} from "./services/seo";
 
 @Component({
   imports: [RouterModule],
   selector: 'app-root',
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class App {
   readonly #router = inject(Router);
