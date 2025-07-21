@@ -1,11 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './home.html',
-  styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Home {}
+export class Home {
+  readonly title = input.required<string>();
+  readonly description = input.required<string>();
+}
