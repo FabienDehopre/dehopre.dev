@@ -35,6 +35,9 @@ importers:
       '@angular/ssr':
         specifier: ~20.1.0
         version: 20.1.0(0dad3c202af3bf5dd8f18f4ec30fc2e7)
+      '@primeng/themes':
+        specifier: ^20.0.0
+        version: 20.0.0
       '@tailwindcss/typography':
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@4.1.11)
@@ -2737,12 +2740,18 @@ packages:
   '@poppinss/exception@1.2.2':
     resolution: {integrity: sha512-m7bpKCD4QMlFCjA/nKTs23fuvoVFoA83brRKmObCUNmi/9tVu8Ve3w4YQAnJu4q3Tjf5fr685HYIC/IA2zHRSg==}
 
+  '@primeng/themes@20.0.0':
+    resolution: {integrity: sha512-TsiUGyexNsw+XlntWTueSrBA3InVA+W1suc2ESoCA5dcgkuTG6CUNbRJfuJc1xfhtugdlXOX0w5H+5iFjI+I6A==}
+
   '@primeuix/styled@0.7.0':
     resolution: {integrity: sha512-xUqMdQb75izeDkNWFK1QlU15aUl5LIU97Fq68IXOhrqqLsKEBnj5ftntFZrENQW70jAHwALdWP4EOGi/poc9Tg==}
     engines: {node: '>=12.11.0'}
 
   '@primeuix/styles@1.2.1':
     resolution: {integrity: sha512-Tri7pPgZgxrVmhJG8ijZZFolQ6vu27xnkGoAB9EFY8YlaKTM5iqkWzEcqdxy2KmgFWMXi+BrPHwO0RdQ6JCT+g==}
+
+  '@primeuix/themes@1.2.1':
+    resolution: {integrity: sha512-DVCFDncvag47tpag3TdufDTuvUbfKnkgzmlxAQkwuMS0IlPA3wChrf9VlL2wETg/ZpJm/tHobkJBnB9FmkiqnA==}
 
   '@primeuix/utils@0.6.0':
     resolution: {integrity: sha512-ULpB87ImNAiX36OMtyDeRceWB7N/mVlh6gGLqp/lx8UMKZlLIQH/UAFND86hYXHwNpXeNKcWfMGreb0Oc0hcZA==}
@@ -11338,11 +11347,20 @@ snapshots:
 
   '@poppinss/exception@1.2.2': {}
 
+  '@primeng/themes@20.0.0':
+    dependencies:
+      '@primeuix/styled': 0.7.0
+      '@primeuix/themes': 1.2.1
+
   '@primeuix/styled@0.7.0':
     dependencies:
       '@primeuix/utils': 0.6.0
 
   '@primeuix/styles@1.2.1':
+    dependencies:
+      '@primeuix/styled': 0.7.0
+
+  '@primeuix/themes@1.2.1':
     dependencies:
       '@primeuix/styled': 0.7.0
 
