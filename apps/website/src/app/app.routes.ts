@@ -11,6 +11,14 @@ export const appRoutes: Route[] = [
     }
   },
   {
+    path: 'about',
+    loadComponent: () => import('./pages/about/about').then(m => m.About),
+    data: {
+      title: 'TODO',
+      description: 'TODO',
+    }
+  },
+  {
     path: '**',
     redirectTo: '',
   }
