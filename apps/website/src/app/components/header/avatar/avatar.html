@@ -1,0 +1,14 @@
+<div
+  [class]="containerCssClass() + ' h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:ring-white/10'"
+  [style]="containerStyle()"
+></div>
+<a [routerLink]="['/']" aria-label="Home" [class]="linkCssClass() + ' pointer-events-auto'" [style]="linkStyle()">
+  <img
+    ngSrc="/images/avatar.jpg"
+    alt=""
+    [sizes]="large() ? '4rem' : '2.25rem'"
+    fill
+    priority
+    [class]="'rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 ' + (large() ? 'h-16 w-16' : 'h-9 w-9')"
+  />
+</a>
