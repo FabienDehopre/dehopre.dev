@@ -3,11 +3,13 @@ import {ActivatedRoute, NavigationEnd, Router, RouterModule} from '@angular/rout
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter, map, mergeMap} from "rxjs";
 import {Seo} from "./services/seo";
+import {Layout} from "./components/layout/layout";
 
 @Component({
-  imports: [RouterModule],
+  imports: [RouterModule, Layout],
   selector: 'app-root',
   templateUrl: './app.html',
+  styles: `:host { display: contents; }`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class App {
