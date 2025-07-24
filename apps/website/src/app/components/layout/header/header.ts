@@ -12,7 +12,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
 import {filter, map} from "rxjs";
 import {Avatar} from "./avatar/avatar";
 import {ThemeToggle} from "./theme-toggle/theme-toggle";
-import {DocumentElement} from "../../../services/document-element";
+import {Theme} from "../../../services/theme";
 
 function clamp(number: number, a: number, b: number) {
   const min = Math.min(a, b)
@@ -29,7 +29,7 @@ function clamp(number: number, a: number, b: number) {
 })
 export class Header {
   readonly #router = inject(Router);
-  readonly #documentElement = inject(DocumentElement);
+  readonly #theme = inject(Theme);
   readonly #document = inject(DOCUMENT);
   readonly #isInitial = signal(true);
   readonly isHomePage = toSignal(this.#router.events.pipe(filter((e) => e instanceof NavigationEnd), map(() => this.#router.url === '/')), { initialValue: false });
@@ -91,31 +91,31 @@ export class Header {
     );
 
     if (this.#isInitial()) {
-      this.#documentElement.setProperty('--header-position', 'sticky');
+      this.#theme.setProperty('--header-position', 'sticky');
     }
 
-    this.#documentElement.setProperty('--content-offset', `${downDelay}px`);
+    this.#theme.setProperty('--content-offset', `${downDelay}px`);
 
     if (this.#isInitial() || scrollY < downDelay) {
-      this.#documentElement.setProperty('--header-height', `${downDelay + height}px`);
-      this.#documentElement.setProperty('--header-mb', `${-downDelay}px`);
+      this.#theme.setProperty('--header-height', `${downDelay + height}px`);
+      this.#theme.setProperty('--header-mb', `${-downDelay}px`);
     } else if (top + height < -upDelay) {
       const offset = Math.max(height, scrollY - upDelay);
-      this.#documentElement.setProperty('--header-height', `${offset}px`);
-      this.#documentElement.setProperty('--header-mb', `${height - offset}px`);
+      this.#theme.setProperty('--header-height', `${offset}px`);
+      this.#theme.setProperty('--header-mb', `${height - offset}px`);
     } else if (top === 0) {
-      this.#documentElement.setProperty('--header-height', `${scrollY + height}px`);
-      this.#documentElement.setProperty('--header-mb', `${-scrollY}px`);
+      this.#theme.setProperty('--header-height', `${scrollY + height}px`);
+      this.#theme.setProperty('--header-mb', `${-scrollY}px`);
     }
 
     if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
-      this.#documentElement.setProperty('--header-inner-position', 'fixed');
-      this.#documentElement.removeProperty('--header-top');
-      this.#documentElement.removeProperty('--avatar-top');
+      this.#theme.setProperty('--header-inner-position', 'fixed');
+      this.#theme.removeProperty('--header-top');
+      this.#theme.removeProperty('--avatar-top');
     } else {
-      this.#documentElement.removeProperty('--header-inner-position');
-      this.#documentElement.setProperty('--header-top', '0px');
-      this.#documentElement.setProperty('--avatar-top', '0px');
+      this.#theme.removeProperty('--header-inner-position');
+      this.#theme.setProperty('--header-top', '0px');
+      this.#theme.setProperty('--avatar-top', '0px');
     }
   }
 
@@ -138,7 +138,7 @@ export class Header {
     let x = (scrollY * (fromX - toX)) / downDelay + toX
     x = clamp(x, fromX, toX)
 
-    this.#documentElement.setProperty(
+    this.#theme.setProperty(
       '--avatar-image-transform',
       `translate3d(${x}rem, 0, 0) scale(${scale})`,
     )
@@ -147,7 +147,7 @@ export class Header {
     const borderX = (-toX + x) * borderScale
     const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`
 
-    this.#documentElement.setProperty('--avatar-border-transform', borderTransform)
-    this.#documentElement.setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0')
+    this.#theme.setProperty('--avatar-border-transform', borderTransform)
+    this.#theme.setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0')
   }
 }

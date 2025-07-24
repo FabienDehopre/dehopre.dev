@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {Footer} from "./footer/footer";
 import {Header} from "./header/header";
-import {DocumentElement} from "../../services/document-element";
+import {Theme} from "../../services/theme";
 
 @Component({
   selector: 'app-layout',
@@ -11,14 +11,14 @@ import {DocumentElement} from "../../services/document-element";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Layout {
-  readonly #documentElement = inject(DocumentElement);
-  readonly currentTheme = this.#documentElement.getCurrentTheme();
+  readonly #theme = inject(Theme);
+  readonly currentTheme = this.#theme.getCurrentTheme();
 
   constructor() {
-    this.#documentElement.initTheme();
+    this.#theme.initTheme();
   }
 
   onSetTheme(theme: "dark" | "light") {
-    this.#documentElement.setTheme(theme);
+    this.#theme.setTheme(theme);
   }
 }

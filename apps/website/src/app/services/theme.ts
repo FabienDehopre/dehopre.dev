@@ -1,17 +1,17 @@
-import {DOCUMENT, inject, Injectable, PLATFORM_ID, signal} from '@angular/core';
-import {MediaMatcher} from "@angular/cdk/layout";
-import {isPlatformBrowser} from "@angular/common";
+import {DOCUMENT, inject, Injectable, signal} from '@angular/core';
+import {BreakpointObserver} from "@angular/cdk/layout";
 import {assertUnreachable} from "../utils";
+import {Platform} from "@angular/cdk/platform";
 
 const MEDIA = '(prefers-color-scheme: dark)' as const;
 const LOCAL_STORAGE_KEY = 'theme';
 
 
 @Injectable({ providedIn: 'root' })
-export class DocumentElement {
-  readonly #platformId = inject(PLATFORM_ID);
+export class Theme {
   readonly #document = inject(DOCUMENT);
-  readonly #mediaMatcher = inject(MediaMatcher);
+  readonly #platform = inject(Platform);
+  readonly #breakpointsObserver = inject(BreakpointObserver);
   readonly #currentTheme = signal<'dark' | 'light'>('light');
 
   setProperty(property: string, value: string) {
@@ -23,20 +23,16 @@ export class DocumentElement {
   }
 
   initTheme() {
-    if (isPlatformBrowser(this.#platformId)) {
+    if (this.#platform.isBrowser) {
       const theme = this.#loadFromLocalStorage() ?? this.#getSystemTheme();
-      this.#setColorSheme(theme);
-      this.#setThemeClass(theme);
-      this.#currentTheme.set(theme);
+      this.#setTheme(theme);
     }
   }
 
   setTheme(theme: 'dark' | 'light') {
-    if (isPlatformBrowser(this.#platformId)) {
-      this.#setColorSheme(theme);
-      this.#setThemeClass(theme);
+    if (this.#platform.isBrowser) {
+      this.#setTheme(theme);
       this.#saveToLocalStorage(theme);
-      this.#currentTheme.set(theme);
     }
   }
 
@@ -44,8 +40,14 @@ export class DocumentElement {
     return this.#currentTheme.asReadonly();
   }
 
+  #setTheme(theme: 'dark' | 'light') {
+    this.#setColorSheme(theme);
+    this.#setThemeClass(theme);
+    this.#currentTheme.set(theme);
+  }
+
   #getSystemTheme() {
-    return this.#mediaMatcher.matchMedia(MEDIA).matches ? 'dark' : 'light';
+    return this.#breakpointsObserver.isMatched(MEDIA) ? 'dark' : 'light';
   }
 
   #setColorSheme(theme: 'dark' | 'light') {

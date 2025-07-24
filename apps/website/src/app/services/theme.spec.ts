@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DocumentElement } from './document-element';
+import { Theme } from './theme';
 
-describe('DocumentElement', () => {
-  let service: DocumentElement;
+describe('Theme', () => {
+  let service: Theme;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DocumentElement);
+    service = TestBed.inject(Theme);
   });
 
   it('should be created', () => {
