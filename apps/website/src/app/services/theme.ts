@@ -1,14 +1,15 @@
-import {DOCUMENT, inject, Injectable, signal} from '@angular/core';
+import {DestroyRef, DOCUMENT, inject, Injectable, signal} from '@angular/core';
 import {BreakpointObserver} from "@angular/cdk/layout";
 import {assertUnreachable} from "../utils";
 import {Platform} from "@angular/cdk/platform";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 const MEDIA = '(prefers-color-scheme: dark)' as const;
 const LOCAL_STORAGE_KEY = 'theme';
 
-
 @Injectable({ providedIn: 'root' })
 export class Theme {
+  readonly #destroyRef = inject(DestroyRef);
   readonly #document = inject(DOCUMENT);
   readonly #platform = inject(Platform);
   readonly #breakpointsObserver = inject(BreakpointObserver);
@@ -24,8 +25,11 @@ export class Theme {
 
   initTheme() {
     if (this.#platform.isBrowser) {
-      const theme = this.#loadFromLocalStorage() ?? this.#getSystemTheme();
+      const themeName = this.#loadFromLocalStorage() ?? this.#getSystemTheme();
+      const isSystem = themeName === 'system';
+      const theme = isSystem ? this.#getSystemTheme() : themeName;
       this.#setTheme(theme);
+      this.#startSystemThemeObserver();
     }
   }
 
@@ -38,6 +42,20 @@ export class Theme {
 
   getCurrentTheme() {
     return this.#currentTheme.asReadonly();
+  }
+
+  #startSystemThemeObserver() {
+    this.#breakpointsObserver.observe(MEDIA)
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe((value) => {
+        const systemTheme = value.matches ? 'dark' : 'light';
+        console.log('prefer-color-scheme changed to', systemTheme);
+        const themeName = this.#loadFromLocalStorage() ?? this.#getSystemTheme();
+        const isSystem = themeName === 'system';
+        if (isSystem) {
+          this.#setTheme(systemTheme);
+        }
+      });
   }
 
   #setTheme(theme: 'dark' | 'light') {
@@ -62,8 +80,6 @@ export class Theme {
     }
   }
 
-  // #getOtherTheme(theme: 'dark'): 'light';
-  // #getOtherTheme(theme: 'light'): 'dark';
   #getOtherTheme(theme: 'dark' | 'light') {
     switch (theme) {
       case 'dark':
@@ -76,10 +92,11 @@ export class Theme {
   }
 
   #saveToLocalStorage(theme: 'dark' | 'light') {
-    this.#document.defaultView?.localStorage.setItem(LOCAL_STORAGE_KEY, theme);
+    const themeToStore = this.#getSystemTheme() === theme ? 'system' : theme;
+    this.#document.defaultView?.localStorage.setItem(LOCAL_STORAGE_KEY, themeToStore);
   }
 
-  #loadFromLocalStorage(): 'dark' | 'light' | undefined {
-    return this.#document.defaultView?.localStorage.getItem(LOCAL_STORAGE_KEY) as 'dark' | 'light' | undefined;
+  #loadFromLocalStorage(): 'dark' | 'light' | 'system' {
+    return this.#document.defaultView?.localStorage.getItem(LOCAL_STORAGE_KEY) as 'dark' | 'light' | null ?? 'system';
   }
 }
