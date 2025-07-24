@@ -3,18 +3,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   DOCUMENT,
-  effect, ElementRef, HostListener,
-  inject,
-  Renderer2,
-  signal,
-  untracked, viewChild
+  ElementRef, HostListener,
+  inject, input, output,
+  signal, viewChild
 } from '@angular/core';
 import {NavigationEnd, Router, RouterLink} from "@angular/router";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {filter, map} from "rxjs";
-import {NgOptimizedImage} from "@angular/common";
 import {Avatar} from "./avatar/avatar";
-import {Body} from "../../services/body";
+import {ThemeToggle} from "./theme-toggle/theme-toggle";
+import {DocumentElement} from "../../../services/document-element";
 
 function clamp(number: number, a: number, b: number) {
   const min = Math.min(a, b)
@@ -24,20 +22,21 @@ function clamp(number: number, a: number, b: number) {
 
 @Component({
   selector: 'app-header',
-  imports: [Avatar],
+  imports: [Avatar, ThemeToggle],
   templateUrl: './header.html',
   styles: `:host { display: contents; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
   readonly #router = inject(Router);
-  readonly #body = inject(Body);
-  // readonly #renderer = inject(Renderer2);
+  readonly #documentElement = inject(DocumentElement);
   readonly #document = inject(DOCUMENT);
   readonly #isInitial = signal(true);
   readonly isHomePage = toSignal(this.#router.events.pipe(filter((e) => e instanceof NavigationEnd), map(() => this.#router.url === '/')), { initialValue: false });
   readonly headerRef = viewChild.required<ElementRef<HTMLDivElement>>('header');
   readonly avatarRef = viewChild<ElementRef<HTMLDivElement>>('avatar');
+  readonly theme = input.required<'dark' | 'light'>();
+  readonly setTheme = output<'dark' | 'light'>();
 
   // constructor() {
   //   effect((onCleanup) => {
@@ -92,31 +91,31 @@ export class Header {
     );
 
     if (this.#isInitial()) {
-      this.#body.setProperty('--header-position', 'sticky');
+      this.#documentElement.setProperty('--header-position', 'sticky');
     }
 
-    this.#body.setProperty('--content-offset', `${downDelay}px`);
+    this.#documentElement.setProperty('--content-offset', `${downDelay}px`);
 
     if (this.#isInitial() || scrollY < downDelay) {
-      this.#body.setProperty('--header-height', `${downDelay + height}px`);
-      this.#body.setProperty('--header-mb', `${-downDelay}px`);
+      this.#documentElement.setProperty('--header-height', `${downDelay + height}px`);
+      this.#documentElement.setProperty('--header-mb', `${-downDelay}px`);
     } else if (top + height < -upDelay) {
       const offset = Math.max(height, scrollY - upDelay);
-      this.#body.setProperty('--header-height', `${offset}px`);
-      this.#body.setProperty('--header-mb', `${height - offset}px`);
+      this.#documentElement.setProperty('--header-height', `${offset}px`);
+      this.#documentElement.setProperty('--header-mb', `${height - offset}px`);
     } else if (top === 0) {
-      this.#body.setProperty('--header-height', `${scrollY + height}px`);
-      this.#body.setProperty('--header-mb', `${-scrollY}px`);
+      this.#documentElement.setProperty('--header-height', `${scrollY + height}px`);
+      this.#documentElement.setProperty('--header-mb', `${-scrollY}px`);
     }
 
     if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
-      this.#body.setProperty('--header-inner-position', 'fixed');
-      this.#body.removeProperty('--header-top');
-      this.#body.removeProperty('--avatar-top');
+      this.#documentElement.setProperty('--header-inner-position', 'fixed');
+      this.#documentElement.removeProperty('--header-top');
+      this.#documentElement.removeProperty('--avatar-top');
     } else {
-      this.#body.removeProperty('--header-inner-position');
-      this.#body.setProperty('--header-top', '0px');
-      this.#body.setProperty('--avatar-top', '0px');
+      this.#documentElement.removeProperty('--header-inner-position');
+      this.#documentElement.setProperty('--header-top', '0px');
+      this.#documentElement.setProperty('--avatar-top', '0px');
     }
   }
 
@@ -139,7 +138,7 @@ export class Header {
     let x = (scrollY * (fromX - toX)) / downDelay + toX
     x = clamp(x, fromX, toX)
 
-    this.#body.setProperty(
+    this.#documentElement.setProperty(
       '--avatar-image-transform',
       `translate3d(${x}rem, 0, 0) scale(${scale})`,
     )
@@ -148,7 +147,7 @@ export class Header {
     const borderX = (-toX + x) * borderScale
     const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`
 
-    this.#body.setProperty('--avatar-border-transform', borderTransform)
-    this.#body.setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0')
+    this.#documentElement.setProperty('--avatar-border-transform', borderTransform)
+    this.#documentElement.setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0')
   }
 }

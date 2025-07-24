@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="relative flex w-full flex-col">
-  <app-header />
+  <app-header [theme]="currentTheme()" (setTheme)="onSetTheme($event)" />
   <main class="flex-auto">
     <ng-content />
   </main>

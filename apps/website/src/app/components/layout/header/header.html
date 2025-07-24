@@ -41,7 +41,7 @@
               </div>
               <div class="flex justify-end md:flex-1">
                 <div class="pointer-events-auto">
-                  TODO: Theme toggle
+                  <app-theme-toggle [theme]="theme()" (setTheme)="setTheme.emit($event)" />
                 </div>
               </div>
             </div>
