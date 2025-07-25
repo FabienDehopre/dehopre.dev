@@ -7,6 +7,7 @@ import {RouterLink, UrlTree} from "@angular/router";
     RouterLink
   ],
   templateUrl: './nav-item.html',
+  styles: `:host { display: contents; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavItem {

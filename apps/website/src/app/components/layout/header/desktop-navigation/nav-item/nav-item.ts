@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, computed, input, signal} from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {RouterLink, RouterLinkActive, UrlTree} from "@angular/router";
 
 @Component({
@@ -9,6 +8,7 @@ import {RouterLink, RouterLinkActive, UrlTree} from "@angular/router";
     RouterLink
   ],
   templateUrl: './nav-item.html',
+  styles: `:host { display: contents; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavItem {
