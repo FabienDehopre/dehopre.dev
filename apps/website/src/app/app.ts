@@ -16,8 +16,6 @@ export class App {
   readonly #router = inject(Router);
   readonly #activatedRoute = inject(ActivatedRoute);
   readonly #seo = inject(Seo);
-  /** @deprecated */
-  protected title = 'website';
 
   constructor() {
     this.#router.events
