@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, DOCUMENT, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router, RouterModule} from '@angular/router';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter, map, mergeMap} from "rxjs";
-import {Seo} from "./services/seo";
+import { isMetaInfo, Seo} from "./services/seo";
 import {Layout} from "./components/layout/layout";
 
 @Component({
@@ -15,8 +15,8 @@ import {Layout} from "./components/layout/layout";
 export class App {
   readonly #router = inject(Router);
   readonly #activatedRoute = inject(ActivatedRoute);
-  readonly #document = inject(DOCUMENT);
   readonly #seo = inject(Seo);
+  /** @deprecated */
   protected title = 'website';
 
   constructor() {
@@ -33,12 +33,16 @@ export class App {
         }),
         filter((route) => route.outlet === 'primary'),
         mergeMap((route) => route.data),
+        map((data) => data['meta']),
         takeUntilDestroyed()
       )
       .subscribe((data) => {
-        this.#seo.updateTitle(data['title']);
-        this.#seo.updateDescription(data['description']);
-        this.#seo.updateOgUrl(`${this.#document.location.origin}${this.#router.url}`);
+        if (isMetaInfo(data)) {
+          this.#seo.updateMetaData(data);
+        } else {
+          console.error('Invalid meta data info in route data for url: ', this.#router.url);
+          this.#seo.updateNoMetaData();
+        }
       });
   }
 }

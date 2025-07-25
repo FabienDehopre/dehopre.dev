@@ -1,9 +1,8 @@
-import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {Popover} from "primeng/popover";
-import {Button, ButtonDirective, ButtonIcon, ButtonLabel} from "primeng/button";
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
+import {ButtonDirective, ButtonIcon, ButtonLabel} from "primeng/button";
 import {Dialog} from "primeng/dialog";
 import {NavItem} from "./nav-item/nav-item";
+import {Menu} from "../../../../services/menu";
 
 @Component({
   selector: 'app-mobile-navigation',
@@ -12,6 +11,7 @@ import {NavItem} from "./nav-item/nav-item";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MobileNavigation {
+  readonly menu = signal(inject(Menu).getMenuFromRouterConfig()).asReadonly();
   readonly menuVisible = signal(false);
 
   toggleMenu() {
