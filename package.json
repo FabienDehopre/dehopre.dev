@@ -18,12 +18,14 @@
     "@primeng/themes": "^20.0.0",
     "@tailwindcss/typography": "^0.5.16",
     "h3": "^1.15.3",
+    "ngxtension": "^5.1.0",
     "pathe": "^2.0.3",
     "primeicons": "^7.0.0",
     "primeng": "^20.0.0",
     "rxjs": "~7.8.2",
     "tailwindcss": "^4.1.11",
-    "tailwindcss-primeui": "^0.6.1"
+    "tailwindcss-primeui": "^0.6.1",
+    "type-fest": "^4.41.0"
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "~1.19.1",
