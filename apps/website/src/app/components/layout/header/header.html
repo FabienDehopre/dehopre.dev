@@ -5,51 +5,39 @@
 >
   @if (isHomePage()) {
     <div #avatar class="order-last mt-[calc(--spacing(16)-(--spacing(3)))]"></div>
-    <div class="sm:px-8 top-0 order-last -mb-3 pt-3" [style.position]="'var(--header-position)'">
-      <div class="mx-auto w-full max-w-7xl lg:px-8">
-        <div class="relative px-4 sm:px-8 lg:px-12">
-          <div class="mx-auto max-w-2xl lg:max-w-5xl">
-            <div class="top-(--avatar-top,--spacing(3)) w-full" [style.position]="'var(--header-inner-position)'">
-              <div class="relative">
-                <app-avatar
-                  large
-                  containerCssClass="absolute top-3 left-0 origin-left transition-opacity"
-                  linkCssClass="block h-16 w-16 origin-left"
-                  [containerStyle]="{ opacity: 'var(--avatar-border-opacity, 0)', transform: 'var(--avatar-border-transform)' }"
-                  [linkStyle]="{ transform: 'var(--avatar-image-transform)' }"
-                />
-              </div>
-            </div>
-          </div>
+    <app-container cssClass="top-0 order-last -mb-3 pt-3" [cssStyles]="{ position: 'var(--header-position)' }">
+      <div class="top-(--avatar-top,--spacing(3)) w-full" [style.position]="'var(--header-inner-position)'">
+        <div class="relative">
+          <app-avatar
+            large
+            containerCssClass="absolute top-3 left-0 origin-left transition-opacity"
+            linkCssClass="block h-16 w-16 origin-left"
+            [containerStyle]="{ opacity: 'var(--avatar-border-opacity, 0)', transform: 'var(--avatar-border-transform)' }"
+            [linkStyle]="{ transform: 'var(--avatar-image-transform)' }"
+          />
         </div>
       </div>
-    </div>
+    </app-container>
   }
   <div #header class="top-0 z-10 h-16 pt-6" [style.position]="'var(--header-position)'">
-    <div class="sm:px-8 top-(--header-top,--spacing(6)) w-full" [style.position]="'var(--header-inner-position)'">
-      <div class="mx-auto w-full max-w-7xl lg:px-8">
-        <div class="relative px-4 sm:px-8 lg:px-12">
-          <div class="mx-auto max-w-2xl lg:max-w-5xl">
-            <div class="relative flex gap-4">
-              <div class="flex flex-1">
-                @if (!isHomePage()) {
-                  <app-avatar />
-                }
-              </div>
-              <div class="flex flex-1 justify-end md:justify-center">
-                <app-mobile-navigation class="pointer-events-auto block md:hidden" />
-                <app-desktop-navigation class="pointer-events-auto hidden md:block" />
-              </div>
-              <div class="flex justify-end md:flex-1">
-                <div class="pointer-events-auto">
-                  <app-theme-toggle [theme]="theme()" (setTheme)="setTheme.emit($event)" />
-                </div>
-              </div>
-            </div>
+    <app-container cssClass="top-(--header-top,--spacing(6)) w-full" [cssStyles]="{ position: 'var(--header-inner-position)' }">
+      <div class="relative flex gap-4">
+        <div class="flex flex-1">
+          @if (!isHomePage()) {
+            <app-avatar />
+          }
+        </div>
+        <div class="flex flex-1 justify-end md:justify-center">
+          <app-mobile-navigation class="pointer-events-auto block md:hidden" />
+          <app-desktop-navigation class="pointer-events-auto hidden md:block" />
+        </div>
+        <div class="flex justify-end md:flex-1">
+          <div class="pointer-events-auto">
+            <app-theme-toggle [theme]="theme()" (setTheme)="setTheme.emit($event)" />
           </div>
         </div>
       </div>
-    </div>
+    </app-container>
   </div>
 </header>
 @if (isHomePage()) {

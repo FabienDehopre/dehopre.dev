@@ -1,9 +1,11 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Container} from "../../components/container/container";
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [
+    Container
+  ],
   templateUrl: './home.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
