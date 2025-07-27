@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, computed, input} from "@angular/core";
 import {hostBinding} from "ngxtension/host-binding";
-import type { CssStyles } from "./container";
+import type {CssStyles} from "../../types/css-styles";
 
 @Component({
   selector: 'app-container-outer',

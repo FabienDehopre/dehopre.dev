@@ -8,12 +8,14 @@
     <app-container cssClass="top-0 order-last -mb-3 pt-3" [cssStyles]="{ position: 'var(--header-position)' }">
       <div class="top-(--avatar-top,--spacing(3)) w-full" [style.position]="'var(--header-inner-position)'">
         <div class="relative">
+          <app-avatar-container
+            cssClass="absolute top-3 left-0 origin-left transition-opacity"
+            [cssStyles]="{ opacity: 'var(--avatar-border-opacity, 0)', transform: 'var(--avatar-border-transform)' }"
+          />
           <app-avatar
             large
-            containerCssClass="absolute top-3 left-0 origin-left transition-opacity"
-            linkCssClass="block h-16 w-16 origin-left"
-            [containerStyle]="{ opacity: 'var(--avatar-border-opacity, 0)', transform: 'var(--avatar-border-transform)' }"
-            [linkStyle]="{ transform: 'var(--avatar-image-transform)' }"
+            cssClass="block h-16 w-16 origin-left"
+            [cssStyles]="{ transform: 'var(--avatar-image-transform)' }"
           />
         </div>
       </div>
@@ -24,7 +26,9 @@
       <div class="relative flex gap-4">
         <div class="flex flex-1">
           @if (!isHomePage()) {
-            <app-avatar />
+            <app-avatar-container>
+              <app-avatar />
+            </app-avatar-container>
           }
         </div>
         <div class="flex flex-1 justify-end md:justify-center">

@@ -16,6 +16,7 @@ import {Theme} from "../../../services/theme";
 import {MobileNavigation} from "./mobile-navigation/mobile-navigation";
 import {DesktopNavigation} from "./desktop-navigation/desktop-navigation";
 import {Container} from "../../container/container";
+import {AvatarContainer} from "./avatar/avatar-container";
 
 function clamp(number: number, a: number, b: number) {
   const min = Math.min(a, b)
@@ -25,7 +26,7 @@ function clamp(number: number, a: number, b: number) {
 
 @Component({
   selector: 'app-header',
-  imports: [Avatar, ThemeToggle, MobileNavigation, DesktopNavigation, Container],
+  imports: [Avatar, ThemeToggle, MobileNavigation, DesktopNavigation, Container, AvatarContainer],
   templateUrl: './header.html',
   styles: `:host { display: contents; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
