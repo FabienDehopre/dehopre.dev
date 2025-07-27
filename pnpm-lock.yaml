@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  ngxtension:
+    hash: 52cca697e695393032fd31b0cc2aa1abae9c7a73feb43457007ab7413689e477
+    path: patches/ngxtension.patch
+
 importers:
 
   .:
@@ -49,7 +54,7 @@ importers:
         version: 1.15.3
       ngxtension:
         specifier: ^5.1.0
-        version: 5.1.0(@angular/common@20.1.2(@angular/core@20.1.2(@angular/compiler@20.1.2)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.2(@angular/compiler@20.1.2)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
+        version: 5.1.0(patch_hash=52cca697e695393032fd31b0cc2aa1abae9c7a73feb43457007ab7413689e477)(@angular/common@20.1.2(@angular/core@20.1.2(@angular/compiler@20.1.2)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.2(@angular/compiler@20.1.2)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
       pathe:
         specifier: ^2.0.3
         version: 2.0.3
@@ -14938,7 +14943,7 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  ngxtension@5.1.0(@angular/common@20.1.2(@angular/core@20.1.2(@angular/compiler@20.1.2)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.2(@angular/compiler@20.1.2)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2):
+  ngxtension@5.1.0(patch_hash=52cca697e695393032fd31b0cc2aa1abae9c7a73feb43457007ab7413689e477)(@angular/common@20.1.2(@angular/core@20.1.2(@angular/compiler@20.1.2)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.2(@angular/compiler@20.1.2)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2):
     dependencies:
       '@angular/common': 20.1.2(@angular/core@20.1.2(@angular/compiler@20.1.2)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
       '@angular/core': 20.1.2(@angular/compiler@20.1.2)(rxjs@7.8.2)(zone.js@0.15.1)
