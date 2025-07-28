@@ -1,15 +1,11 @@
-import {ChangeDetectionStrategy, Component, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Container} from "../../components/container/container";
+import {BasePage} from "../base-page";
 
 @Component({
   selector: 'app-home',
-  imports: [
-    Container
-  ],
+  imports: [Container],
   templateUrl: './home.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Home {
-  readonly title = input.required<string>();
-  readonly description = input.required<string>();
-}
+export class Home extends BasePage {}

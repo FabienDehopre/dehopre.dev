@@ -2,8 +2,9 @@ import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router, RouterModule} from '@angular/router';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter, map, mergeMap} from "rxjs";
-import { isMetaInfo, Seo} from "./services/seo";
+import { Seo} from "./services/seo";
 import {Layout} from "./components/layout/layout";
+import {isMetaInfo} from "./types/meta-info";
 
 @Component({
   imports: [RouterModule, Layout],

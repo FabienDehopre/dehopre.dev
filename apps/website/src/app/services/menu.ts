@@ -1,14 +1,6 @@
 import {inject, Injectable} from '@angular/core';
-import {Router, UrlTree} from "@angular/router";
-
-export type MenuItem = { label: string; href: readonly any[] | string | UrlTree | null | undefined };
-function isMenuItem(value: unknown): value is MenuItem {
-  return typeof value === 'object' &&
-    value !== null &&
-    'label' in value &&
-    typeof value.label === 'string' &&
-    'href' in value;
-}
+import {Router} from "@angular/router";
+import {isMenuItem, MenuItem} from "../types/menu-item";
 
 @Injectable({ providedIn: 'root' })
 export class Menu {

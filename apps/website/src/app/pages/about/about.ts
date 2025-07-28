@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Container} from "../../components/container/container";
+import {BasePage} from "../base-page";
 
 @Component({
   selector: 'app-about',
-  imports: [CommonModule, Container],
+  imports: [Container],
   templateUrl: './about.html',
-  styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class About {}
+export class About extends BasePage {}

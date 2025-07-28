@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
-import type { MenuItem } from './services/menu';
-import type { MetaInfo } from './services/seo';
+
+import {MetaInfo} from "./types/meta-info";
+import {MenuItem} from "./types/menu-item";
 
 export const appRoutes: Route[] = [
   {
@@ -19,8 +20,8 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('./pages/about/about').then(m => m.About),
     data: {
       meta: {
-        title: 'TODO',
-        description: 'TODO',
+        title: 'About',
+        description: 'I\'m Fabien Dehopré. I live in Brussels (Bruxelles).',
       } satisfies MetaInfo,
       menuItem: {
         label: 'About',

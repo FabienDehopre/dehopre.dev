@@ -1,16 +1,7 @@
 import {DOCUMENT, inject, Injectable} from '@angular/core';
 import {Meta, Title} from "@angular/platform-browser";
 import {Router} from "@angular/router";
-
-export type MetaInfo = { title: string; description: string };
-export function isMetaInfo(value: unknown): value is MetaInfo {
-  return typeof value === 'object' &&
-    value !== null &&
-    'title' in value &&
-    typeof value.title === 'string' &&
-    'description' in value &&
-    typeof value.description === 'string';
-}
+import {MetaInfo} from "../types/meta-info";
 
 @Injectable({ providedIn: 'root' })
 export class Seo {
