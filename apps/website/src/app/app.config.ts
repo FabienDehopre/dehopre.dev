@@ -3,7 +3,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import {provideRouter, withComponentInputBinding, withDebugTracing} from '@angular/router';
+import {provideRouter, withComponentInputBinding, withDebugTracing, withRouterConfig} from '@angular/router';
 import { appRoutes } from './app.routes';
 import {
   provideClientHydration,
@@ -19,7 +19,15 @@ export const APP_CONFIG: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(appRoutes, withComponentInputBinding(), withDebugTracing()),
+    provideRouter(
+      appRoutes,
+      withComponentInputBinding(),
+      withRouterConfig({
+        onSameUrlNavigation: 'reload',
+        paramsInheritanceStrategy: 'always',
+      }),
+      withDebugTracing()
+    ),
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
