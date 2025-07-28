@@ -10,7 +10,8 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('./pages/home/home').then(m => m.Home),
     data: {
       meta: {
-        title: 'Fabien Dehopré - Fullstack developer (Angular, ASP.NET Web API)',
+        title: 'Fullstack developer (Angular, ASP.NET Web API)',
+        titleFormat: 'Fabien Dehopré - %s',
         description: 'I\'m Fabien Dehopré, a fullstack developer using Angular and ASP.NET Core Web API. I am a consultant at Satellit sprl as a Senior Fullstack Developer and expert Angular Developer.',
       } satisfies MetaInfo,
     }
