@@ -7,7 +7,7 @@ import {
   inject, input, output,
   signal, viewChild
 } from '@angular/core';
-import {NavigationEnd, Router, RouterLink} from "@angular/router";
+import {NavigationEnd, Router} from "@angular/router";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {filter, map} from "rxjs";
 import {Avatar} from "./avatar/avatar";
@@ -89,9 +89,9 @@ export class Header {
     const headerRef = this.headerRef().nativeElement;
     const { top, height } = headerRef.getBoundingClientRect();
     const scrollY = clamp(
-      this.#document.defaultView!.scrollY,
+      this.#document.defaultView?.scrollY ?? 0,
       0,
-      this.#document.body.scrollHeight - this.#document.defaultView!.innerHeight
+      this.#document.body.scrollHeight - (this.#document.defaultView?.innerHeight ?? 0)
     );
 
     if (this.#isInitial()) {

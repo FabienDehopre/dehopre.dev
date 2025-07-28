@@ -11,6 +11,6 @@ import {RouterLink, UrlTree} from "@angular/router";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavItem {
-  readonly href = input.required<readonly any[] | string | UrlTree | null | undefined>();
+  readonly href = input.required<readonly unknown[] | string | UrlTree | null | undefined>();
   readonly navigated = output();
 }
