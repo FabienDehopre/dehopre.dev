@@ -12,7 +12,6 @@
       "options": {
         "outputPath": "dist/apps/website",
         "browser": "apps/website/src/main.ts",
-        "polyfills": ["zone.js"],
         "tsConfig": "apps/website/tsconfig.app.json",
         "assets": [
           {
