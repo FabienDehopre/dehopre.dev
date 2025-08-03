@@ -1,0 +1,10 @@
+<a [routerLink]="['/']" aria-label="Home" [class]="cssClass() + ' pointer-events-auto'" [style]="cssStyles()">
+  <img
+    ngSrc="/images/avatar.jpg"
+    alt=""
+    [sizes]="large() ? '4rem' : '2.25rem'"
+    fill
+    priority
+    [class]="'rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 ' + (large() ? 'h-16 w-16' : 'h-9 w-9')"
+  />
+</a>

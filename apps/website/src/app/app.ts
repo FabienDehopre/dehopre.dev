@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcome } from './nx-welcome';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import { Seo} from "./services/seo";
+import {Layout} from "./components/layout/layout";
 
 @Component({
-  imports: [NxWelcome, RouterModule],
+  imports: [RouterOutlet, Layout],
   selector: 'app-root',
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styles: `:host { display: contents; }`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class App {
-  protected title = 'website';
+  readonly #seo = inject(Seo);
+
+  constructor() {
+    this.#seo.init();
+  }
 }

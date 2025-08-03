@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.typescriptlang.org)",
+      "Bash(nx show projects:*)",
+      "Bash(nx run-many:*)",
+      "Bash(nx run:*)",
+      "Bash(nx affected:*)",
+      "Bash(nx lint:*)",
+      "Bash(nx test:*)",
+      "Bash(nx build:*)",
+      "Bash(nx serve:*)",
+      "Bash(git:*)",
+      "Bash(gh:*)"
+    ],
+    "deny": []
+  },
+  "enableAllProjectMcpServers": true,
+  "env": {
+    "BASH_MAX_TIMEOUT_MS": "1800000"
+  }
+}

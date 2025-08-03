@@ -10,6 +10,9 @@ on:
     #   - "src/**/*.js"
     #   - "src/**/*.jsx"
 
+env:
+  GITHUB_CLAUDE_MCP_ACCESS_TOKEN: ${{ secrets.CLAUDE_MCP_ACCESS_TOKEN }}
+
 jobs:
   claude-review:
     # Optional: Filter by PR author
