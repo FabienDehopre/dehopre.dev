@@ -1,7 +1,7 @@
 import {
   afterRenderEffect,
   ChangeDetectionStrategy,
-  Component,
+  Component, DestroyRef,
   DOCUMENT,
   ElementRef, HostListener,
   inject, input, output, Renderer2,
@@ -42,6 +42,7 @@ export class Header {
   readonly avatarRef = viewChild<ElementRef<HTMLDivElement>>('avatar');
   readonly theme = input.required<'dark' | 'light'>();
   readonly setTheme = output<'dark' | 'light'>();
+  #rafId: number | undefined;
 
   constructor() {
     afterRenderEffect({
@@ -61,12 +62,24 @@ export class Header {
         })
       },
     });
+    inject(DestroyRef).onDestroy(() => {
+      if (this.#rafId) {
+        this.#document.defaultView?.cancelAnimationFrame(this.#rafId);
+      }
+    });
   }
 
   #updateStyles() {
-    this.#updateHeaderStyles();
-    this.#updateAvatarStyles();
-    this.#isInitial.set(false);
+    if (this.#rafId) {
+      return;
+    }
+
+    this.#rafId = this.#document.defaultView?.requestAnimationFrame(() => {
+      this.#updateHeaderStyles();
+      this.#updateAvatarStyles();
+      this.#isInitial.set(false);
+      this.#rafId = undefined;
+    });
   }
 
   #updateHeaderStyles() {
