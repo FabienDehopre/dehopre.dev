@@ -96,6 +96,9 @@ export class Theme {
   }
 
   #loadFromLocalStorage(): 'dark' | 'light' | 'system' {
-    return this.#document.defaultView?.localStorage.getItem(LOCAL_STORAGE_KEY) as 'dark' | 'light' | null ?? 'system';
+    const stored = this.#document.defaultView?.localStorage.getItem(LOCAL_STORAGE_KEY);
+    return stored && ['dark', 'light', 'system'].includes(stored)
+        ? stored as 'dark' | 'light' | 'system'
+        : 'system';
   }
 }
