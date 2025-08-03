@@ -1,5 +1,5 @@
 import {
-  ApplicationConfig,
+  ApplicationConfig, isDevMode,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
@@ -26,7 +26,7 @@ export const APP_CONFIG: ApplicationConfig = {
         onSameUrlNavigation: 'reload',
         paramsInheritanceStrategy: 'always',
       }),
-      withDebugTracing()
+      ...(isDevMode() ? [withDebugTracing()] : []),
     ),
     provideAnimationsAsync(),
     providePrimeNG({
