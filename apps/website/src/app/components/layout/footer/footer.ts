@@ -3,6 +3,8 @@ import {RouterLink} from "@angular/router";
 import {Menu} from "../../../services/menu";
 import {ContainerOuter} from "../../container/container-outer";
 import {ContainerInner} from "../../container/container-inner";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {interval, map} from "rxjs";
 
 @Component({
   selector: 'app-footer',
@@ -13,5 +15,5 @@ import {ContainerInner} from "../../container/container-inner";
 })
 export class Footer {
   readonly menu = signal(inject(Menu).getMenuFromRouterConfig()).asReadonly();
-  readonly year = new Date().getFullYear();
+  readonly year = toSignal(interval(1000).pipe(map(() => new Date().getFullYear())), { initialValue: new Date().getFullYear()});
 }
