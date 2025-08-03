@@ -49,7 +49,6 @@ export class Theme {
       .pipe(takeUntilDestroyed(this.#destroyRef))
       .subscribe((value) => {
         const systemTheme = value.matches ? 'dark' : 'light';
-        console.log('prefer-color-scheme changed to', systemTheme);
         const themeName = this.#loadFromLocalStorage() ?? this.#getSystemTheme();
         const isSystem = themeName === 'system';
         if (isSystem) {
