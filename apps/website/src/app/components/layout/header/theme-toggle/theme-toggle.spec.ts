@@ -12,6 +12,10 @@ describe('ThemeToggle', () => {
 
     fixture = TestBed.createComponent(ThemeToggle);
     component = fixture.componentInstance;
+    
+    // Set required input
+    fixture.componentRef.setInput('theme', 'light');
+    
     fixture.detectChanges();
   });
 

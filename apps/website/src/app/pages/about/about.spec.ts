@@ -12,6 +12,13 @@ describe('About', () => {
 
     fixture = TestBed.createComponent(About);
     component = fixture.componentInstance;
+    
+    // Set required input
+    fixture.componentRef.setInput('meta', {
+      title: 'About',
+      description: 'Test about page'
+    });
+    
     fixture.detectChanges();
   });
 
