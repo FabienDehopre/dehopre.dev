@@ -4,8 +4,8 @@ import {
   Component,
   DOCUMENT,
   ElementRef, HostListener,
-  inject, input, output,
-  signal, viewChild
+  inject, input, output, Renderer2,
+  signal, untracked, viewChild
 } from '@angular/core';
 import {NavigationEnd, Router} from "@angular/router";
 import {toSignal} from "@angular/core/rxjs-interop";
@@ -35,6 +35,7 @@ export class Header {
   readonly #router = inject(Router);
   readonly #theme = inject(Theme);
   readonly #document = inject(DOCUMENT);
+  readonly #renderer = inject(Renderer2);
   readonly #isInitial = signal(true);
   readonly isHomePage = toSignal(this.#router.events.pipe(filter((e) => e instanceof NavigationEnd), map(() => this.#router.url === '/')), { initialValue: false });
   readonly headerRef = viewChild.required<ElementRef<HTMLDivElement>>('header');
@@ -42,39 +43,24 @@ export class Header {
   readonly theme = input.required<'dark' | 'light'>();
   readonly setTheme = output<'dark' | 'light'>();
 
-  // constructor() {
-  //   effect((onCleanup) => {
-  //     this.isHomePage();
-  //     untracked(() => {
-  //       const updateStyles = this.#updateStyles.bind(this);
-  //       updateStyles();
-  //       const unregisterScrollListener = this.#renderer.listen(this.#document.defaultView, 'scroll', updateStyles, { passive: true });
-  //       const unregisterResizeListener = this.#renderer.listen(this.#document.defaultView, 'resize', updateStyles);
-  //       onCleanup(() => {
-  //         unregisterScrollListener();
-  //         unregisterResizeListener();
-  //       });
-  //     });
-  //   });
-  // }
-
   constructor() {
     afterRenderEffect({
-      write: () => {
+      write: (onCleanup) => {
         this.isHomePage();
-        this.#updateStyles();
-      }
+        untracked(() => {
+          const updateStyles = this.#updateStyles.bind(this);
+          updateStyles();
+          if (this.#document.defaultView) {
+            const unregisterScrollListener = this.#renderer.listen(this.#document.defaultView, 'scroll', updateStyles, { passive: true });
+            const unregisterResizeListener = this.#renderer.listen(this.#document.defaultView, 'resize', updateStyles);
+            onCleanup(() => {
+              unregisterScrollListener();
+              unregisterResizeListener();
+            });
+          }
+        })
+      },
     });
-  }
-
-  @HostListener('window:scroll')
-  onWindowScroll() {
-    this.#updateStyles();
-  }
-
-  @HostListener('window:resize')
-  onWindowResize() {
-    this.#updateStyles();
   }
 
   #updateStyles() {
