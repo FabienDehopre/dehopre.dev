@@ -24,6 +24,15 @@
       "headers": {
         "Authorization": "Bearer ${GITHUB_CLAUDE_MCP_ACCESS_TOKEN}"
       }
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ],
+      "env": {}
     }
   }
 }
