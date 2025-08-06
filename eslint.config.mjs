@@ -3,7 +3,9 @@ import nx from '@nx/eslint-plugin';
 
 export default await defineConfig(
   {
-    tailwindcss: true,
+    tailwindcss: {
+      entryPoint: 'apps/website/src/styles.css',
+    },
   },
   ...nx.configs['flat/base'],
   {
