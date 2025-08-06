@@ -1,19 +1,19 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
     "target": "es2022",
-    "moduleResolution": "bundler",
-    "isolatedModules": true,
     "emitDecoratorMetadata": false,
     "module": "preserve",
+    "moduleResolution": "bundler",
     "types": [
       "./worker-configuration.d.ts"
-    ]
+    ],
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "isolatedModules": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -22,8 +22,6 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": [],
-  "include": [],
   "references": [
     {
       "path": "./tsconfig.app.json"
@@ -31,5 +29,7 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "files": [],
+  "include": []
 }

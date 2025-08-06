@@ -1,8 +1,8 @@
-export type MetaInfo = {
+export interface MetaInfo {
   title: string;
   titleFormat?: string; // defaults to "%s - Fabien Dehopré"
   description: string;
-};
+}
 
 export function isMetaInfo(value: unknown): value is MetaInfo {
   return typeof value === 'object' &&

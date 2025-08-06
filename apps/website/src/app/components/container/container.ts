@@ -1,11 +1,14 @@
-import {ChangeDetectionStrategy, Component, input} from "@angular/core";
-import {ContainerInner} from "./container-inner";
-import {ContainerOuter} from "./container-outer";
-import type {CssStyles} from "../../types/css-styles";
+import type { CssStyles } from '../../types/css-styles';
+
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+
+import { ContainerInner } from './container-inner';
+import { ContainerOuter } from './container-outer';
 
 @Component({
   selector: 'app-container',
   imports: [ContainerInner, ContainerOuter],
+  // eslint-disable-next-line @angular-eslint/component-max-inline-declarations
   template: `
     <app-container-outer [cssClass]="cssClass()" [cssStyles]="cssStyles()">
       <app-container-inner>
@@ -14,7 +17,7 @@ import type {CssStyles} from "../../types/css-styles";
     </app-container-outer>
   `,
   styles: `:host { display: contents; }`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Container {
   readonly cssClass = input<string>();

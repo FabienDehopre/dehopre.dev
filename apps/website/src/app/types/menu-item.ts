@@ -1,6 +1,6 @@
-import {UrlTree} from "@angular/router";
+import type { UrlTree } from '@angular/router';
 
-export type MenuItem = { label: string; href: readonly unknown[] | string | UrlTree | null | undefined };
+export interface MenuItem { label: string; href: UrlTree | string | readonly unknown[] | null | undefined }
 
 export function isMenuItem(value: unknown): value is MenuItem {
   return typeof value === 'object' &&

@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+
 import { App } from './app';
 
-describe('App', () => {
+describe('app', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
@@ -13,14 +14,14 @@ describe('App', () => {
           useValue: {
             data: of({}),
             firstChild: null,
-            outlet: 'primary'
-          }
-        }
-      ]
+            outlet: 'primary',
+          },
+        },
+      ],
     }).compileComponents();
   });
 
-  it('should render', () => {
+  test('should render', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;

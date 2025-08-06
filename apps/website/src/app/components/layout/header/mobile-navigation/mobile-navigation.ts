@@ -1,8 +1,9 @@
-import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
-import {ButtonDirective, ButtonIcon, ButtonLabel} from "primeng/button";
-import {Dialog} from "primeng/dialog";
-import {NavItem} from "./nav-item/nav-item";
-import {Menu} from "../../../../services/menu";
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ButtonDirective, ButtonIcon, ButtonLabel } from 'primeng/button';
+import { Dialog } from 'primeng/dialog';
+
+import { Menu } from '../../../../services/menu';
+import { NavItem } from './nav-item/nav-item';
 
 @Component({
   selector: 'app-mobile-navigation',
@@ -14,11 +15,11 @@ export class MobileNavigation {
   readonly menu = signal(inject(Menu).getMenuFromRouterConfig()).asReadonly();
   readonly menuVisible = signal(false);
 
-  toggleMenu() {
+  protected toggleMenu(): void {
     this.menuVisible.update((value) => !value);
   }
 
-  onNavigated() {
+  protected onNavigated(): void {
     this.menuVisible.set(false);
   }
 }

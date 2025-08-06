@@ -1,12 +1,10 @@
 import { AngularAppEngine, createRequestHandler } from '@angular/ssr';
 
-const angularApp = new AngularAppEngine();
+const ANGULAR_APP = new AngularAppEngine();
 
-/**
- * This is a request handler used by the Angular CLI (dev-server and during build).
- */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- used by Angular CLI
 export const reqHandler = createRequestHandler(async (req) => {
-  const res = await angularApp.handle(req);
+  const res = await ANGULAR_APP.handle(req);
   return res ?? new Response('Page not found.', { status: 404 });
 });
 

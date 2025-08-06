@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, input, output} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-theme-toggle',

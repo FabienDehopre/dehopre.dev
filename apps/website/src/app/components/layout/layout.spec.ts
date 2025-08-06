@@ -1,9 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+
+import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+
 import { Layout } from './layout';
 
-describe('Layout', () => {
+describe('layout', () => {
   let component: Layout;
   let fixture: ComponentFixture<Layout>;
 
@@ -16,10 +19,10 @@ describe('Layout', () => {
           useValue: {
             data: of({}),
             firstChild: null,
-            outlet: 'primary'
-          }
-        }
-      ]
+            outlet: 'primary',
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Layout);
@@ -27,7 +30,7 @@ describe('Layout', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

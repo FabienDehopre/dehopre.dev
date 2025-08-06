@@ -1,7 +1,8 @@
-import {booleanAttribute, ChangeDetectionStrategy, Component, input} from '@angular/core';
-import {NgOptimizedImage} from '@angular/common';
-import {RouterLink} from "@angular/router";
-import {CssStyles} from "../../../../types/css-styles";
+import type { CssStyles } from '../../../../types/css-styles';
+
+import { NgOptimizedImage } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-avatar',

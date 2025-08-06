@@ -3,6 +3,8 @@ import nx from '@nx/eslint-plugin';
 
 export default await defineConfig(
   {
+    ignores: ['**/worker-configuration.d.ts', '**/typography.ts'],
+    jsdoc: false,
     tailwindcss: {
       entryPoint: 'apps/website/src/styles.css',
     },
@@ -15,7 +17,7 @@ export default await defineConfig(
         'error',
         {
           enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
+          allow: [String.raw`^.*/eslint(\.base)?\.config\.[cm]?[jt]s$`],
           depConstraints: [
             {
               sourceTag: '*',

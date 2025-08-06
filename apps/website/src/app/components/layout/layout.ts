@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {Footer} from "./footer/footer";
-import {Header} from "./header/header";
-import {Theme} from "../../services/theme";
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+
+import { Theme } from '../../services/theme';
+import { Footer } from './footer/footer';
+import { Header } from './header/header';
 
 @Component({
   selector: 'app-layout',
@@ -18,7 +19,7 @@ export class Layout {
     this.#theme.initTheme();
   }
 
-  onSetTheme(theme: "dark" | "light") {
+  protected onSetTheme(theme: 'dark' | 'light'): void {
     this.#theme.setTheme(theme);
   }
 }
