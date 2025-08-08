@@ -33,6 +33,24 @@
         "@playwright/mcp@latest"
       ],
       "env": {}
+    },
+    "browsermcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@browsermcp/mcp@latest"
+      ],
+      "env": {}
+    },
+    "eslint": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@eslint/mcp@latest"
+      ],
+      "env": {}
     }
   }
 }
