@@ -26,6 +26,16 @@
         "@eslint/mcp@latest"
       ],
       "env": {}
+    },
+    "angular-cli": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@angular/cli@latest",
+        "mcp"
+      ],
+      "env": {}
     }
   }
 }
