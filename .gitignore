@@ -51,3 +51,5 @@ vitest.config.*.timestamp*
 # wrangler files
 .wrangler
 .dev.vars*
+
+migrations.json
