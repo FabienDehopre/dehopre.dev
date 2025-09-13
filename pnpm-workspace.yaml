@@ -8,3 +8,7 @@ ignoredBuiltDependencies:
   - nx
   - sharp
   - workerd
+
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - '@fabdeh/eslint-config'
