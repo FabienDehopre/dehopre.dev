@@ -11,4 +11,4 @@ ignoredBuiltDependencies:
 
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
-  - '@fabdeh/eslint-config'
+  - '@fabdeh/*'
