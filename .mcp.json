@@ -18,13 +18,6 @@
       ],
       "env": {}
     },
-    "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp",
-      "headers": {
-        "Authorization": "Bearer ${GITHUB_CLAUDE_MCP_ACCESS_TOKEN}"
-      }
-    },
     "playwright": {
       "type": "stdio",
       "command": "npx",
@@ -34,21 +27,22 @@
       ],
       "env": {}
     },
-    "browsermcp": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "@browsermcp/mcp@latest"
-      ],
-      "env": {}
-    },
     "eslint": {
       "type": "stdio",
       "command": "npx",
       "args": [
         "-y",
         "@eslint/mcp@latest"
+      ],
+      "env": {}
+    },
+    "angular-cli": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@angular/cli@latest",
+        "mcp"
       ],
       "env": {}
     }
