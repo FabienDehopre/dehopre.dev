@@ -1,12 +1,11 @@
-import { defineConfig } from '@fabdeh/eslint-config';
+import { defineWorkspaceConfig } from '@fabdeh/eslint-config';
 import nx from '@nx/eslint-plugin';
 
-export default await defineConfig(
+export default await defineWorkspaceConfig(
   {
-    ignores: ['**/worker-configuration.d.ts', '**/typography.ts'],
-    jsdoc: false,
-    tailwindcss: {
-      entryPoint: 'apps/website/src/styles.css',
+    formatters: true,
+    typescript: {
+      enableErasableSyntaxOnly: true,
     },
   },
   ...nx.configs['flat/base'],
@@ -24,7 +23,7 @@ export default await defineConfig(
               onlyDependOnLibsWithTags: ['*'],
             },
           ],
-        }
+        },
       ],
     },
   }

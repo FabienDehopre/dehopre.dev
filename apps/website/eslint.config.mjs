@@ -1,26 +1,20 @@
+import { defineProjectConfig } from '@fabdeh/eslint-config';
+
 import baseConfig from '../../eslint.config.mjs';
 
-export default [
-  ...baseConfig,
+export default defineProjectConfig(
+  baseConfig,
   {
-    files: ['**/*.ts'],
-    rules: {
-      '@angular-eslint/directive-selector': [
-        'error',
-        {
-          type: 'attribute',
-          prefix: 'app',
-          style: 'camelCase',
-        },
-      ],
-      '@angular-eslint/component-selector': [
-        'error',
-        {
-          type: 'element',
-          prefix: 'app',
-          style: 'kebab-case',
-        },
-      ],
+    type: 'app',
+    tailwindcss: {
+      entryPoint: 'apps/website/src/styles.css',
     },
-  },
-];
+    angular: {
+      prefix: 'app',
+      componentStylesMode: 'string',
+      enableAccessibilityRules: true,
+      preferOnPushOnly: true,
+    },
+    ignores: ['worker-configuration.d.ts', 'typography.ts'],
+  }
+);
