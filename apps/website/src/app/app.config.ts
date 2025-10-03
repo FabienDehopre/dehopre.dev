@@ -10,7 +10,6 @@ import {
   provideClientHydration,
   withEventReplay
 } from '@angular/platform-browser';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding, withDebugTracing, withRouterConfig } from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
 
@@ -21,7 +20,7 @@ export const APP_CONFIG: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
-    // eslint-disable-next-line @angular-eslint/no-developer-preview -- will soon be promoted to official api
+
     provideZonelessChangeDetection(),
     provideRouter(
       APP_ROUTES,
@@ -32,7 +31,6 @@ export const APP_CONFIG: ApplicationConfig = {
       }),
       ...(isDevMode() ? [withDebugTracing()] : [])
     ),
-    provideAnimationsAsync(),
     providePrimeNG({
       theme: {
         options: {

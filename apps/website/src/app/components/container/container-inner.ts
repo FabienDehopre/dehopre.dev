@@ -5,11 +5,10 @@ import { hostBinding } from 'ngxtension/host-binding';
 
 @Component({
   selector: 'app-container-inner',
-  template: `
-    <div class="mx-auto max-w-2xl lg:max-w-5xl">
-      <ng-content />
-    </div>
-  `,
+  template: `<div class="mx-auto max-w-2xl lg:max-w-5xl">
+  <ng-content />
+</div>
+`,
   styles: `:host { display: block; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

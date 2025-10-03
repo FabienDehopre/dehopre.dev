@@ -9,17 +9,21 @@
           flex flex-col items-center justify-between gap-6
           md:flex-row
         ">
-          <div class="
-            flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium
-            text-zinc-800
-            dark:text-zinc-200
-          ">
+          <div
+            class="
+              flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium
+              text-zinc-800
+              dark:text-zinc-200
+            "
+          >
             @for (item of menu(); track item) {
-              <a class="
-                transition
-                hover:text-teal-500
-                dark:hover:text-teal-400
-              " [routerLink]="item.href">{{ item.label }}</a>
+            <a class="
+              transition
+              hover:text-teal-500
+              dark:hover:text-teal-400
+            " [routerLink]="item.href"
+              >{{ item.label }}</a
+            >
             }
           </div>
           <p class="

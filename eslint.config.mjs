@@ -3,7 +3,6 @@ import nx from '@nx/eslint-plugin';
 
 export default await defineWorkspaceConfig(
   {
-    formatters: true,
     typescript: {
       enableErasableSyntaxOnly: true,
     },

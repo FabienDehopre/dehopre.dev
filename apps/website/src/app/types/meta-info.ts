@@ -4,6 +4,10 @@ export interface MetaInfo {
   description: string;
 }
 
+/**
+ *
+ * @param value
+ */
 export function isMetaInfo(value: unknown): value is MetaInfo {
   return typeof value === 'object' &&
     value !== null &&

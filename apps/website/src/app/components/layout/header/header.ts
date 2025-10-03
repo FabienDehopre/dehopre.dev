@@ -21,6 +21,12 @@ import { DesktopNavigation } from './desktop-navigation/desktop-navigation';
 import { MobileNavigation } from './mobile-navigation/mobile-navigation';
 import { ThemeToggle } from './theme-toggle/theme-toggle';
 
+/**
+ *
+ * @param num
+ * @param a
+ * @param b
+ */
 function clamp(num: number, a: number, b: number) {
   const min = Math.min(a, b);
   const max = Math.max(a, b);

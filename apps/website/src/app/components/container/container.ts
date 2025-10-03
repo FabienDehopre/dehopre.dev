@@ -9,13 +9,12 @@ import { ContainerOuter } from './container-outer';
   selector: 'app-container',
   imports: [ContainerInner, ContainerOuter],
   // eslint-disable-next-line @angular-eslint/component-max-inline-declarations
-  template: `
-    <app-container-outer [cssClass]="cssClass()" [cssStyles]="cssStyles()">
-      <app-container-inner>
-        <ng-content />
-      </app-container-inner>
-    </app-container-outer>
-  `,
+  template: `<app-container-outer [cssClass]="cssClass()" [cssStyles]="cssStyles()">
+  <app-container-inner>
+    <ng-content />
+  </app-container-inner>
+</app-container-outer>
+`,
   styles: `:host { display: contents; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
