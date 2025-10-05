@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { ThemeToggle } from './theme-toggle';
 
-describe('themeToggle', () => {
+describe(ThemeToggle.name, () => {
   let component: ThemeToggle;
   let fixture: ComponentFixture<ThemeToggle>;
 

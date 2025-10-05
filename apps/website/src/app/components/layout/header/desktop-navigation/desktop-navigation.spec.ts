@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { DesktopNavigation } from './desktop-navigation';
 
-describe('desktopNavigation', () => {
+describe(DesktopNavigation.name, () => {
   let component: DesktopNavigation;
   let fixture: ComponentFixture<DesktopNavigation>;
 

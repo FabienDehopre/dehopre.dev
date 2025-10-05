@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { Menu } from './menu';
 
-describe('menu', () => {
+describe(Menu.name, () => {
   let service: Menu;
 
   beforeEach(() => {

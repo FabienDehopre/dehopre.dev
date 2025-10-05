@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 import { NavItem } from './nav-item';
 
-describe('navItem', () => {
+describe(NavItem.name, () => {
   let component: NavItem;
   let fixture: ComponentFixture<NavItem>;
 

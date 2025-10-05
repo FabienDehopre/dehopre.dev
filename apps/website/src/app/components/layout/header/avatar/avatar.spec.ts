@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 import { Avatar } from './avatar';
 
-describe('avatar', () => {
+describe(Avatar.name, () => {
   let component: Avatar;
   let fixture: ComponentFixture<Avatar>;
 

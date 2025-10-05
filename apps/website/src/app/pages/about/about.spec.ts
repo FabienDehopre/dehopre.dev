@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { About } from './about';
 
-describe('about', () => {
+describe(About.name, () => {
   let component: About;
   let fixture: ComponentFixture<About>;
 

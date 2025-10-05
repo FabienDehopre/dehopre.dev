@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 import { Header } from './header';
 
-describe('header', () => {
+describe(Header.name, () => {
   let component: Header;
   let fixture: ComponentFixture<Header>;
 

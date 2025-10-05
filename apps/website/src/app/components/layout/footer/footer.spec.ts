@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { Footer } from './footer';
 
-describe('footer', () => {
+describe(Footer.name, () => {
   let component: Footer;
   let fixture: ComponentFixture<Footer>;
 

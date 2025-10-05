@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { Theme } from './theme';
 
-describe('theme', () => {
+describe(Theme.name, () => {
   let service: Theme;
 
   beforeEach(() => {

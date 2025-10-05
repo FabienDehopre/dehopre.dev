@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 
 import { Seo } from './seo';
 
-describe('seo', () => {
+describe(Seo.name, () => {
   let service: Seo;
 
   beforeEach(() => {

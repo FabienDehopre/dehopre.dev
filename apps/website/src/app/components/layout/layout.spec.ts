@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 import { Layout } from './layout';
 
-describe('layout', () => {
+describe(Layout.name, () => {
   let component: Layout;
   let fixture: ComponentFixture<Layout>;
 

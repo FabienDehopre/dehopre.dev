@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { MobileNavigation } from './mobile-navigation';
 
-describe('mobileNavigation', () => {
+describe(MobileNavigation.name, () => {
   let component: MobileNavigation;
   let fixture: ComponentFixture<MobileNavigation>;
 
