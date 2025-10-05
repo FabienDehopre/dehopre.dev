@@ -1,14 +1,14 @@
-import {ChangeDetectionStrategy, Component, computed, input} from "@angular/core";
-import {hostBinding} from "ngxtension/host-binding";
-import type {CssStyles} from "../../types/css-styles";
+import type { CssStyles } from '../../types/css-styles';
+
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { hostBinding } from 'ngxtension/host-binding';
 
 @Component({
   selector: 'app-container-inner',
-  template: `
-    <div class="mx-auto max-w-2xl lg:max-w-5xl">
-      <ng-content />
-    </div>
-  `,
+  template: `<div class="mx-auto max-w-2xl lg:max-w-5xl">
+  <ng-content />
+</div>
+`,
   styles: `:host { display: block; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

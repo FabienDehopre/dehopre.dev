@@ -1,27 +1,36 @@
+import type {
+  ElementRef } from '@angular/core';
+
 import {
   afterRenderEffect,
   ChangeDetectionStrategy,
   Component, DestroyRef,
   DOCUMENT,
-  ElementRef, HostListener,
   inject, input, output, Renderer2,
   signal, untracked, viewChild
 } from '@angular/core';
-import {NavigationEnd, Router} from "@angular/router";
-import {toSignal} from "@angular/core/rxjs-interop";
-import {filter, map} from "rxjs";
-import {Avatar} from "./avatar/avatar";
-import {ThemeToggle} from "./theme-toggle/theme-toggle";
-import {Theme} from "../../../services/theme";
-import {MobileNavigation} from "./mobile-navigation/mobile-navigation";
-import {DesktopNavigation} from "./desktop-navigation/desktop-navigation";
-import {Container} from "../../container/container";
-import {AvatarContainer} from "./avatar/avatar-container";
+import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, map } from 'rxjs';
 
-function clamp(number: number, a: number, b: number) {
-  const min = Math.min(a, b)
-  const max = Math.max(a, b)
-  return Math.min(Math.max(number, min), max)
+import { Theme } from '../../../services/theme';
+import { Container } from '../../container/container';
+import { Avatar } from './avatar/avatar';
+import { AvatarContainer } from './avatar/avatar-container';
+import { DesktopNavigation } from './desktop-navigation/desktop-navigation';
+import { MobileNavigation } from './mobile-navigation/mobile-navigation';
+import { ThemeToggle } from './theme-toggle/theme-toggle';
+
+/**
+ *
+ * @param num
+ * @param a
+ * @param b
+ */
+function clamp(num: number, a: number, b: number) {
+  const min = Math.min(a, b);
+  const max = Math.max(a, b);
+  return Math.min(Math.max(num, min), max);
 }
 
 @Component({
@@ -32,6 +41,7 @@ function clamp(number: number, a: number, b: number) {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
+  #rafId: number | undefined;
   readonly #router = inject(Router);
   readonly #theme = inject(Theme);
   readonly #document = inject(DOCUMENT);
@@ -42,7 +52,6 @@ export class Header {
   readonly avatarRef = viewChild<ElementRef<HTMLDivElement>>('avatar');
   readonly theme = input.required<'dark' | 'light'>();
   readonly setTheme = output<'dark' | 'light'>();
-  #rafId: number | undefined;
 
   constructor() {
     afterRenderEffect({
@@ -59,7 +68,7 @@ export class Header {
               unregisterResizeListener();
             });
           }
-        })
+        });
       },
     });
     inject(DestroyRef).onDestroy(() => {
@@ -133,24 +142,24 @@ export class Header {
     const fromX = 0;
     const toX = 2 / 16;
 
-    const scrollY = downDelay - window.scrollY
+    const scrollY = downDelay - window.scrollY;
 
-    let scale = (scrollY * (fromScale - toScale)) / downDelay + toScale
-    scale = clamp(scale, fromScale, toScale)
+    let scale = (scrollY * (fromScale - toScale)) / downDelay + toScale;
+    scale = clamp(scale, fromScale, toScale);
 
-    let x = (scrollY * (fromX - toX)) / downDelay + toX
-    x = clamp(x, fromX, toX)
+    let x = (scrollY * (fromX - toX)) / downDelay + toX;
+    x = clamp(x, fromX, toX);
 
     this.#theme.setProperty(
       '--avatar-image-transform',
-      `translate3d(${x}rem, 0, 0) scale(${scale})`,
-    )
+      `translate3d(${x}rem, 0, 0) scale(${scale})`
+    );
 
-    const borderScale = 1 / (toScale / scale)
-    const borderX = (-toX + x) * borderScale
-    const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`
+    const borderScale = 1 / (toScale / scale);
+    const borderX = (-toX + x) * borderScale;
+    const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`;
 
-    this.#theme.setProperty('--avatar-border-transform', borderTransform)
-    this.#theme.setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0')
+    this.#theme.setProperty('--avatar-border-transform', borderTransform);
+    this.#theme.setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0');
   }
 }

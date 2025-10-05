@@ -1,34 +1,20 @@
-import nx from '@nx/eslint-plugin';
+import { defineProjectConfig } from '@fabdeh/eslint-config';
+
 import baseConfig from '../../eslint.config.mjs';
 
-export default [
-  ...baseConfig,
-  ...nx.configs['flat/angular'],
-  ...nx.configs['flat/angular-template'],
+export default defineProjectConfig(
+  baseConfig,
   {
-    files: ['**/*.ts'],
-    rules: {
-      '@angular-eslint/directive-selector': [
-        'error',
-        {
-          type: 'attribute',
-          prefix: 'app',
-          style: 'camelCase',
-        },
-      ],
-      '@angular-eslint/component-selector': [
-        'error',
-        {
-          type: 'element',
-          prefix: 'app',
-          style: 'kebab-case',
-        },
-      ],
+    type: 'app',
+    tailwindcss: {
+      entryPoint: 'apps/website/src/styles.css',
     },
-  },
-  {
-    files: ['**/*.html'],
-    // Override or add rules here
-    rules: {},
-  },
-];
+    angular: {
+      prefix: 'app',
+      componentStylesMode: 'string',
+      enableAccessibilityRules: true,
+      preferOnPushOnly: true,
+    },
+    ignores: ['**/worker-configuration.d.ts', '**/typography.ts'],
+  }
+);

@@ -1,6 +1,9 @@
-import {inject, Injectable} from '@angular/core';
-import {Router} from "@angular/router";
-import {isMenuItem, MenuItem} from "../types/menu-item";
+import type { MenuItem } from '../types/menu-item';
+
+import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { isMenuItem } from '../types/menu-item';
 
 @Injectable({ providedIn: 'root' })
 export class Menu {
@@ -9,7 +12,7 @@ export class Menu {
   getMenuFromRouterConfig(): MenuItem[] {
     return this.#router.config
       .filter((route) => route.data && 'menuItem' in route.data)
-      .map((route) => route.data?.['menuItem'])
+      .map((route) => route.data?.['menuItem'] as unknown)
       .filter(isMenuItem);
   }
 }

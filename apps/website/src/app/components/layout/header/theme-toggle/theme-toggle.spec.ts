@@ -1,7 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+
+import { TestBed } from '@angular/core/testing';
+
 import { ThemeToggle } from './theme-toggle';
 
-describe('ThemeToggle', () => {
+describe(ThemeToggle.name, () => {
   let component: ThemeToggle;
   let fixture: ComponentFixture<ThemeToggle>;
 
@@ -12,14 +15,14 @@ describe('ThemeToggle', () => {
 
     fixture = TestBed.createComponent(ThemeToggle);
     component = fixture.componentInstance;
-    
+
     // Set required input
     fixture.componentRef.setInput('theme', 'light');
-    
+
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

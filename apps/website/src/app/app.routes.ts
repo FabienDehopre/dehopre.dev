@@ -1,24 +1,23 @@
-import { Route } from '@angular/router';
+import type { Route } from '@angular/router';
+import type { MenuItem } from './types/menu-item';
+import type { MetaInfo } from './types/meta-info';
 
-import {MetaInfo} from "./types/meta-info";
-import {MenuItem} from "./types/menu-item";
-
-export const appRoutes: Route[] = [
+export const APP_ROUTES: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('./pages/home/home').then(m => m.Home),
+    loadComponent: () => import('./pages/home/home').then((m) => m.Home),
     data: {
       meta: {
         title: 'Fullstack developer (Angular, ASP.NET Web API)',
         titleFormat: 'Fabien Dehopré - %s',
         description: 'I\'m Fabien Dehopré, a fullstack developer using Angular and ASP.NET Core Web API. I am a consultant at Satellit sprl as a Senior Fullstack Developer and expert Angular Developer.',
       } satisfies MetaInfo,
-    }
+    },
   },
   {
     path: 'about',
-    loadComponent: () => import('./pages/about/about').then(m => m.About),
+    loadComponent: () => import('./pages/about/about').then((m) => m.About),
     data: {
       meta: {
         title: 'About',
@@ -26,12 +25,12 @@ export const appRoutes: Route[] = [
       } satisfies MetaInfo,
       menuItem: {
         label: 'About',
-        href: ['/', 'about']
+        href: ['/', 'about'],
       } satisfies MenuItem,
-    }
+    },
   },
   {
     path: '**',
     redirectTo: '',
-  }
+  },
 ];

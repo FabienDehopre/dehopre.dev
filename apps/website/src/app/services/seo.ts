@@ -1,9 +1,12 @@
-import {DOCUMENT, inject, Injectable} from '@angular/core';
-import {Meta, Title} from "@angular/platform-browser";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {isMetaInfo, MetaInfo} from "../types/meta-info";
-import {filter, map, mergeMap} from "rxjs";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import type { MetaInfo } from '../types/meta-info';
+
+import { DOCUMENT, inject, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map, mergeMap } from 'rxjs';
+
+import { isMetaInfo } from '../types/meta-info';
 
 @Injectable({ providedIn: 'root' })
 export class Seo {
@@ -13,10 +16,10 @@ export class Seo {
   readonly #activatedRoute = inject(ActivatedRoute);
   readonly #document = inject(DOCUMENT);
 
-  init() {
+  init(): void {
     this.#router.events
       .pipe(
-        filter(event => event instanceof NavigationEnd),
+        filter((event) => event instanceof NavigationEnd),
         map(() => this.#activatedRoute),
         map((route) => {
           while (route.firstChild) {
@@ -27,7 +30,7 @@ export class Seo {
         }),
         filter((route) => route.outlet === 'primary'),
         mergeMap((route) => route.data),
-        map((data) => data['meta']),
+        map((data) => data['meta'] as unknown),
         takeUntilDestroyed()
       )
       .subscribe((data) => {

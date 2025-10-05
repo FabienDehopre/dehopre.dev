@@ -1,6 +1,6 @@
-import {computed, Directive, input} from "@angular/core";
+import type { MetaInfo } from '../types/meta-info';
 
-import {MetaInfo} from "../types/meta-info";
+import { computed, Directive, input } from '@angular/core';
 
 @Directive({})
 export abstract class BasePage {

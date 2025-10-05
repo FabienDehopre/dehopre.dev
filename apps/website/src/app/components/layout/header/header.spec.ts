@@ -1,9 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+
+import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+
 import { Header } from './header';
 
-describe('Header', () => {
+describe(Header.name, () => {
   let component: Header;
   let fixture: ComponentFixture<Header>;
 
@@ -16,22 +19,22 @@ describe('Header', () => {
           useValue: {
             data: of({}),
             firstChild: null,
-            outlet: 'primary'
-          }
-        }
-      ]
+            outlet: 'primary',
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Header);
     component = fixture.componentInstance;
-    
+
     // Set required input
     fixture.componentRef.setInput('theme', 'light');
-    
+
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

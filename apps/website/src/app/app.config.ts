@@ -1,34 +1,36 @@
-import {
-  ApplicationConfig, isDevMode,
+import type {
+  ApplicationConfig } from '@angular/core';
+
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { isDevMode,
   provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
+  provideZonelessChangeDetection
 } from '@angular/core';
-import {provideRouter, withComponentInputBinding, withDebugTracing, withRouterConfig} from '@angular/router';
-import { appRoutes } from './app.routes';
 import {
   provideClientHydration,
-  withEventReplay,
+  withEventReplay
 } from '@angular/platform-browser';
-import {provideHttpClient, withFetch} from "@angular/common/http";
-import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
-import {providePrimeNG} from "primeng/config";
+import { provideRouter, withComponentInputBinding, withDebugTracing, withRouterConfig } from '@angular/router';
+import { providePrimeNG } from 'primeng/config';
+
+import { APP_ROUTES } from './app.routes';
 
 export const APP_CONFIG: ApplicationConfig = {
   providers: [
     provideHttpClient(withFetch()),
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
+
     provideZonelessChangeDetection(),
     provideRouter(
-      appRoutes,
+      APP_ROUTES,
       withComponentInputBinding(),
       withRouterConfig({
         onSameUrlNavigation: 'reload',
         paramsInheritanceStrategy: 'always',
       }),
-      ...(isDevMode() ? [withDebugTracing()] : []),
+      ...(isDevMode() ? [withDebugTracing()] : [])
     ),
-    provideAnimationsAsync(),
     providePrimeNG({
       theme: {
         options: {
@@ -37,8 +39,8 @@ export const APP_CONFIG: ApplicationConfig = {
             name: 'primeng',
             order: 'theme, base, primeng',
           },
-        }
-      }
+        },
+      },
     }),
   ],
 };

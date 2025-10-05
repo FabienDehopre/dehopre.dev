@@ -1,7 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+
+import { TestBed } from '@angular/core/testing';
+
 import { About } from './about';
 
-describe('About', () => {
+describe(About.name, () => {
   let component: About;
   let fixture: ComponentFixture<About>;
 
@@ -12,17 +15,17 @@ describe('About', () => {
 
     fixture = TestBed.createComponent(About);
     component = fixture.componentInstance;
-    
+
     // Set required input
     fixture.componentRef.setInput('meta', {
       title: 'About',
-      description: 'Test about page'
+      description: 'Test about page',
     });
-    
+
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

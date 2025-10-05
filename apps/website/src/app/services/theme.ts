@@ -1,8 +1,11 @@
-import {DestroyRef, DOCUMENT, inject, Injectable, signal} from '@angular/core';
-import {BreakpointObserver} from "@angular/cdk/layout";
-import {assertUnreachable} from "../utils";
-import {Platform} from "@angular/cdk/platform";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import type { Signal } from '@angular/core';
+
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Platform } from '@angular/cdk/platform';
+import { DestroyRef, DOCUMENT, inject, Injectable, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+import { assertUnreachable } from '../utils';
 
 const MEDIA = '(prefers-color-scheme: dark)' as const;
 const LOCAL_STORAGE_KEY = 'theme';
@@ -15,15 +18,15 @@ export class Theme {
   readonly #breakpointsObserver = inject(BreakpointObserver);
   readonly #currentTheme = signal<'dark' | 'light'>('light');
 
-  setProperty(property: string, value: string) {
+  setProperty(property: string, value: string): void {
     this.#document.documentElement.style.setProperty(property, value);
   }
 
-  removeProperty(property: string) {
+  removeProperty(property: string): void {
     this.#document.documentElement.style.removeProperty(property);
   }
 
-  initTheme() {
+  initTheme(): void {
     if (this.#platform.isBrowser) {
       const themeName = this.#loadFromLocalStorage() ?? this.#getSystemTheme();
       const isSystem = themeName === 'system';
@@ -33,18 +36,18 @@ export class Theme {
     }
   }
 
-  setTheme(theme: 'dark' | 'light') {
+  setTheme(theme: 'dark' | 'light'): void {
     if (this.#platform.isBrowser) {
       this.#setTheme(theme);
       this.#saveToLocalStorage(theme);
     }
   }
 
-  getCurrentTheme() {
+  getCurrentTheme(): Signal<'dark' | 'light'> {
     return this.#currentTheme.asReadonly();
   }
 
-  #startSystemThemeObserver() {
+  #startSystemThemeObserver(): void {
     this.#breakpointsObserver.observe(MEDIA)
       .pipe(takeUntilDestroyed(this.#destroyRef))
       .subscribe((value) => {
@@ -95,10 +98,10 @@ export class Theme {
     this.#document.defaultView?.localStorage.setItem(LOCAL_STORAGE_KEY, themeToStore);
   }
 
-  #loadFromLocalStorage(): 'dark' | 'light' | 'system' {
+  #loadFromLocalStorage(): 'dark' | 'light' | 'system' | undefined {
     const stored = this.#document.defaultView?.localStorage.getItem(LOCAL_STORAGE_KEY);
     return stored && ['dark', 'light', 'system'].includes(stored)
-        ? stored as 'dark' | 'light' | 'system'
-        : 'system';
+      ? stored as 'dark' | 'light' | 'system'
+      : undefined;
   }
 }

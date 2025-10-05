@@ -1,9 +1,10 @@
-import {ChangeDetectionStrategy, Component, computed, input} from "@angular/core";
-import type {CssStyles} from "../../../../types/css-styles";
-import {hostBinding} from "ngxtension/host-binding";
+import type { CssStyles } from '../../../../types/css-styles';
+
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { hostBinding } from 'ngxtension/host-binding';
 
 @Component({
-  selector: "app-avatar-container",
+  selector: 'app-avatar-container',
   template: '<ng-content />',
   styles: `:host { display: block; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,

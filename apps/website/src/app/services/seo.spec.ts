@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 
 import { Seo } from './seo';
 
-describe('Seo', () => {
+describe(Seo.name, () => {
   let service: Seo;
 
   beforeEach(() => {
@@ -15,15 +15,15 @@ describe('Seo', () => {
           useValue: {
             data: of({}),
             firstChild: null,
-            outlet: 'primary'
-          }
-        }
-      ]
+            outlet: 'primary',
+          },
+        },
+      ],
     });
     service = TestBed.inject(Seo);
   });
 
-  it('should be created', () => {
+  test('should be created', () => {
     expect(service).toBeTruthy();
   });
 });

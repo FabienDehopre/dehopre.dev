@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { Menu } from './menu';
 
-describe('Menu', () => {
+describe(Menu.name, () => {
   let service: Menu;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('Menu', () => {
     service = TestBed.inject(Menu);
   });
 
-  it('should be created', () => {
+  test('should be created', () => {
     expect(service).toBeTruthy();
   });
 });

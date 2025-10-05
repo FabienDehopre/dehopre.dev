@@ -1,7 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+
+import { TestBed } from '@angular/core/testing';
+
 import { Footer } from './footer';
 
-describe('Footer', () => {
+describe(Footer.name, () => {
   let component: Footer;
   let fixture: ComponentFixture<Footer>;
 
@@ -15,7 +18,7 @@ describe('Footer', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

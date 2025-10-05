@@ -1,9 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+
+import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+
 import { NavItem } from './nav-item';
 
-describe('NavItem', () => {
+describe(NavItem.name, () => {
   let component: NavItem;
   let fixture: ComponentFixture<NavItem>;
 
@@ -16,22 +19,22 @@ describe('NavItem', () => {
           useValue: {
             data: of({}),
             firstChild: null,
-            outlet: 'primary'
-          }
-        }
-      ]
+            outlet: 'primary',
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavItem);
     component = fixture.componentInstance;
-    
+
     // Set required input
     fixture.componentRef.setInput('href', '/test');
-    
+
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });
