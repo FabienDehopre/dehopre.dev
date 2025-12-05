@@ -10,5 +10,9 @@ ignoredBuiltDependencies:
   - workerd
 
 minimumReleaseAge: 1440
+
 minimumReleaseAgeExclude:
   - '@fabdeh/*'
+
+onlyBuiltDependencies:
+  - '@fabdeh/eslint-config'
