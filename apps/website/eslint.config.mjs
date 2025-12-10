@@ -14,7 +14,8 @@ export default defineProjectConfig(
       componentStylesMode: 'string',
       enableAccessibilityRules: true,
       preferOnPushOnly: true,
+      inlineTemplateAndStyles: true,
     },
-    ignores: ['**/worker-configuration.d.ts', '**/typography.ts'],
+    ignores: ['**/worker-configuration.d.ts', '**/typography.js'],
   }
 );

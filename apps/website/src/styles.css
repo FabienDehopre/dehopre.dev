@@ -4,7 +4,7 @@
 
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-primeui";
-@config "../typography.ts";
+@config "../typography.js";
 
 @custom-variant dark (&:where(.dark, .dark *));
 

@@ -70,7 +70,7 @@ Components follow this structure:
 - **Tailwind CSS v4** with custom theme configuration
 - **PrimeNG** components with custom theme layer ordering
 - Dark mode support via `.dark` class selector
-- Custom typography configuration in `typography.ts`
+- Custom typography configuration in `typography.js`
 - Component styles prefer utility classes over custom CSS
 
 ### Key Conventions

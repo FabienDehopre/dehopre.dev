@@ -1,6 +1,5 @@
-import type { Config } from 'tailwindcss';
-
-export default {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   theme: {
     typography: ({ theme }) => ({
       invert: {
@@ -282,4 +281,4 @@ export default {
       },
     }),
   },
-} satisfies Config;
+};
