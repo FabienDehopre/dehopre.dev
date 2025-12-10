@@ -36,18 +36,84 @@ function clamp(num: number, a: number, b: number) {
 @Component({
   selector: 'app-header',
   imports: [Avatar, ThemeToggle, MobileNavigation, DesktopNavigation, Container, AvatarContainer],
-  templateUrl: './header.html',
+  template: `
+    <header
+      class="pointer-events-none relative z-50 flex flex-none flex-col"
+      [style.height]="'var(--header-height)'"
+      [style.margin-bottom]="'var(--header-mb)'"
+    >
+      @if (isHomePage()) {
+        <div #avatar class="order-last mt-[calc(--spacing(16)-(--spacing(3)))]"></div>
+        <app-container cssClass="top-0 order-last -mb-3 pt-3" [cssStyles]="{ position: 'var(--header-position)' }">
+          <div class="top-(--avatar-top,--spacing(3)) w-full" [style.position]="'var(--header-inner-position)'">
+            <div class="relative">
+              <app-avatar-container
+                cssClass="absolute top-3 left-0 origin-left transition-opacity"
+                [cssStyles]="{ opacity: 'var(--avatar-border-opacity, 0)', transform: 'var(--avatar-border-transform)' }"
+              />
+              <app-avatar
+                cssClass="block h-16 w-16 origin-left"
+                large
+                [cssStyles]="{ transform: 'var(--avatar-image-transform)' }"
+              />
+            </div>
+          </div>
+        </app-container>
+      }
+      <div #header class="top-0 z-10 h-16 pt-6" [style.position]="'var(--header-position)'">
+        <app-container
+          cssClass="top-(--header-top,--spacing(6)) w-full"
+          [cssStyles]="{ position: 'var(--header-inner-position)' }"
+        >
+          <div class="relative flex gap-4">
+            <div class="flex flex-1">
+              @if (!isHomePage()) {
+                <app-avatar-container>
+                  <app-avatar />
+                </app-avatar-container>
+              }
+            </div>
+            <div class="
+              flex flex-1 justify-end
+              md:justify-center
+            ">
+              <app-mobile-navigation class="
+                pointer-events-auto block
+                md:hidden
+              " />
+              <app-desktop-navigation class="
+                pointer-events-auto hidden
+                md:block
+              " />
+            </div>
+            <div class="
+              flex justify-end
+              md:flex-1
+            ">
+              <div class="pointer-events-auto">
+                <app-theme-toggle [theme]="theme()" (setTheme)="setTheme.emit($event)" />
+              </div>
+            </div>
+          </div>
+        </app-container>
+      </div>
+    </header>
+    @if (isHomePage()) {
+      <div class="flex-none" [style.height]="'var(--content-offset)'"></div>
+    }
+  `,
   styles: `:host { display: contents; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  #rafId: number | undefined;
-  readonly #router = inject(Router);
-  readonly #theme = inject(Theme);
-  readonly #document = inject(DOCUMENT);
-  readonly #renderer = inject(Renderer2);
-  readonly #isInitial = signal(true);
-  readonly isHomePage = toSignal(this.#router.events.pipe(filter((e) => e instanceof NavigationEnd), map(() => this.#router.url === '/')), { initialValue: false });
+  private rafId: number | undefined;
+  private readonly router = inject(Router);
+  private readonly themeService = inject(Theme);
+  private readonly document = inject(DOCUMENT);
+  private readonly renderer = inject(Renderer2);
+  private readonly isInitial = signal(true);
+  protected readonly isHomePage = toSignal(this.router.events.pipe(filter((e) => e instanceof NavigationEnd), map(() => this.router.url === '/')), { initialValue: false });
+
   readonly headerRef = viewChild.required<ElementRef<HTMLDivElement>>('header');
   readonly avatarRef = viewChild<ElementRef<HTMLDivElement>>('avatar');
   readonly theme = input.required<'dark' | 'light'>();
@@ -58,11 +124,11 @@ export class Header {
       write: (onCleanup) => {
         this.isHomePage();
         untracked(() => {
-          const updateStyles = this.#updateStyles.bind(this);
+          const updateStyles = this.updateStyles.bind(this);
           updateStyles();
-          if (this.#document.defaultView) {
-            const unregisterScrollListener = this.#renderer.listen(this.#document.defaultView, 'scroll', updateStyles, { passive: true });
-            const unregisterResizeListener = this.#renderer.listen(this.#document.defaultView, 'resize', updateStyles);
+          if (this.document.defaultView) {
+            const unregisterScrollListener = this.renderer.listen(this.document.defaultView, 'scroll', updateStyles, { passive: true });
+            const unregisterResizeListener = this.renderer.listen(this.document.defaultView, 'resize', updateStyles);
             onCleanup(() => {
               unregisterScrollListener();
               unregisterResizeListener();
@@ -72,66 +138,66 @@ export class Header {
       },
     });
     inject(DestroyRef).onDestroy(() => {
-      if (this.#rafId) {
-        this.#document.defaultView?.cancelAnimationFrame(this.#rafId);
+      if (this.rafId) {
+        this.document.defaultView?.cancelAnimationFrame(this.rafId);
       }
     });
   }
 
-  #updateStyles() {
-    if (this.#rafId) {
+  private updateStyles() {
+    if (this.rafId) {
       return;
     }
 
-    this.#rafId = this.#document.defaultView?.requestAnimationFrame(() => {
-      this.#updateHeaderStyles();
-      this.#updateAvatarStyles();
-      this.#isInitial.set(false);
-      this.#rafId = undefined;
+    this.rafId = this.document.defaultView?.requestAnimationFrame(() => {
+      this.updateHeaderStyles();
+      this.updateAvatarStyles();
+      this.isInitial.set(false);
+      this.rafId = undefined;
     });
   }
 
-  #updateHeaderStyles() {
+  private updateHeaderStyles() {
     const downDelay = this.avatarRef()?.nativeElement.offsetTop ?? 0;
     const upDelay = 64;
     const headerRef = this.headerRef().nativeElement;
     const { top, height } = headerRef.getBoundingClientRect();
     const scrollY = clamp(
-      this.#document.defaultView?.scrollY ?? 0,
+      this.document.defaultView?.scrollY ?? 0,
       0,
-      this.#document.body.scrollHeight - (this.#document.defaultView?.innerHeight ?? 0)
+      this.document.body.scrollHeight - (this.document.defaultView?.innerHeight ?? 0)
     );
 
-    if (this.#isInitial()) {
-      this.#theme.setProperty('--header-position', 'sticky');
+    if (this.isInitial()) {
+      this.themeService.setProperty('--header-position', 'sticky');
     }
 
-    this.#theme.setProperty('--content-offset', `${downDelay}px`);
+    this.themeService.setProperty('--content-offset', `${downDelay}px`);
 
-    if (this.#isInitial() || scrollY < downDelay) {
-      this.#theme.setProperty('--header-height', `${downDelay + height}px`);
-      this.#theme.setProperty('--header-mb', `${-downDelay}px`);
+    if (this.isInitial() || scrollY < downDelay) {
+      this.themeService.setProperty('--header-height', `${downDelay + height}px`);
+      this.themeService.setProperty('--header-mb', `${-downDelay}px`);
     } else if (top + height < -upDelay) {
       const offset = Math.max(height, scrollY - upDelay);
-      this.#theme.setProperty('--header-height', `${offset}px`);
-      this.#theme.setProperty('--header-mb', `${height - offset}px`);
+      this.themeService.setProperty('--header-height', `${offset}px`);
+      this.themeService.setProperty('--header-mb', `${height - offset}px`);
     } else if (top === 0) {
-      this.#theme.setProperty('--header-height', `${scrollY + height}px`);
-      this.#theme.setProperty('--header-mb', `${-scrollY}px`);
+      this.themeService.setProperty('--header-height', `${scrollY + height}px`);
+      this.themeService.setProperty('--header-mb', `${-scrollY}px`);
     }
 
     if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
-      this.#theme.setProperty('--header-inner-position', 'fixed');
-      this.#theme.removeProperty('--header-top');
-      this.#theme.removeProperty('--avatar-top');
+      this.themeService.setProperty('--header-inner-position', 'fixed');
+      this.themeService.removeProperty('--header-top');
+      this.themeService.removeProperty('--avatar-top');
     } else {
-      this.#theme.removeProperty('--header-inner-position');
-      this.#theme.setProperty('--header-top', '0px');
-      this.#theme.setProperty('--avatar-top', '0px');
+      this.themeService.removeProperty('--header-inner-position');
+      this.themeService.setProperty('--header-top', '0px');
+      this.themeService.setProperty('--avatar-top', '0px');
     }
   }
 
-  #updateAvatarStyles() {
+  private updateAvatarStyles() {
     if (!this.isHomePage()) {
       return;
     }
@@ -150,7 +216,7 @@ export class Header {
     let x = (scrollY * (fromX - toX)) / downDelay + toX;
     x = clamp(x, fromX, toX);
 
-    this.#theme.setProperty(
+    this.themeService.setProperty(
       '--avatar-image-transform',
       `translate3d(${x}rem, 0, 0) scale(${scale})`
     );
@@ -159,7 +225,7 @@ export class Header {
     const borderX = (-toX + x) * borderScale;
     const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`;
 
-    this.#theme.setProperty('--avatar-border-transform', borderTransform);
-    this.#theme.setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0');
+    this.themeService.setProperty('--avatar-border-transform', borderTransform);
+    this.themeService.setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0');
   }
 }

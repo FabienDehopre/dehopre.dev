@@ -9,12 +9,33 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     RouterLinkActive,
     RouterLink,
   ],
-  templateUrl: './nav-item.html',
+  template: `
+    <a
+      class="relative block px-3 py-2 transition"
+      routerLinkActive="text-teal-500 dark:text-teal-400"
+      [class.dark:hover:text-teal-400]="isInactive()"
+      [class.hover:text-teal-500]="isInactive()"
+      [routerLink]="href()"
+      (isActiveChange)="isActive.set($event)"
+    >
+      <ng-content />
+      @if (isActive()) {
+        <div
+          class="
+            absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-teal-500/0
+            via-teal-500/40 to-teal-500/0
+            dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0
+          "
+        ></div>
+      }
+    </a>
+  `,
   styles: `:host { display: contents; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavItem {
+  protected readonly isActive = signal(false);
+  protected readonly isInactive = computed(() => !this.isActive());
+
   readonly href = input.required<UrlTree | string | readonly unknown[] | null | undefined>();
-  readonly isActive = signal(false);
-  readonly isInactive = computed(() => !this.isActive());
 }

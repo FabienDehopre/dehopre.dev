@@ -124,8 +124,8 @@ importers:
         specifier: ~21.0.3
         version: 21.0.3
       '@fabdeh/eslint-config':
-        specifier: 0.9.0-beta.2
-        version: 0.9.0-beta.2(@angular/cli@21.0.2(@types/node@22.18.13)(chokidar@4.0.3))(@testing-library/dom@10.4.1)(chokidar@4.0.3)(eslint-plugin-better-tailwindcss@3.8.0(eslint@9.39.1(jiti@2.6.1))(tailwindcss@4.1.17))(eslint-plugin-erasable-syntax-only@0.4.0(@typescript-eslint/parser@8.49.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint-plugin-format@1.1.0(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.15)
+        specifier: 0.9.0-beta.3
+        version: 0.9.0-beta.3(@angular/cli@21.0.2(@types/node@22.18.13)(chokidar@4.0.3))(@testing-library/dom@10.4.1)(chokidar@4.0.3)(eslint-plugin-better-tailwindcss@3.8.0(eslint@9.39.1(jiti@2.6.1))(tailwindcss@4.1.17))(eslint-plugin-erasable-syntax-only@0.4.0(@typescript-eslint/parser@8.49.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint-plugin-format@1.1.0(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.15)
       '@nx/angular':
         specifier: 22.1.3
         version: 22.1.3(6294aa6b31dbe0b44bb5f6134dbf3bd4)
@@ -1890,8 +1890,8 @@ packages:
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fabdeh/eslint-config@0.9.0-beta.2':
-    resolution: {integrity: sha512-BksHD7hvO7DOz9JatogS6oDmSz0Wlg/b/vJFmQ5GWqTyHXCJTSCOFj10sRSXFswRxkpHHyUNt3/6ZhEbCqMXUw==}
+  '@fabdeh/eslint-config@0.9.0-beta.3':
+    resolution: {integrity: sha512-ucLZZ9tiKx6XJMteFD1W5djW97aVVqCWfjxEMaVo+yUISgG9HjzGKjDjX1VqfuJf+Nun0e8RdkSBsUU8amhZnA==}
     engines: {node: ^20.19.0 || ^22.12.0 || ^24.0.0}
     peerDependencies:
       '@prettier/plugin-xml': ^3.4.2
@@ -11899,7 +11899,7 @@ snapshots:
       '@eslint/core': 0.17.0
       levn: 0.4.1
 
-  '@fabdeh/eslint-config@0.9.0-beta.2(@angular/cli@21.0.2(@types/node@22.18.13)(chokidar@4.0.3))(@testing-library/dom@10.4.1)(chokidar@4.0.3)(eslint-plugin-better-tailwindcss@3.8.0(eslint@9.39.1(jiti@2.6.1))(tailwindcss@4.1.17))(eslint-plugin-erasable-syntax-only@0.4.0(@typescript-eslint/parser@8.49.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint-plugin-format@1.1.0(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.15)':
+  '@fabdeh/eslint-config@0.9.0-beta.3(@angular/cli@21.0.2(@types/node@22.18.13)(chokidar@4.0.3))(@testing-library/dom@10.4.1)(chokidar@4.0.3)(eslint-plugin-better-tailwindcss@3.8.0(eslint@9.39.1(jiti@2.6.1))(tailwindcss@4.1.17))(eslint-plugin-erasable-syntax-only@0.4.0(@typescript-eslint/parser@8.49.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint-plugin-format@1.1.0(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.15)':
     dependencies:
       '@antfu/install-pkg': 1.1.0
       '@clack/prompts': 0.11.0

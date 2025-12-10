@@ -8,7 +8,11 @@ import { RouterLink } from '@angular/router';
   imports: [
     RouterLink,
   ],
-  templateUrl: './nav-item.html',
+  template: `
+    <a class="block py-2" [routerLink]="href()" (click)="navigated.emit()">
+      <ng-content />
+    </a>
+  `,
   styles: `:host { display: contents; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

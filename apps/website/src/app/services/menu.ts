@@ -7,10 +7,10 @@ import { isMenuItem } from '../types/menu-item';
 
 @Injectable({ providedIn: 'root' })
 export class Menu {
-  readonly #router = inject(Router);
+  private readonly router = inject(Router);
 
   getMenuFromRouterConfig(): MenuItem[] {
-    return this.#router.config
+    return this.router.config
       .filter((route) => route.data && 'menuItem' in route.data)
       .map((route) => route.data?.['menuItem'] as unknown)
       .filter(isMenuItem);
