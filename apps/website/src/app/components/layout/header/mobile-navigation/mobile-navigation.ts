@@ -90,7 +90,7 @@ import { NavItem } from './nav-item/nav-item';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MobileNavigation {
-  protected readonly menu = signal(inject(Menu).getMenuFromRouterConfig()).asReadonly();
+  protected readonly menu = signal(inject(Menu).getMenu()).asReadonly();
   protected readonly menuVisible = signal(false);
 
   protected toggleMenu(): void {

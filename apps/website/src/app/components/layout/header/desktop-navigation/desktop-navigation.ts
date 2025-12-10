@@ -26,5 +26,5 @@ import { NavItem } from './nav-item/nav-item';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DesktopNavigation {
-  protected readonly menu = signal(inject(Menu).getMenuFromRouterConfig()).asReadonly();
+  protected readonly menu = signal(inject(Menu).getMenu()).asReadonly();
 }

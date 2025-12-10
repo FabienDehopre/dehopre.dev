@@ -55,6 +55,6 @@ import { ContainerOuter } from '../../container/container-outer';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Footer {
-  protected readonly menu = signal(inject(Menu).getMenuFromRouterConfig()).asReadonly();
+  protected readonly menu = signal(inject(Menu).getMenu()).asReadonly();
   protected readonly year = toSignal(interval(60_000).pipe(map(() => new Date().getFullYear())), { initialValue: new Date().getFullYear() });
 }

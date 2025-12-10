@@ -1,5 +1,4 @@
 import type { RouteMeta } from '@analogjs/router';
-import type { MenuItem } from '../types/menu-item';
 
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
@@ -14,12 +13,6 @@ export const routeMeta: RouteMeta = {
   meta: [
     { name: 'description', content: DESCRIPTION },
   ],
-  data: {
-    menuItem: {
-      label: 'About',
-      href: ['/', 'about'],
-    } satisfies MenuItem,
-  },
 };
 
 @Component({
@@ -37,5 +30,5 @@ export const routeMeta: RouteMeta = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class About {
-  protected readonly description = signal('').asReadonly();
+  protected readonly description = signal(DESCRIPTION).asReadonly();
 }
