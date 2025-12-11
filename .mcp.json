@@ -50,7 +50,8 @@
       "type": "stdio",
       "command": "npx",
       "args": [
-        "nx-mcp"
+        "nx",
+        "mcp"
       ]
     }
   }
