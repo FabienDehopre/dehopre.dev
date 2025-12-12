@@ -16,6 +16,6 @@ export default defineProjectConfig(
       preferOnPushOnly: true,
       inlineTemplateAndStyles: true,
     },
-    ignores: ['**/worker-configuration.d.ts', '**/typography.js'],
+    // ignores: ['**/typography.js'],
   }
 );
