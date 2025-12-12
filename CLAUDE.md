@@ -22,15 +22,6 @@ pnpm nx e2e website-e2e
 # Lint code
 pnpm nx lint website
 
-# Cloudflare Workers development
-pnpm nx cf-serve website
-
-# Deploy to Cloudflare
-pnpm nx cf-deploy website
-
-# Generate Cloudflare types
-pnpm nx cf-types website
-
 # Show all available targets
 pnpm nx show project website
 ```
@@ -38,11 +29,11 @@ pnpm nx show project website
 ## Architecture
 
 ### Tech Stack
-- **Framework**: Angular v20+ with zoneless change detection
+- **Framework**: Angular v21+ with zoneless change detection
 - **Build Tool**: Nx monorepo with Vite
 - **Styling**: Tailwind CSS v4 with PrimeNG components and custom typography
 - **Testing**: Vitest for unit tests, Playwright for e2e tests
-- **Deployment**: Cloudflare Workers with SSR support
+- **Deployment**: Netlify with SSR support
 - **Package Manager**: pnpm
 
 ### Project Structure
