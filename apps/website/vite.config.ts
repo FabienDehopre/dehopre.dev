@@ -21,10 +21,18 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       analog({
-        ssr: false,
+        ssr: true,
         static: true,
         prerender: {
-          routes: [],
+          routes: mode === 'production'
+            ? [
+              '/',
+              '/about',
+            ]
+            : [],
+          sitemap: {
+            host: 'https://dehopre.dev',
+          }
         },
         content: {
           highlighter: 'prism',

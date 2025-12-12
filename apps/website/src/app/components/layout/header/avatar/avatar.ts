@@ -10,10 +10,11 @@ import { RouterLink } from '@angular/router';
   template: `
     <a aria-label="Home" [class]="cssClass() + 'pointer-events-auto'" [routerLink]="['/']" [style]="cssStyles()">
       <img
-        alt=""
-        fill
+        alt="Picture of Fabien Dehopré"
+        height="512"
         ngSrc="/images/avatar.jpg"
         priority
+        width="512"
         [class]="imageCssClass()"
         [sizes]="large() ? '4rem' : '2.25rem'"
       />
