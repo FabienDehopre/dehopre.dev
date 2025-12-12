@@ -29,6 +29,7 @@ export const APP_CONFIG: ApplicationConfig = {
     ),
     provideClientHydration(withEventReplay()),
     ...(isDevMode() ? [] : provideNetlifyLoader('https://dehopre.dev/')),
+    // provideNetlifyLoader('https://dehopre.dev/'),
     provideContent(withMarkdownRenderer(), withPrismHighlighter()),
     providePrimeNG({
       theme: {

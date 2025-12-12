@@ -11,13 +11,15 @@ import { RouterLink } from '@angular/router';
     <a aria-label="Home" [class]="cssClass() + 'pointer-events-auto'" [routerLink]="['/']" [style]="cssStyles()">
       <img
         alt="Picture of Fabien Dehopré"
-        height="512"
         ngSrc="/images/avatar.jpg"
         priority
-        width="512"
         [class]="imageCssClass()"
-        [sizes]="large() ? '4rem' : '2.25rem'"
+        [height]="size()"
+        [width]="size()"
       />
+      <!--
+        [sizes]="large() ? '4rem' : '2.25rem'"
+      -->
     </a>
   `,
   styles: `:host { display: contents; }`,
@@ -27,6 +29,14 @@ export class Avatar {
   protected readonly imageCssClass = computed(() => {
     const large = this.large();
     return untracked(() => `rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 ${large ? 'h-16 w-16' : 'h-9 w-9'}`);
+  });
+
+  protected readonly size = computed(() => {
+    const large = this.large();
+    return untracked(() => {
+      const remSize = large ? 4 : 2.25;
+      return remSize * 16;
+    });
   });
 
   readonly large = input(false, { transform: booleanAttribute });
