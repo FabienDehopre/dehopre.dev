@@ -16,6 +16,5 @@ export default defineProjectConfig(
       preferOnPushOnly: true,
       inlineTemplateAndStyles: true,
     },
-    // ignores: ['**/typography.js'],
   }
 );
