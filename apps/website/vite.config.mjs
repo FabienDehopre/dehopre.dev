@@ -26,17 +26,17 @@ export default defineConfig(({ mode }) => {
         prerender: {
           routes: mode === 'production'
             ? [
-              '/',
-              '/about',
-            ]
+                '/',
+                '/about',
+              ]
             : [],
           sitemap: {
             host: 'https://dehopre.dev',
-          }
+          },
         },
         content: {
           highlighter: 'prism',
-        }
+        },
       }),
       tailwindcss(),
       nxViteTsPaths(),
@@ -59,7 +59,7 @@ export default defineConfig(({ mode }) => {
       reporters: ['default'],
       coverage: {
         reportsDirectory: '../../coverage/apps/website',
-        provider: 'v8' as const,
+        provider: 'v8',
       },
     },
     define: {

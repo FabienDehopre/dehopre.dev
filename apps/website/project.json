@@ -9,7 +9,7 @@
     "build": {
       "executor": "@analogjs/platform:vite",
       "options": {
-        "configFile": "apps/website/vite.config.ts",
+        "configFile": "apps/website/vite.config.mjs",
         "main": "apps/website/src/main.ts",
         "outputPath": "dist/apps/website/client",
         "tsConfig": "apps/website/tsconfig.app.json"
@@ -56,7 +56,7 @@
     "test": {
       "executor": "@analogjs/vitest-angular:test",
       "options": {
-        "config": "vite.config.ts"
+        "config": "vite.config.mjs"
       }
     },
     "serve-static": {
