@@ -1,7 +1,7 @@
 import type { ApplicationConfig } from '@angular/core';
 
 import { provideContent, withMarkdownRenderer } from '@analogjs/content';
-import { withShikiHighlighter } from '@analogjs/content/shiki-highlighter';
+import { withPrismHighlighter } from '@analogjs/content/prism-highlighter';
 import { provideFileRouter, requestContextInterceptor, withDebugRoutes } from '@analogjs/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { isDevMode, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
@@ -27,7 +27,7 @@ export const APP_CONFIG: ApplicationConfig = {
       withInterceptors([requestContextInterceptor])
     ),
     provideClientHydration(withEventReplay()),
-    provideContent(withMarkdownRenderer(), withShikiHighlighter()),
+    provideContent(withMarkdownRenderer(), withPrismHighlighter()),
     providePrimeNG({
       theme: {
         options: {

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "primeicons/primeicons.css";
+@import 'prismjs/themes/prism.css' layer(components);
 @import "./prism.css" layer(components);
 
 @plugin "@tailwindcss/typography";

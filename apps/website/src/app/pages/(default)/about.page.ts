@@ -2,8 +2,6 @@ import type { RouteMeta } from '@analogjs/router';
 
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
-import { Container } from '../components/container/container';
-
 const TITLE = 'About';
 const DESCRIPTION = `I'm Fabien Dehopré. I live in Brussels (Bruxelles).`;
 
@@ -17,15 +15,13 @@ export const routeMeta: RouteMeta = {
 
 @Component({
   selector: 'app-about',
-  imports: [Container],
+  imports: [],
   template: `
-    <app-container cssClass="mt-16 sm:mt-32">
-      <h1 class="
-        text-4xl font-bold tracking-tight text-zinc-800
-        sm:text-5xl
-        dark:text-zinc-100
-      ">{{ description() }}</h1>
-    </app-container>
+    <h1 class="
+      text-4xl font-bold tracking-tight text-zinc-800
+      sm:text-5xl
+      dark:text-zinc-100
+    ">{{ description() }}</h1>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 
 import analog from '@analogjs/platform';
+import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
@@ -25,10 +26,13 @@ export default defineConfig(({ mode }) => {
         prerender: {
           routes: [],
         },
+        content: {
+          highlighter: 'prism',
+        }
       }),
       tailwindcss(),
       nxViteTsPaths(),
-      // nxCopyAssetsPlugin(['*.md']),
+      nxCopyAssetsPlugin(['*.md']),
     ],
     // server: {
     //   fs: {
