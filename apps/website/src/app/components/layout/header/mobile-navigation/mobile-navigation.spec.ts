@@ -1,7 +1,10 @@
 import type { ComponentFixture } from '@angular/core/testing';
 
 import { TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
+import { Menu } from '../../../../services/menu';
 import { MobileNavigation } from './mobile-navigation';
 
 describe(MobileNavigation.name, () => {
@@ -11,6 +14,17 @@ describe(MobileNavigation.name, () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MobileNavigation],
+      providers: [
+        { provide: Menu, useValue: { getMenu: () => [] } },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            data: of({}),
+            firstChild: null,
+            outlet: 'primary',
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MobileNavigation);
