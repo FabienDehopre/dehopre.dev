@@ -3,7 +3,7 @@ import type { ApplicationConfig } from '@angular/core';
 import { provideContent, withMarkdownRenderer } from '@analogjs/content';
 import { withPrismHighlighter } from '@analogjs/content/prism-highlighter';
 import { provideFileRouter, requestContextInterceptor, withDebugRoutes } from '@analogjs/router';
-import { provideCloudflareLoader } from '@angular/common';
+import { provideNetlifyLoader } from '@angular/common';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { isDevMode, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
@@ -28,7 +28,7 @@ export const APP_CONFIG: ApplicationConfig = {
       withInterceptors([requestContextInterceptor])
     ),
     provideClientHydration(withEventReplay()),
-    ...(isDevMode() ? [] : provideCloudflareLoader('https://dehopre.dev/')),
+    ...(isDevMode() ? [] : provideNetlifyLoader('https://dehopre.dev/')),
     provideContent(withMarkdownRenderer(), withPrismHighlighter()),
     providePrimeNG({
       theme: {
