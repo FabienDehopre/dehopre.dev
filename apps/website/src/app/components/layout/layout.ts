@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { Theme } from '../../services/theme';
 import { Footer } from './footer/footer';
@@ -38,7 +38,9 @@ export class Layout {
   protected readonly currentTheme = this.theme.getCurrentTheme();
 
   constructor() {
-    this.theme.initTheme();
+    afterNextRender({
+      write: () => this.theme.initTheme(),
+    });
   }
 
   protected onSetTheme(theme: 'dark' | 'light'): void {
