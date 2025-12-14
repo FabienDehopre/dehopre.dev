@@ -15,6 +15,8 @@ export default defineProjectConfig(
       enableAccessibilityRules: true,
       preferOnPushOnly: true,
       inlineTemplateAndStyles: true,
+      banExperimentalApi: false,
+      banDeveloperPreviewApi: false,
     },
   }
 );

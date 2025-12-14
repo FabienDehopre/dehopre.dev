@@ -19,6 +19,7 @@
     "@angular/ssr": "~21.0.3",
     "@primeng/themes": "^21.0.1",
     "@tailwindcss/typography": "^0.5.19",
+    "arktype": "^2.1.29",
     "front-matter": "^4.0.2",
     "h3": "^1.15.4",
     "marked": "^17.0.1",
