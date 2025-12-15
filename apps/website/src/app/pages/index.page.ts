@@ -1,11 +1,10 @@
-import type { RouteMeta } from '@analogjs/router';
+import type { LoadResult, RouteMeta } from '@analogjs/router';
 import type { SocialLinks } from '../../models/social-link';
+import type { load } from './index.server';
 
-import { httpResource } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { type } from 'arktype';
+import { getLoadResolver } from '@analogjs/router';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 
-import { SOCIAL_LINKS_SCHEMA as socialLinksValidator } from '../../models/social-link';
 import { Container } from '../components/container/container';
 import { SocialLink } from '../components/social-link';
 
@@ -18,6 +17,12 @@ export const routeMeta: RouteMeta = {
   meta: [
     { name: 'description', content: DESCRIPTION },
   ],
+  resolve: {
+    socialLinks: async (route) => {
+      const data = await getLoadResolver<LoadResult<typeof load>>(route);
+      return data.socialLinks;
+    },
+  },
 };
 
 @Component({
@@ -37,13 +42,11 @@ export const routeMeta: RouteMeta = {
           mt-6 text-base text-zinc-600
           dark:text-zinc-400
         " data-testid="pageDescription">{{ description() }}</p>
-        @if (socialLinks.hasValue()) {
-          <div class="mt-6 flex gap-6">
-            @for (socialLink of socialLinks.value(); track socialLink.url) {
-              <app-social-link [icon]="socialLink.icon" [label]="socialLink.label" [url]="socialLink.url" />
-            }
-          </div>
-        }
+        <div class="mt-6 flex gap-6">
+          @for (socialLink of socialLinks(); track socialLink.url) {
+            <app-social-link [icon]="socialLink.icon" [label]="socialLink.label" [url]="socialLink.url" />
+          }
+        </div>
       </div>
     </app-container>
   `,
@@ -52,17 +55,18 @@ export const routeMeta: RouteMeta = {
 export default class Home {
   protected readonly title = signal(TITLE).asReadonly();
   protected readonly description = signal(DESCRIPTION).asReadonly();
-  protected readonly socialLinks = httpResource<SocialLinks>(
-    () => '/api/v1/social-links',
-    {
-      parse: (data) => {
-        const result = socialLinksValidator(data);
-        if (result instanceof type.errors) {
-          throw new TypeError(`Invalid social links data: ${result.summary}`, { cause: result });
-        }
-
-        return result;
-      },
-    }
-  ).asReadonly();
+  protected readonly socialLinks = input.required<SocialLinks>();
+  // protected readonly socialLinks = httpResource<SocialLinks>(
+  //   () => '/api/v1/social-links',
+  //   {
+  //     parse: (data) => {
+  //       const result = socialLinksValidator(data);
+  //       if (result instanceof type.errors) {
+  //         throw new TypeError(`Invalid social links data: ${result.summary}`, { cause: result });
+  //       }
+  //
+  //       return result;
+  //     },
+  //   }
+  // ).asReadonly();
 }
