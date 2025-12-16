@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /api
+Disallow: /images
+Disallow: /assets
+Sitemap: https://dehopre.dev/sitemap.xml
