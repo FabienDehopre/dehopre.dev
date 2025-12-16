@@ -22,7 +22,6 @@ export default defineConfig(({ mode }) => {
     plugins: [
       analog({
         ssr: true,
-        static: true,
         prerender: {
           routes: mode === 'production'
             ? [
@@ -42,11 +41,11 @@ export default defineConfig(({ mode }) => {
       nxViteTsPaths(),
       nxCopyAssetsPlugin(['*.md']),
     ],
-    // server: {
-    //   fs: {
-    //     allow: ['.'],
-    //   },
-    // },
+    server: {
+      fs: {
+        allow: ['.'],
+      },
+    },
     // Uncomment this if you are using workers.
     // worker: {
     //  plugins: [ nxViteTsPaths() ],
