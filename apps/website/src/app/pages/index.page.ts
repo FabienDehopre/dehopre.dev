@@ -16,6 +16,11 @@ export const routeMeta: RouteMeta = {
   title: `Fabien Dehopré - ${TITLE}`,
   meta: [
     { name: 'description', content: DESCRIPTION },
+    { name: 'og:type', content: 'website' },
+    { name: 'og:title', content: `Fabien Dehopré - ${TITLE}` },
+    { name: 'og:description', content: DESCRIPTION },
+    { name: 'og:image', content: `https://dehopre.dev/api/v1/og-images?title=${encodeURIComponent(`Fabien Dehopré - ${TITLE}`)}` },
+    { name: 'og:url', content: 'https://dehopre.dev' },
   ],
   resolve: {
     socialLinks: async (route) => {
