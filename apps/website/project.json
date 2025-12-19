@@ -58,19 +58,6 @@
       "options": {
         "config": "vite.config.mjs"
       }
-    },
-    "serve-static": {
-      "continuous": true,
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "website:build",
-        "port": 4200,
-        "staticFilePath": "dist/apps/website/browser",
-        "spa": true
-      }
-    },
-    "cf-types": {},
-    "cf-serve": {},
-    "cf-deploy": {}
+    }
   }
 }
