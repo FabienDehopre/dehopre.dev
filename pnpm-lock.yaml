@@ -106,34 +106,34 @@ importers:
         version: 5.3.1
     devDependencies:
       '@analogjs/platform':
-        specifier: ^2.1.3
+        specifier: 2.1.3
         version: 2.1.3(b55b353e395ab1a0c7f4d44e8a115b95)
       '@analogjs/vite-plugin-angular':
-        specifier: ~2.1.3
+        specifier: 2.1.3
         version: 2.1.3(@angular-devkit/build-angular@21.0.3(4e6c686bba2b44117e522a8643cef627))(@angular/build@21.0.3(cd2afdb31594f0840ebb9e82c706b66d))
       '@analogjs/vitest-angular':
-        specifier: ~2.1.3
+        specifier: 2.1.3
         version: 2.1.3(@analogjs/vite-plugin-angular@2.1.3(@angular-devkit/build-angular@21.0.3(4e6c686bba2b44117e522a8643cef627))(@angular/build@21.0.3(cd2afdb31594f0840ebb9e82c706b66d)))(@angular-devkit/architect@0.2100.3(chokidar@4.0.3))(vitest@4.0.15)
       '@angular-devkit/build-angular':
-        specifier: ~21.0.3
+        specifier: 21.0.3
         version: 21.0.3(4e6c686bba2b44117e522a8643cef627)
       '@angular-devkit/core':
-        specifier: ~21.0.3
+        specifier: 21.0.3
         version: 21.0.3(chokidar@4.0.3)
       '@angular-devkit/schematics':
-        specifier: ~21.0.3
+        specifier: 21.0.3
         version: 21.0.3(chokidar@4.0.3)
       '@angular/build':
-        specifier: ~21.0.3
+        specifier: 21.0.3
         version: 21.0.3(cd2afdb31594f0840ebb9e82c706b66d)
       '@angular/cli':
-        specifier: ~21.0.3
+        specifier: 21.0.3
         version: 21.0.3(@types/node@22.18.13)(chokidar@4.0.3)
       '@angular/compiler-cli':
-        specifier: ~21.0.4
+        specifier: 21.0.4
         version: 21.0.4(@angular/compiler@21.0.4)(typescript@5.9.3)
       '@angular/language-service':
-        specifier: ~21.0.4
+        specifier: 21.0.4
         version: 21.0.4
       '@fabdeh/eslint-config':
         specifier: 0.9.0-beta.3
@@ -166,79 +166,79 @@ importers:
         specifier: 22.1.3
         version: 22.1.3(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))
       '@playwright/test':
-        specifier: ^1.57.0
+        specifier: 1.57.0
         version: 1.57.0
       '@schematics/angular':
-        specifier: ~21.0.3
+        specifier: 21.0.3
         version: 21.0.3(chokidar@4.0.3)
       '@swc-node/register':
-        specifier: ~1.11.1
+        specifier: 1.11.1
         version: 1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3)
       '@swc/core':
-        specifier: ~1.15.3
+        specifier: 1.15.3
         version: 1.15.3(@swc/helpers@0.5.17)
       '@swc/helpers':
-        specifier: ~0.5.17
+        specifier: 0.5.17
         version: 0.5.17
       '@tailwindcss/vite':
-        specifier: ^4.1.17
+        specifier: 4.1.17
         version: 4.1.17(vite@7.2.7(@types/node@22.18.13)(jiti@2.6.1)(less@4.4.2)(lightningcss@1.30.2)(sass-embedded@1.96.0)(sass@1.96.0)(stylus@0.64.0)(terser@5.44.1)(yaml@2.8.2))
       '@testing-library/angular':
-        specifier: ^18.1.1
+        specifier: 18.1.1
         version: 18.1.1(7d3ae5e8d91f85fcd4ae2ecc0d2ec382)
       '@testing-library/dom':
-        specifier: ^10.4.1
+        specifier: 10.4.1
         version: 10.4.1
       '@types/node':
-        specifier: ~22.18.13
+        specifier: 22.18.13
         version: 22.18.13
       '@vitest/coverage-v8':
-        specifier: ^4.0.15
+        specifier: 4.0.15
         version: 4.0.15(vitest@4.0.15)
       '@vitest/ui':
-        specifier: ^4.0.15
+        specifier: 4.0.15
         version: 4.0.15(vitest@4.0.15)
       eslint:
-        specifier: ^9.39.1
+        specifier: 9.39.1
         version: 9.39.1(jiti@2.6.1)
       eslint-plugin-better-tailwindcss:
-        specifier: ^3.8.0
+        specifier: 3.8.0
         version: 3.8.0(eslint@9.39.1(jiti@2.6.1))(tailwindcss@4.1.17)
       eslint-plugin-erasable-syntax-only:
-        specifier: ^0.4.0
+        specifier: 0.4.0
         version: 0.4.0(@typescript-eslint/parser@8.49.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-format:
-        specifier: ^1.1.0
+        specifier: 1.1.0
         version: 1.1.0(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-playwright:
-        specifier: ^2.4.0
+        specifier: 2.4.0
         version: 2.4.0(eslint@9.39.1(jiti@2.6.1))
       jiti:
-        specifier: ~2.6.1
+        specifier: 2.6.1
         version: 2.6.1
       jsdom:
-        specifier: ~27.2.0
+        specifier: 27.2.0
         version: 27.2.0(postcss@8.5.6)
       nx:
         specifier: 22.1.3
         version: 22.1.3(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))
       postcss:
-        specifier: ^8.5.6
+        specifier: 8.5.6
         version: 8.5.6
       tslib:
-        specifier: ^2.8.1
+        specifier: 2.8.1
         version: 2.8.1
       typescript:
-        specifier: ~5.9.3
+        specifier: 5.9.3
         version: 5.9.3
       vite:
-        specifier: ~7.2.7
+        specifier: 7.2.7
         version: 7.2.7(@types/node@22.18.13)(jiti@2.6.1)(less@4.4.2)(lightningcss@1.30.2)(sass-embedded@1.96.0)(sass@1.96.0)(stylus@0.64.0)(terser@5.44.1)(yaml@2.8.2)
       vite-tsconfig-paths:
-        specifier: ^5.1.4
+        specifier: 5.1.4
         version: 5.1.4(typescript@5.9.3)(vite@7.2.7(@types/node@22.18.13)(jiti@2.6.1)(less@4.4.2)(lightningcss@1.30.2)(sass-embedded@1.96.0)(sass@1.96.0)(stylus@0.64.0)(terser@5.44.1)(yaml@2.8.2))
       vitest:
-        specifier: ^4.0.15
+        specifier: 4.0.15
         version: 4.0.15(@types/node@22.18.13)(@vitest/ui@4.0.15)(jiti@2.6.1)(jsdom@27.2.0(postcss@8.5.6))(less@4.4.2)(lightningcss@1.30.2)(sass-embedded@1.96.0)(sass@1.96.0)(stylus@0.64.0)(terser@5.44.1)(yaml@2.8.2)
 
 packages:
@@ -8127,9 +8127,6 @@ packages:
     resolution: {integrity: sha512-T3DzWNmnrfVmk2gCIlAxLRLbGkfp3K7TyRva+Byyojqu83BNvnMeqVeYRdmUw4TKCsyH4RiQ/KuF/I4yEzgR5A==}
     engines: {node: '>=16'}
 
-  sax@1.4.3:
-    resolution: {integrity: sha512-yqYn1JhPczigF94DMS+shiDMjDowYO6y9+wB/4WgO0Y19jWYk0lQ4tuG5KI7kj4FTp1wxPj5IFfcrz/s1c3jjQ==}
-
   sax@1.4.4:
     resolution: {integrity: sha512-1n3r/tGXO6b6VXMdFT54SHzT9ytu9yr7TaELowdYpMqY/Ao7EnlQGmAQ1+RatX7Tkkdm6hONI2owqNx2aZj5Sw==}
     engines: {node: '>=11.0.0'}
@@ -10078,7 +10075,7 @@ snapshots:
   '@babel/core@7.28.4':
     dependencies:
       '@babel/code-frame': 7.27.1
-      '@babel/generator': 7.28.3
+      '@babel/generator': 7.28.5
       '@babel/helper-compilation-targets': 7.27.2
       '@babel/helper-module-transforms': 7.28.3(@babel/core@7.28.4)
       '@babel/helpers': 7.28.4
@@ -16514,7 +16511,7 @@ snapshots:
 
   istanbul-lib-instrument@6.0.3:
     dependencies:
-      '@babel/core': 7.28.4
+      '@babel/core': 7.28.5
       '@babel/parser': 7.28.5
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
@@ -17511,7 +17508,7 @@ snapshots:
   needle@3.3.1:
     dependencies:
       iconv-lite: 0.6.3
-      sax: 1.4.3
+      sax: 1.4.4
     optional: true
 
   negotiator@0.6.3: {}
@@ -18834,9 +18831,6 @@ snapshots:
       postcss-value-parser: 4.2.0
       yoga-layout: 3.2.1
 
-  sax@1.4.3:
-    optional: true
-
   sax@1.4.4:
     optional: true
 
@@ -19375,7 +19369,7 @@ snapshots:
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       serialize-javascript: 6.0.2
-      terser: 5.44.0
+      terser: 5.44.1
       webpack: 5.102.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(esbuild@0.26.0)
     optionalDependencies:
       '@swc/core': 1.15.3(@swc/helpers@0.5.17)
@@ -19387,7 +19381,7 @@ snapshots:
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       serialize-javascript: 6.0.2
-      terser: 5.44.0
+      terser: 5.44.1
       webpack: 5.103.0(@swc/core@1.15.3(@swc/helpers@0.5.17))
     optionalDependencies:
       '@swc/core': 1.15.3(@swc/helpers@0.5.17)
