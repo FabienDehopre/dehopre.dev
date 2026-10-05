@@ -317,6 +317,9 @@ importers:
       '@nx/vite':
         specifier: 23.2.1
         version: 23.2.1(d5b02973f3ed8a3a4db236e423117874)
+      '@nx/vitest':
+        specifier: 23.2.1
+        version: 23.2.1(d5b02973f3ed8a3a4db236e423117874)
       '@nx/web':
         specifier: 23.2.1
         version: 23.2.1(5caadee1db83f6303e7eb3efec09bad9)
