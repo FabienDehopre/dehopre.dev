@@ -53,3 +53,4 @@ migrations.json
 .nx/migrate-runs
 .claude/worktrees
 .claude/settings.local.json
+.nx/polygraph
