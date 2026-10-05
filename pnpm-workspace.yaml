@@ -1,15 +1,15 @@
+allowBuilds:
+  '@fabdeh/eslint-config': false
+  '@parcel/watcher': false
+  '@swc/core': false
+  esbuild: true
+  lmdb: false
+  msgpackr-extract: false
+  nx: true
+  sharp: false
+  unrs-resolver: false
+
 minimumReleaseAge: 1440
 
 minimumReleaseAgeExclude:
   - '@fabdeh/*'
-
-onlyBuiltDependencies:
-  - '@fabdeh/eslint-config'
-  - '@parcel/watcher'
-  - '@swc/core'
-  - esbuild
-  - lmdb
-  - msgpackr-extract
-  - nx
-  - sharp
-  - unrs-resolver
