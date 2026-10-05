@@ -23,12 +23,7 @@ export default defineConfig(({ mode }) => {
       analog({
         ssr: true,
         prerender: {
-          routes: mode === 'production'
-            ? [
-                '/',
-                '/about',
-              ]
-            : [],
+          routes: mode === 'production' ? ['/', '/about'] : [],
           sitemap: {
             host: 'https://dehopre.dev',
           },
@@ -59,6 +54,7 @@ export default defineConfig(({ mode }) => {
       coverage: {
         reportsDirectory: '../../coverage/apps/website',
         provider: 'v8',
+        include: ['src/**/*.ts'],
       },
     },
     define: {
