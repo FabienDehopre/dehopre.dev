@@ -9,7 +9,8 @@
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true,
     "outDir": "../../dist/out-tsc",
-    "sourceMap": false
+    "sourceMap": false,
+    "ignoreDeprecations": "6.0"
   },
   "include": [
     "**/*.ts",

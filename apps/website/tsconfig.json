@@ -5,15 +5,14 @@
     "emitDecoratorMetadata": false,
     "module": "preserve",
     "moduleResolution": "bundler",
-    "types": [
-      "./worker-configuration.d.ts"
-    ],
+    "types": ["./worker-configuration.d.ts"],
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "ignoreDeprecations": "6.0"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
