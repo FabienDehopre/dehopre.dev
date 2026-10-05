@@ -61,5 +61,9 @@
       "inlineTemplate": true,
       "skipTests": true
     }
+  },
+  "analytics": false,
+  "migrate": {
+    "agentic": "claude-code"
   }
 }
