@@ -6,7 +6,7 @@ import { provideFileRouter, requestContextInterceptor, withDebugRoutes } from '@
 import { provideNetlifyLoader } from '@angular/common';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { isDevMode, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay, withNoIncrementalHydration } from '@angular/platform-browser';
 import { withComponentInputBinding, withDebugTracing, withRouterConfig } from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
 
@@ -27,7 +27,7 @@ export const APP_CONFIG: ApplicationConfig = {
       withFetch(),
       withInterceptors([requestContextInterceptor])
     ),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
     ...(isDevMode() ? [] : provideNetlifyLoader('https://dehopre.dev/')),
     // provideNetlifyLoader('https://dehopre.dev/'),
     provideContent(withMarkdownRenderer(), withPrismHighlighter()),
