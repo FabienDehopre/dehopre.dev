@@ -51,3 +51,4 @@ vitest.config.*.timestamp*
 migrations.json
 
 .nx/migrate-runs
+.claude/worktrees
