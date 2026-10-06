@@ -8,13 +8,14 @@
   "targets": {
     "build": {
       "executor": "@analogjs/platform:vite",
+      "defaultConfiguration": "production",
+      "outputs": ["{workspaceRoot}/dist/apps/website"],
       "options": {
         "configFile": "apps/website/vite.config.mjs",
         "main": "apps/website/src/main.ts",
         "outputPath": "dist/apps/website/client",
         "tsConfig": "apps/website/tsconfig.app.json"
       },
-      "defaultConfiguration": "production",
       "configurations": {
         "development": {
           "mode": "development"
@@ -23,8 +24,7 @@
           "sourcemap": false,
           "mode": "production"
         }
-      },
-      "outputs": ["{workspaceRoot}/dist/apps/website"]
+      }
     },
     "serve": {
       "executor": "@analogjs/platform:vite-dev-server",
@@ -51,7 +51,17 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintignore",
+        "{workspaceRoot}/eslint.config.mjs",
+        "{workspaceRoot}/tools/eslint-rules/**/*",
+        {
+          "externalDependencies": ["eslint"]
+        }
+      ]
     },
     "test": {
       "executor": "@analogjs/vitest-angular:test",
