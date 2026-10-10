@@ -12,77 +12,77 @@ const LOCAL_STORAGE_KEY = 'theme';
 
 @Injectable({ providedIn: 'root' })
 export class Theme {
-  private readonly destroyRef = inject(DestroyRef);
-  private readonly document = inject(DOCUMENT);
-  private readonly platform = inject(Platform);
-  private readonly breakpointsObserver = inject(BreakpointObserver);
-  private readonly currentTheme = signal<'dark' | 'light'>('light');
+  readonly #destroyRef = inject(DestroyRef);
+  readonly #document = inject(DOCUMENT);
+  readonly #platform = inject(Platform);
+  readonly #breakpointsObserver = inject(BreakpointObserver);
+  readonly #currentTheme = signal<'dark' | 'light'>('light');
 
   setProperty(property: string, value: string): void {
-    this.document.documentElement.style.setProperty(property, value);
+    this.#document.documentElement.style.setProperty(property, value);
   }
 
   removeProperty(property: string): void {
-    this.document.documentElement.style.removeProperty(property);
+    this.#document.documentElement.style.removeProperty(property);
   }
 
   initTheme(): void {
-    if (this.platform.isBrowser) {
-      const themeName = this.loadFromLocalStorage() ?? this.getSystemTheme();
+    if (this.#platform.isBrowser) {
+      const themeName = this.#loadFromLocalStorage() ?? this.#getSystemTheme();
       const isSystem = themeName === 'system';
-      const theme = isSystem ? this.getSystemTheme() : themeName;
-      this.setThemeInternal(theme);
-      this.startSystemThemeObserver();
+      const theme = isSystem ? this.#getSystemTheme() : themeName;
+      this.#setThemeInternal(theme);
+      this.#startSystemThemeObserver();
     }
   }
 
   setTheme(theme: 'dark' | 'light'): void {
-    if (this.platform.isBrowser) {
-      this.setThemeInternal(theme);
-      this.saveToLocalStorage(theme);
+    if (this.#platform.isBrowser) {
+      this.#setThemeInternal(theme);
+      this.#saveToLocalStorage(theme);
     }
   }
 
   getCurrentTheme(): Signal<'dark' | 'light'> {
-    return this.currentTheme.asReadonly();
+    return this.#currentTheme.asReadonly();
   }
 
-  private startSystemThemeObserver(): void {
-    this.breakpointsObserver.observe(MEDIA)
-      .pipe(takeUntilDestroyed(this.destroyRef))
+  #startSystemThemeObserver(): void {
+    this.#breakpointsObserver.observe(MEDIA)
+      .pipe(takeUntilDestroyed(this.#destroyRef))
       .subscribe((value) => {
         const systemTheme = value.matches ? 'dark' : 'light';
-        const themeName = this.loadFromLocalStorage() ?? this.getSystemTheme();
+        const themeName = this.#loadFromLocalStorage() ?? this.#getSystemTheme();
         const isSystem = themeName === 'system';
         if (isSystem) {
-          this.setThemeInternal(systemTheme);
+          this.#setThemeInternal(systemTheme);
         }
       });
   }
 
-  private setThemeInternal(theme: 'dark' | 'light') {
-    this.setColorSheme(theme);
-    this.setThemeClass(theme);
-    this.currentTheme.set(theme);
+  #setThemeInternal(theme: 'dark' | 'light') {
+    this.#setColorSheme(theme);
+    this.#setThemeClass(theme);
+    this.#currentTheme.set(theme);
   }
 
-  private getSystemTheme() {
-    return this.breakpointsObserver.isMatched(MEDIA) ? 'dark' : 'light';
+  #getSystemTheme() {
+    return this.#breakpointsObserver.isMatched(MEDIA) ? 'dark' : 'light';
   }
 
-  private setColorSheme(theme: 'dark' | 'light') {
-    this.document.documentElement.style.colorScheme = theme;
+  #setColorSheme(theme: 'dark' | 'light') {
+    this.#document.documentElement.style.colorScheme = theme;
   }
 
-  private setThemeClass(theme: 'dark' | 'light') {
-    const otherTheme = this.getOtherTheme(theme);
-    this.document.documentElement.classList.remove(otherTheme);
-    if (!this.document.documentElement.classList.contains(theme)) {
-      this.document.documentElement.classList.add(theme);
+  #setThemeClass(theme: 'dark' | 'light') {
+    const otherTheme = this.#getOtherTheme(theme);
+    this.#document.documentElement.classList.remove(otherTheme);
+    if (!this.#document.documentElement.classList.contains(theme)) {
+      this.#document.documentElement.classList.add(theme);
     }
   }
 
-  private getOtherTheme(theme: 'dark' | 'light') {
+  #getOtherTheme(theme: 'dark' | 'light') {
     switch (theme) {
       case 'dark':
         return 'light';
@@ -93,13 +93,13 @@ export class Theme {
     }
   }
 
-  private saveToLocalStorage(theme: 'dark' | 'light') {
-    const themeToStore = this.getSystemTheme() === theme ? 'system' : theme;
-    this.document.defaultView?.localStorage.setItem(LOCAL_STORAGE_KEY, themeToStore);
+  #saveToLocalStorage(theme: 'dark' | 'light') {
+    const themeToStore = this.#getSystemTheme() === theme ? 'system' : theme;
+    this.#document.defaultView?.localStorage.setItem(LOCAL_STORAGE_KEY, themeToStore);
   }
 
-  private loadFromLocalStorage(): 'dark' | 'light' | 'system' | undefined {
-    const stored = this.document.defaultView?.localStorage.getItem(LOCAL_STORAGE_KEY);
+  #loadFromLocalStorage(): 'dark' | 'light' | 'system' | undefined {
+    const stored = this.#document.defaultView?.localStorage.getItem(LOCAL_STORAGE_KEY);
     return stored && ['dark', 'light', 'system'].includes(stored)
       ? stored as 'dark' | 'light' | 'system'
       : undefined;

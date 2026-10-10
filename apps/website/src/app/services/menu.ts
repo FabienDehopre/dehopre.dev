@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class Menu {
-  private readonly router = inject(Router);
+  readonly #router = inject(Router);
 
   getMenu(): MenuItem[] {
     return [
       {
         label: 'About',
-        href: this.router.createUrlTree(['/', 'about']),
+        href: this.#router.createUrlTree(['/', 'about']),
       },
     ];
   }

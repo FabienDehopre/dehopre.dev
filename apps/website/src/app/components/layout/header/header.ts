@@ -106,13 +106,13 @@ function clamp(num: number, a: number, b: number) {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  private rafId: number | undefined;
-  private readonly router = inject(Router);
-  private readonly themeService = inject(Theme);
-  private readonly document = inject(DOCUMENT);
-  private readonly renderer = inject(Renderer2);
-  private readonly isInitial = signal(true);
-  protected readonly isHomePage = toSignal(this.router.events.pipe(filter((e) => e instanceof NavigationEnd), map(() => this.router.url === '/')), { initialValue: false });
+  #rafId: number | undefined;
+  readonly #router = inject(Router);
+  readonly #themeService = inject(Theme);
+  readonly #document = inject(DOCUMENT);
+  readonly #renderer = inject(Renderer2);
+  readonly #isInitial = signal(true);
+  protected readonly isHomePage = toSignal(this.#router.events.pipe(filter((e) => e instanceof NavigationEnd), map(() => this.#router.url === '/')), { initialValue: false });
 
   readonly headerRef = viewChild.required<ElementRef<HTMLDivElement>>('header');
   readonly avatarRef = viewChild<ElementRef<HTMLDivElement>>('avatar');
@@ -124,11 +124,11 @@ export class Header {
       write: (onCleanup) => {
         this.isHomePage();
         untracked(() => {
-          const updateStyles = this.updateStyles.bind(this);
+          const updateStyles = this.#updateStyles.bind(this);
           updateStyles();
-          if (this.document.defaultView) {
-            const unregisterScrollListener = this.renderer.listen(this.document.defaultView, 'scroll', updateStyles, { passive: true });
-            const unregisterResizeListener = this.renderer.listen(this.document.defaultView, 'resize', updateStyles);
+          if (this.#document.defaultView) {
+            const unregisterScrollListener = this.#renderer.listen(this.#document.defaultView, 'scroll', updateStyles, { passive: true });
+            const unregisterResizeListener = this.#renderer.listen(this.#document.defaultView, 'resize', updateStyles);
             onCleanup(() => {
               unregisterScrollListener();
               unregisterResizeListener();
@@ -138,66 +138,66 @@ export class Header {
       },
     });
     inject(DestroyRef).onDestroy(() => {
-      if (this.rafId) {
-        this.document.defaultView?.cancelAnimationFrame(this.rafId);
+      if (this.#rafId) {
+        this.#document.defaultView?.cancelAnimationFrame(this.#rafId);
       }
     });
   }
 
-  private updateStyles() {
-    if (this.rafId) {
+  #updateStyles() {
+    if (this.#rafId) {
       return;
     }
 
-    this.rafId = this.document.defaultView?.requestAnimationFrame(() => {
-      this.updateHeaderStyles();
-      this.updateAvatarStyles();
-      this.isInitial.set(false);
-      this.rafId = undefined;
+    this.#rafId = this.#document.defaultView?.requestAnimationFrame(() => {
+      this.#updateHeaderStyles();
+      this.#updateAvatarStyles();
+      this.#isInitial.set(false);
+      this.#rafId = undefined;
     });
   }
 
-  private updateHeaderStyles() {
+  #updateHeaderStyles() {
     const downDelay = this.avatarRef()?.nativeElement.offsetTop ?? 0;
     const upDelay = 64;
     const headerRef = this.headerRef().nativeElement;
     const { top, height } = headerRef.getBoundingClientRect();
     const scrollY = clamp(
-      this.document.defaultView?.scrollY ?? 0,
+      this.#document.defaultView?.scrollY ?? 0,
       0,
-      this.document.body.scrollHeight - (this.document.defaultView?.innerHeight ?? 0)
+      this.#document.body.scrollHeight - (this.#document.defaultView?.innerHeight ?? 0)
     );
 
-    if (this.isInitial()) {
-      this.themeService.setProperty('--header-position', 'sticky');
+    if (this.#isInitial()) {
+      this.#themeService.setProperty('--header-position', 'sticky');
     }
 
-    this.themeService.setProperty('--content-offset', `${downDelay}px`);
+    this.#themeService.setProperty('--content-offset', `${downDelay}px`);
 
-    if (this.isInitial() || scrollY < downDelay) {
-      this.themeService.setProperty('--header-height', `${downDelay + height}px`);
-      this.themeService.setProperty('--header-mb', `${-downDelay}px`);
+    if (this.#isInitial() || scrollY < downDelay) {
+      this.#themeService.setProperty('--header-height', `${downDelay + height}px`);
+      this.#themeService.setProperty('--header-mb', `${-downDelay}px`);
     } else if (top + height < -upDelay) {
       const offset = Math.max(height, scrollY - upDelay);
-      this.themeService.setProperty('--header-height', `${offset}px`);
-      this.themeService.setProperty('--header-mb', `${height - offset}px`);
+      this.#themeService.setProperty('--header-height', `${offset}px`);
+      this.#themeService.setProperty('--header-mb', `${height - offset}px`);
     } else if (top === 0) {
-      this.themeService.setProperty('--header-height', `${scrollY + height}px`);
-      this.themeService.setProperty('--header-mb', `${-scrollY}px`);
+      this.#themeService.setProperty('--header-height', `${scrollY + height}px`);
+      this.#themeService.setProperty('--header-mb', `${-scrollY}px`);
     }
 
     if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
-      this.themeService.setProperty('--header-inner-position', 'fixed');
-      this.themeService.removeProperty('--header-top');
-      this.themeService.removeProperty('--avatar-top');
+      this.#themeService.setProperty('--header-inner-position', 'fixed');
+      this.#themeService.removeProperty('--header-top');
+      this.#themeService.removeProperty('--avatar-top');
     } else {
-      this.themeService.removeProperty('--header-inner-position');
-      this.themeService.setProperty('--header-top', '0px');
-      this.themeService.setProperty('--avatar-top', '0px');
+      this.#themeService.removeProperty('--header-inner-position');
+      this.#themeService.setProperty('--header-top', '0px');
+      this.#themeService.setProperty('--avatar-top', '0px');
     }
   }
 
-  private updateAvatarStyles() {
+  #updateAvatarStyles() {
     if (!this.isHomePage()) {
       return;
     }
@@ -216,7 +216,7 @@ export class Header {
     let x = (scrollY * (fromX - toX)) / downDelay + toX;
     x = clamp(x, fromX, toX);
 
-    this.themeService.setProperty(
+    this.#themeService.setProperty(
       '--avatar-image-transform',
       `translate3d(${x}rem, 0, 0) scale(${scale})`
     );
@@ -225,7 +225,7 @@ export class Header {
     const borderX = (-toX + x) * borderScale;
     const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`;
 
-    this.themeService.setProperty('--avatar-border-transform', borderTransform);
-    this.themeService.setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0');
+    this.#themeService.setProperty('--avatar-border-transform', borderTransform);
+    this.#themeService.setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0');
   }
 }

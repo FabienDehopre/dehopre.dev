@@ -34,16 +34,16 @@ import { Header } from './header/header';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Layout {
-  private readonly theme = inject(Theme);
-  protected readonly currentTheme = this.theme.getCurrentTheme();
+  readonly #theme = inject(Theme);
+  protected readonly currentTheme = this.#theme.getCurrentTheme();
 
   constructor() {
     afterNextRender({
-      write: () => this.theme.initTheme(),
+      write: () => this.#theme.initTheme(),
     });
   }
 
   protected onSetTheme(theme: 'dark' | 'light'): void {
-    this.theme.setTheme(theme);
+    this.#theme.setTheme(theme);
   }
 }
