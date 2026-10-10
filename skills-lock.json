@@ -43,6 +43,12 @@
       "skillPath": "skills/playwright-cli/SKILL.md",
       "computedHash": "ffbd59a973d4e2c19c6ecc31254a14497069c362f1d1820b6a6cfbe62de34a73"
     },
+    "spartan": {
+      "source": "spartan-ng/spartan",
+      "sourceType": "github",
+      "skillPath": "skills/spartan/SKILL.md",
+      "computedHash": "630526f27a77606e74122b1a3fd6fb41be2f7d5b63d13df9d7af3732c562edab"
+    },
     "tailwind-4-docs": {
       "source": "lombiq/tailwind-agent-skills",
       "sourceType": "github",
