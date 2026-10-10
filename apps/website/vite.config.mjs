@@ -36,6 +36,8 @@ export default defineConfig(({ mode }) => {
       tsconfigPaths(),
       viteStaticCopy({
         targets: [{ src: '*.md', dest: '.' }],
+        // Root `*.md` files are optional: copy them when present, without failing the build when there are none.
+        silent: true,
       }),
     ],
     server: {
