@@ -1,7 +1,7 @@
 import { defineWorkspaceConfig } from '@fabdeh/eslint-config';
 import nx from '@nx/eslint-plugin';
 
-export default await defineWorkspaceConfig(
+export default defineWorkspaceConfig(
   {
     typescript: {
       enableErasableSyntaxOnly: true,
