@@ -384,7 +384,7 @@ importers:
         specifier: 22.1.9
         version: 22.1.9
       '@spartan-ng/cli':
-        specifier: ^1.6.3
+        specifier: 1.6.3
         version: 1.6.3(c1417cb5649677f5c9d4720cb0be8a7a)
       '@swc-node/register':
         specifier: 1.12.1
@@ -444,7 +444,7 @@ importers:
         specifier: 2.8.1
         version: 2.8.1
       tw-animate-css:
-        specifier: ^1.4.0
+        specifier: 1.4.0
         version: 1.4.0
       typescript:
         specifier: 6.0.3
@@ -453,7 +453,7 @@ importers:
         specifier: 8.3.2
         version: 8.3.2(@types/node@22.18.13)(esbuild@0.28.2)(jiti@2.6.1)(less@4.9.0(supports-color@10.2.2))(sass-embedded@1.105.1)(sass@1.101.0)(terser@5.49.0)(yaml@2.9.1)
       vite-plugin-static-copy:
-        specifier: ^4.1.1
+        specifier: 4.1.1
         version: 4.1.1(vite@8.3.2(@types/node@22.18.13)(esbuild@0.28.2)(jiti@2.6.1)(less@4.9.0(supports-color@10.2.2))(sass-embedded@1.105.1)(sass@1.101.0)(terser@5.49.0)(yaml@2.9.1))
       vite-tsconfig-paths:
         specifier: 5.1.4
