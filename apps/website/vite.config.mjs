@@ -37,6 +37,7 @@ export default defineConfig(({ mode }) => {
       viteStaticCopy({
         targets: [{ src: '*.md', dest: '.' }],
         // Root `*.md` files are optional: copy them when present, without failing the build when there are none.
+        // TODO: remove `silent` once a root `*.md` file exists; it also hides the plugin's copy logs.
         silent: true,
       }),
     ],
