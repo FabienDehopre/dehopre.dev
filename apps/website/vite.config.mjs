@@ -1,10 +1,10 @@
 /// <reference types="vitest" />
 
 import analog from '@analogjs/platform';
-import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -33,8 +33,10 @@ export default defineConfig(({ mode }) => {
         },
       }),
       tailwindcss(),
-      nxViteTsPaths(),
-      nxCopyAssetsPlugin(['*.md']),
+      tsconfigPaths(),
+      viteStaticCopy({
+        targets: [{ src: '*.md', dest: '.' }],
+      }),
     ],
     server: {
       fs: {
