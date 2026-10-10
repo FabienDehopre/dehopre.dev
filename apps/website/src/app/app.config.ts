@@ -8,7 +8,6 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { isDevMode, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay, withNoIncrementalHydration } from '@angular/platform-browser';
 import { withComponentInputBinding, withDebugTracing, withRouterConfig } from '@angular/router';
-import { providePrimeNG } from 'primeng/config';
 
 export const APP_CONFIG: ApplicationConfig = {
   providers: [
@@ -30,16 +29,5 @@ export const APP_CONFIG: ApplicationConfig = {
     provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
     ...(isDevMode() ? [] : provideNetlifyLoader('https://dehopre.dev/')),
     provideContent(withMarkdownRenderer(), withPrismHighlighter()),
-    providePrimeNG({
-      theme: {
-        options: {
-          darkModeSelector: '.dark',
-          cssLayer: {
-            name: 'primeng',
-            order: 'theme, base, primeng',
-          },
-        },
-      },
-    }),
   ],
 };

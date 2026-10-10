@@ -2,7 +2,7 @@
   "mcpServers": {
     "nx": {
       "type": "stdio",
-      "command": "npx",
+      "command": "pnx",
       "args": [
         "-y",
         "nx-mcp@latest"
@@ -11,7 +11,7 @@
     },
     "context7": {
       "type": "stdio",
-      "command": "npx",
+      "command": "pnx",
       "args": [
         "-y",
         "@upstash/context7-mcp"
@@ -20,7 +20,7 @@
     },
     "playwright": {
       "type": "stdio",
-      "command": "npx",
+      "command": "pnx",
       "args": [
         "-y",
         "@playwright/mcp@latest"
@@ -29,7 +29,7 @@
     },
     "eslint": {
       "type": "stdio",
-      "command": "npx",
+      "command": "pnx",
       "args": [
         "-y",
         "@eslint/mcp@latest"
@@ -38,7 +38,7 @@
     },
     "angular-cli": {
       "type": "stdio",
-      "command": "npx",
+      "command": "pnx",
       "args": [
         "-y",
         "@angular/cli@latest",
@@ -48,10 +48,19 @@
     },
     "nx-mcp": {
       "type": "stdio",
-      "command": "npx",
+      "command": "pnx",
       "args": [
+        "-y",
         "nx",
         "mcp"
+      ]
+    },
+    "spartan-ui": {
+      "type": "stdio",
+      "command": "pnx",
+      "args": [
+        "-y",
+        "@spartan-ng/mcp"
       ]
     }
   }

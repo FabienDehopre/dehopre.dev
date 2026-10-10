@@ -15,7 +15,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {},
+    "paths": {
+      "@spartan-ng/helm/button": ["./libs/ui/button/src/index.ts"],
+      "@spartan-ng/helm/dialog": ["./libs/ui/dialog/src/index.ts"],
+      "@spartan-ng/helm/utils": ["./libs/ui/utils/src/index.ts"]
+    },
     "strict": false,
     "noUncheckedSideEffectImports": false,
     "types": ["*"],

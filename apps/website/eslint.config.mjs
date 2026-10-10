@@ -18,5 +18,12 @@ export default defineProjectConfig(
       banExperimentalApi: false,
       banDeveloperPreviewApi: false,
     },
+  },
+  {
+    // index.html is parsed as plain HTML, where `<app-root />` is an open tag that swallows the next sibling.
+    files: ['index.html'],
+    rules: {
+      '@angular-eslint/template/prefer-self-closing-tags': 'off',
+    },
   }
 );
