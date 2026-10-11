@@ -40,6 +40,7 @@ export async function loadProjects(curatedProjects: readonly CuratedProject[]): 
       repositoryUrl: repository.html_url,
       archived: repository.archived,
       ...(curated.logo === undefined ? {} : { logo: curated.logo }),
+      featured: curated.featured ?? false,
     };
   }));
 }
