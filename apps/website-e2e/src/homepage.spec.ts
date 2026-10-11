@@ -11,7 +11,7 @@ test('show the Featured Projects with a link to the Projects page', async ({ pag
   await page.goto('/');
 
   const featuredProjects = page.getByRole('region', { name: 'Featured Projects' });
-  await expect(featuredProjects.getByTestId('projectCard')).toContainText(['FordConnectToAbrpSync']);
+  await expect(featuredProjects.getByTestId('projectCard')).toContainText(['triple-yahtzee-score-board', 'my-netatmo-24', 'FordConnectToAbrpSync']);
   await featuredProjects.getByRole('link', { name: 'See all projects' }).click();
 
   await expect(page).toHaveURL(/\/projects$/);
