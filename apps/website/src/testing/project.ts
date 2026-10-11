@@ -1,7 +1,7 @@
 import type { Project } from '../models/project';
 
 /**
- * Already-loaded Project data for component tests: a Project without a homepage, logo or archived state,
+ * Already-loaded Project data for component tests: a Project without a homepage, logo, archived state or featured flag,
  * with the given fields replaced.
  * @param overrides the fields that matter to the test
  */
@@ -15,6 +15,7 @@ export function aProject(overrides: Partial<Project> = {}): Project {
     link: repositoryUrl,
     repositoryUrl,
     archived: false,
+    featured: false,
     ...overrides,
   };
 }

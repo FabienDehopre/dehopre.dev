@@ -83,6 +83,7 @@ describe(loadProjects.name, () => {
         link: 'https://github.com/FabienDehopre/game-of-life',
         repositoryUrl: 'https://github.com/FabienDehopre/game-of-life',
         archived: false,
+        featured: false,
       },
     ]);
   });
@@ -150,6 +151,14 @@ describe(loadProjects.name, () => {
     const [project] = await loadProjects([{ repository: 'FabienDehopre/game-of-life', logo: '/images/projects/game-of-life.svg' }]);
 
     expect(project.logo).toBe('/images/projects/game-of-life.svg');
+  });
+
+  test('marks a Project flagged in the curated list as featured', async () => {
+    fakeGitHub(repo('FabienDehopre/FordConnectToAbrpSync'));
+
+    const [project] = await loadProjects([{ repository: 'FabienDehopre/FordConnectToAbrpSync', featured: true }]);
+
+    expect(project.featured).toBeTruthy();
   });
 
   test('returns the Projects in curated list order, whatever order GitHub answers in', async () => {
