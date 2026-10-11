@@ -9,16 +9,16 @@ interface FakeResponse {
 
 /**
  * Replaces GitHub at the HTTP boundary: answers each request from the fixture registered for its URL,
- * and records the requests so tests can inspect what was sent.
- * @param fixtures responses keyed by `owner/name`
+ * and records the requests so tests can inspect what was sent. Unregistered URLs get a 404.
+ * @param fixtures responses keyed by the path after `/repos/` (`owner/name`, `owner/name/languages`)
  */
 function fakeGitHub(fixtures: Record<string, FakeResponse>) {
   const requests: Request[] = [];
   const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
     const request = new Request(input, init);
     requests.push(request);
-    const repository = new URL(request.url).pathname.replace(/^\/repos\//, '');
-    const fixture = fixtures[repository] ?? { status: 404, body: { message: 'Not Found' } };
+    const path = new URL(request.url).pathname.replace(/^\/repos\//, '');
+    const fixture = fixtures[path] ?? { status: 404, body: { message: 'Not Found' } };
     if (fixture.delayMs !== undefined) {
       await new Promise((resolve) => setTimeout(resolve, fixture.delayMs));
     }
@@ -32,17 +32,31 @@ function fakeGitHub(fixtures: Record<string, FakeResponse>) {
   return { requests };
 }
 
+interface RepoFixture {
+  description?: string | null;
+  homepage?: string | null;
+  archived?: boolean;
+  /** GitHub's language breakdown, as [language, bytes of code] pairs. */
+  languages?: [language: string, bytes: number][];
+  delayMs?: number;
+}
+
 /**
- * A successful GitHub "get a repository" response.
+ * Successful GitHub responses for one repository: "get a repository" and "list repository languages".
  * @param fullName `owner/name`
- * @param description the repository description on GitHub
+ * @param fixture the repository data GitHub returns
  */
-function repo(fullName: string, description: string | null = `${fullName} on GitHub`): FakeResponse {
+function repo(fullName: string, fixture: RepoFixture = {}): Record<string, FakeResponse> {
   const [, name] = fullName.split('/');
+  const { description = `${fullName} on GitHub`, homepage = null, archived = false, languages = [], delayMs } = fixture;
   return {
-    status: 200,
-    // eslint-disable-next-line @typescript-eslint/naming-convention -- GitHub API fields
-    body: { name, full_name: fullName, description, html_url: `https://github.com/${fullName}` },
+    [fullName]: {
+      status: 200,
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- GitHub API fields
+      body: { name, full_name: fullName, description, homepage, archived, html_url: `https://github.com/${fullName}` },
+      delayMs,
+    },
+    [`${fullName}/languages`]: { status: 200, body: Object.fromEntries(languages) },
   };
 }
 
@@ -57,28 +71,92 @@ describe(loadProjects.name, () => {
   });
 
   test('returns the Project with its GitHub name, description and repository link', async () => {
-    fakeGitHub({ 'FabienDehopre/game-of-life': repo('FabienDehopre/game-of-life', 'Conway\'s Game of Life') });
+    fakeGitHub(repo('FabienDehopre/game-of-life', { description: 'Conway\'s Game of Life', languages: [['TypeScript', 9000]] }));
 
     const projects = await loadProjects([{ repository: 'FabienDehopre/game-of-life' }]);
 
     expect(projects).toEqual([
-      { name: 'game-of-life', description: 'Conway\'s Game of Life', url: 'https://github.com/FabienDehopre/game-of-life' },
+      {
+        name: 'game-of-life',
+        description: 'Conway\'s Game of Life',
+        languages: ['TypeScript'],
+        link: 'https://github.com/FabienDehopre/game-of-life',
+        repositoryUrl: 'https://github.com/FabienDehopre/game-of-life',
+        archived: false,
+      },
     ]);
   });
 
   test('uses the description override instead of the GitHub description when set', async () => {
-    fakeGitHub({ 'FabienDehopre/game-of-life': repo('FabienDehopre/game-of-life', 'Conway\'s Game of Life') });
+    fakeGitHub(repo('FabienDehopre/game-of-life', { description: 'Conway\'s Game of Life' }));
 
     const [project] = await loadProjects([{ repository: 'FabienDehopre/game-of-life', description: 'A cellular automaton in Angular.' }]);
 
     expect(project.description).toBe('A cellular automaton in Angular.');
   });
 
+  test('lists the languages that make up at least 10% of the code, largest share first', async () => {
+    fakeGitHub(repo('FabienDehopre/game-of-life', { languages: [['HTML', 2000], ['TypeScript', 7000], ['Shell', 999]] }));
+
+    const [project] = await loadProjects([{ repository: 'FabienDehopre/game-of-life' }]);
+
+    expect(project.languages).toEqual(['TypeScript', 'HTML']);
+  });
+
+  test('lists at most three languages', async () => {
+    fakeGitHub(repo('FabienDehopre/dehopre.dev', { languages: [['CSS', 1600], ['HTML', 2000], ['JavaScript', 1400], ['TypeScript', 5000]] }));
+
+    const [project] = await loadProjects([{ repository: 'FabienDehopre/dehopre.dev' }]);
+
+    expect(project.languages).toEqual(['TypeScript', 'HTML', 'CSS']);
+  });
+
+  test('lists no languages when GitHub detects no code', async () => {
+    fakeGitHub(repo('FabienDehopre/game-of-life', { languages: [] }));
+
+    const [project] = await loadProjects([{ repository: 'FabienDehopre/game-of-life' }]);
+
+    expect(project.languages).toEqual([]);
+  });
+
+  test('links to the homepage when the repository has one, and still exposes the repository URL', async () => {
+    fakeGitHub(repo('FabienDehopre/my-netatmo-24', { homepage: 'https://netatmo.dehopre.dev' }));
+
+    const [project] = await loadProjects([{ repository: 'FabienDehopre/my-netatmo-24' }]);
+
+    expect(project.link).toBe('https://netatmo.dehopre.dev');
+    expect(project.repositoryUrl).toBe('https://github.com/FabienDehopre/my-netatmo-24');
+  });
+
+  test('links to the repository when the homepage is empty', async () => {
+    fakeGitHub(repo('FabienDehopre/game-of-life', { homepage: '' }));
+
+    const [project] = await loadProjects([{ repository: 'FabienDehopre/game-of-life' }]);
+
+    expect(project.link).toBe('https://github.com/FabienDehopre/game-of-life');
+  });
+
+  test('marks an archived repository as archived', async () => {
+    fakeGitHub(repo('FabienDehopre/game-of-life', { archived: true }));
+
+    const [project] = await loadProjects([{ repository: 'FabienDehopre/game-of-life' }]);
+
+    expect(project.archived).toBeTruthy();
+  });
+
+  test('includes the logo from the curated list when set', async () => {
+    fakeGitHub(repo('FabienDehopre/game-of-life'));
+
+    const [project] = await loadProjects([{ repository: 'FabienDehopre/game-of-life', logo: '/images/projects/game-of-life.svg' }]);
+
+    expect(project.logo).toBe('/images/projects/game-of-life.svg');
+  });
+
   test('returns the Projects in curated list order, whatever order GitHub answers in', async () => {
     fakeGitHub({
-      'FabienDehopre/triple-yahtzee-score-board': { ...repo('FabienDehopre/triple-yahtzee-score-board'), delayMs: 20 },
-      'FabienDehopre/my-netatmo-24': { ...repo('FabienDehopre/my-netatmo-24'), delayMs: 10 },
-      'FabienDehopre/game-of-life': repo('FabienDehopre/game-of-life'),
+      ...repo('FabienDehopre/triple-yahtzee-score-board', { delayMs: 20 }),
+      ...repo('FabienDehopre/my-netatmo-24', { delayMs: 10 }),
+      ...repo('FabienDehopre/game-of-life'),
     });
 
     const projects = await loadProjects([
@@ -91,7 +169,7 @@ describe(loadProjects.name, () => {
   });
 
   test('throws an error naming the repository when it does not exist', async () => {
-    fakeGitHub({ 'FabienDehopre/game-of-life': repo('FabienDehopre/game-of-life') });
+    fakeGitHub(repo('FabienDehopre/game-of-life'));
 
     await expect(loadProjects([
       { repository: 'FabienDehopre/game-of-life' },
@@ -101,6 +179,15 @@ describe(loadProjects.name, () => {
 
   test('throws an error naming the repository when GitHub answers with a server error', async () => {
     fakeGitHub({ 'FabienDehopre/game-of-life': { status: 503, body: { message: 'Service Unavailable' } } });
+
+    await expect(loadProjects([{ repository: 'FabienDehopre/game-of-life' }])).rejects.toThrow('FabienDehopre/game-of-life');
+  });
+
+  test('throws an error naming the repository when its languages cannot be loaded', async () => {
+    fakeGitHub({
+      ...repo('FabienDehopre/game-of-life'),
+      'FabienDehopre/game-of-life/languages': { status: 503, body: { message: 'Service Unavailable' } },
+    });
 
     await expect(loadProjects([{ repository: 'FabienDehopre/game-of-life' }])).rejects.toThrow('FabienDehopre/game-of-life');
   });
@@ -123,20 +210,20 @@ describe(loadProjects.name, () => {
     await expect(loadProjects([{ repository: 'FabienDehopre/game-of-life' }])).rejects.toThrow('FabienDehopre/game-of-life');
   });
 
-  test('sends GITHUB_TOKEN as a bearer token when it is set', async () => {
+  test('sends GITHUB_TOKEN as a bearer token on every request when it is set', async () => {
     vi.stubEnv('GITHUB_TOKEN', 'test-token');
-    const { requests } = fakeGitHub({ 'FabienDehopre/game-of-life': repo('FabienDehopre/game-of-life') });
+    const { requests } = fakeGitHub(repo('FabienDehopre/game-of-life'));
 
     await loadProjects([{ repository: 'FabienDehopre/game-of-life' }]);
 
-    expect(requests.map((request) => request.headers.get('authorization'))).toEqual(['Bearer test-token']);
+    expect(requests.map((request) => request.headers.get('authorization'))).toEqual(['Bearer test-token', 'Bearer test-token']);
   });
 
   test('sends no authorization header when GITHUB_TOKEN is not set', async () => {
-    const { requests } = fakeGitHub({ 'FabienDehopre/game-of-life': repo('FabienDehopre/game-of-life') });
+    const { requests } = fakeGitHub(repo('FabienDehopre/game-of-life'));
 
     await loadProjects([{ repository: 'FabienDehopre/game-of-life' }]);
 
-    expect(requests.map((request) => request.headers.has('authorization'))).toEqual([false]);
+    expect(requests.some((request) => request.headers.has('authorization'))).toBeFalsy();
   });
 });

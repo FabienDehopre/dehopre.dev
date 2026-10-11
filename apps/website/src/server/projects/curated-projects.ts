@@ -3,6 +3,8 @@ export interface CuratedProject {
   readonly repository: `${string}/${string}`;
   /** Replaces the GitHub description on the site when set. */
   readonly description?: string;
+  /** The Project's logo, as an image path relative to the site root (e.g. `/images/projects/name.svg`). A generic icon is shown when unset. */
+  readonly logo?: string;
 }
 
 /** The Projects shown on the site, in display order. */

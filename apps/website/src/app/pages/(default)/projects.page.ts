@@ -50,7 +50,7 @@ export const routeMeta: RouteMeta = {
       sm:mt-20 sm:grid-cols-2
       lg:grid-cols-3
     " role="list">
-      @for (project of projects(); track project.url) {
+      @for (project of projects(); track project.repositoryUrl) {
         <li class="flex">
           <app-project-card [project]="project" />
         </li>
