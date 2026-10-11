@@ -2,11 +2,18 @@ import type { Projects as ProjectList } from '../../../models/project';
 
 import { TestBed } from '@angular/core/testing';
 
+import { aProject } from '../../../testing/project';
 import Projects from './projects.page';
 
 const PROJECTS: ProjectList = [
-  { name: 'triple-yahtzee-score-board', description: 'Best scoring line for a dice roll.', url: 'https://github.com/FabienDehopre/triple-yahtzee-score-board' },
-  { name: 'game-of-life', description: 'Conway\'s Game of Life', url: 'https://github.com/FabienDehopre/game-of-life' },
+  aProject({
+    name: 'triple-yahtzee-score-board',
+    description: 'Best scoring line for a dice roll.',
+    languages: ['TypeScript', 'HTML'],
+    link: 'https://yahtzee.dehopre.dev',
+    repositoryUrl: 'https://github.com/FabienDehopre/triple-yahtzee-score-board',
+  }),
+  aProject({ name: 'game-of-life', description: 'Conway\'s Game of Life', archived: true }),
 ];
 
 /**
@@ -36,11 +43,16 @@ describe(Projects.name, () => {
     expect(cards.map((card) => card.querySelector('h2')?.textContent.trim())).toEqual(['triple-yahtzee-score-board', 'game-of-life']);
   });
 
-  test('each card shows the Project description and links to its repository', async () => {
+  test('each card is the full Project card: description, languages, links and Archived label', async () => {
     const view = await renderProjectsPage(PROJECTS);
 
-    const card = view.querySelector('[data-testid="projectCard"]');
-    expect(card?.textContent).toContain('Best scoring line for a dice roll.');
-    expect(card?.querySelector('a')?.getAttribute('href')).toBe('https://github.com/FabienDehopre/triple-yahtzee-score-board');
+    const [withHomepage, archived] = view.querySelectorAll('[data-testid="projectCard"]');
+    expect(withHomepage.textContent).toContain('Best scoring line for a dice roll.');
+    expect(withHomepage.textContent).toContain('HTML');
+    expect([...withHomepage.querySelectorAll('a')].map((link) => link.getAttribute('href'))).toEqual([
+      'https://yahtzee.dehopre.dev',
+      'https://github.com/FabienDehopre/triple-yahtzee-score-board',
+    ]);
+    expect(archived.textContent).toContain('Archived');
   });
 });

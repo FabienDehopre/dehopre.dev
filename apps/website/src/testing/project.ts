@@ -1,0 +1,20 @@
+import type { Project } from '../models/project';
+
+/**
+ * Already-loaded Project data for component tests: a Project without a homepage, logo or archived state,
+ * with the given fields replaced.
+ * @param overrides the fields that matter to the test
+ */
+export function aProject(overrides: Partial<Project> = {}): Project {
+  const name = overrides.name ?? 'game-of-life';
+  const repositoryUrl = overrides.repositoryUrl ?? `https://github.com/FabienDehopre/${name}`;
+  return {
+    name,
+    description: `${name} description`,
+    languages: ['TypeScript'],
+    link: repositoryUrl,
+    repositoryUrl,
+    archived: false,
+    ...overrides,
+  };
+}
