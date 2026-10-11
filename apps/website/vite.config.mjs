@@ -31,6 +31,10 @@ export default defineConfig(({ mode }) => {
         content: {
           highlighter: 'prism',
         },
+        nitro: {
+          // A prerendered page that answers non-200 (e.g. a Project fetch from GitHub failed) fails the build (ADR 0001).
+          prerender: { failOnError: true },
+        },
       }),
       tailwindcss(),
       tsconfigPaths(),
