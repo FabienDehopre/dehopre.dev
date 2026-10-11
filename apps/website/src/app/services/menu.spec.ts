@@ -13,4 +13,10 @@ describe(Menu.name, () => {
   test('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  test('lists Projects linking to /projects', () => {
+    const projects = service.getMenu().find((item) => item.label === 'Projects');
+
+    expect(projects?.href?.toString()).toBe('/projects');
+  });
 });
