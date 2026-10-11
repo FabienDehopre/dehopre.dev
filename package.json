@@ -61,7 +61,7 @@
     "@nx/web": "23.3.0",
     "@nx/workspace": "23.3.0",
     "@oxc-project/runtime": "0.153.0",
-    "@playwright/test": "1.63.0",
+    "@playwright/test": "1.64.0",
     "@schematics/angular": "22.2.2",
     "@spartan-ng/cli": "1.6.3",
     "@swc-node/register": "1.12.1",
