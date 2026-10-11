@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
       analog({
         ssr: true,
         prerender: {
-          routes: mode === 'production' ? ['/', '/about'] : [],
+          routes: mode === 'production' ? ['/', '/about', '/projects'] : [],
           sitemap: {
             host: 'https://dehopre.dev',
           },
