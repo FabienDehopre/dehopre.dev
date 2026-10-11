@@ -11,8 +11,8 @@ export interface CuratedProject {
 
 /** The Projects shown on the site, in display order. */
 export const CURATED_PROJECTS: readonly CuratedProject[] = [
-  { repository: 'FabienDehopre/triple-yahtzee-score-board' },
-  { repository: 'FabienDehopre/my-netatmo-24' },
+  { repository: 'FabienDehopre/triple-yahtzee-score-board', featured: true },
+  { repository: 'FabienDehopre/my-netatmo-24', featured: true },
   { repository: 'FabienDehopre/FordConnectToAbrpSync', featured: true },
   { repository: 'FabienDehopre/eslint-config' },
   { repository: 'FabienDehopre/dehopre.dev' },

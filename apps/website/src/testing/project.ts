@@ -12,7 +12,6 @@ export function aProject(overrides: Partial<Project> = {}): Project {
     name,
     description: `${name} description`,
     languages: ['TypeScript'],
-    link: repositoryUrl,
     repositoryUrl,
     archived: false,
     featured: false,

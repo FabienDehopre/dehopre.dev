@@ -1,16 +1,16 @@
-import type { Projects as ProjectList } from '../../../models/project';
+import type { Projects } from '../../../models/project';
 
 import { TestBed } from '@angular/core/testing';
 
 import { aProject } from '../../../testing/project';
-import Projects from './projects.page';
+import ProjectsPage from './projects.page';
 
-const PROJECTS: ProjectList = [
+const PROJECTS: Projects = [
   aProject({
     name: 'triple-yahtzee-score-board',
     description: 'Best scoring line for a dice roll.',
     languages: ['TypeScript', 'HTML'],
-    link: 'https://yahtzee.dehopre.dev',
+    homepage: 'https://yahtzee.dehopre.dev',
     repositoryUrl: 'https://github.com/FabienDehopre/triple-yahtzee-score-board',
   }),
   aProject({ name: 'game-of-life', description: 'Conway\'s Game of Life', archived: true }),
@@ -20,15 +20,15 @@ const PROJECTS: ProjectList = [
  * Renders the Projects page with already-loaded Project data.
  * @param projects the Projects passed by the route resolver
  */
-async function renderProjectsPage(projects: ProjectList): Promise<HTMLElement> {
-  await TestBed.configureTestingModule({ imports: [Projects] }).compileComponents();
-  const fixture = TestBed.createComponent(Projects);
+async function renderProjectsPage(projects: Projects): Promise<HTMLElement> {
+  await TestBed.configureTestingModule({ imports: [ProjectsPage] }).compileComponents();
+  const fixture = TestBed.createComponent(ProjectsPage);
   fixture.componentRef.setInput('projects', projects);
   await fixture.whenStable();
   return fixture.nativeElement as HTMLElement;
 }
 
-describe(Projects.name, () => {
+describe(ProjectsPage.name, () => {
   test('shows a title and an intro', async () => {
     const view = await renderProjectsPage(PROJECTS);
 

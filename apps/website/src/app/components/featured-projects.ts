@@ -27,7 +27,7 @@ const MAX_FEATURED_PROJECTS = 3;
       <ul class="flex flex-col gap-16" role="list">
         @for (project of featuredProjects(); track project.repositoryUrl) {
           <li class="flex">
-            <app-project-card [project]="project" />
+            <app-project-card [headingLevel]="3" [project]="project" />
           </li>
         }
       </ul>
