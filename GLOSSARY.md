@@ -1,6 +1,6 @@
 # dehopre.dev
 
-Fabien Dehopré's personal website: who he is, what he has built, and what he works with.
+Fabien Dehopré's personal website: who Fabien is, what Fabien has built, and the tools Fabien works with.
 
 ## Language
 
