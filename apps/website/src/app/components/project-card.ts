@@ -1,6 +1,6 @@
 import type { Project } from '../../models/project';
 
-import { NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideFolderGit2, lucideGithub } from '@ng-icons/lucide';
@@ -11,7 +11,7 @@ import { lucideFolderGit2, lucideGithub } from '@ng-icons/lucide';
  */
 @Component({
   selector: 'app-project-card',
-  imports: [NgIcon, NgOptimizedImage],
+  imports: [NgIcon, NgOptimizedImage, NgTemplateOutlet],
   template: `
     <article class="group relative flex w-full flex-col items-start" data-testid="projectCard">
       <div class="
@@ -45,22 +45,32 @@ import { lucideFolderGit2, lucideGithub } from '@ng-icons/lucide';
           ">Archived</span>
         }
       </div>
-      <h2 class="
-        mt-6 text-base font-semibold text-zinc-800
-        dark:text-zinc-100
-      ">
-        <a [href]="project().link">
+      <ng-template #title>
+        <a [href]="link()">
           <span class="
             absolute -inset-x-4 -inset-y-6 z-20
             sm:-inset-x-6 sm:rounded-2xl
           "></span>
           <span class="relative z-10">{{ project().name }}</span>
         </a>
-      </h2>
-      <p class="
-        relative z-10 mt-2 text-sm text-zinc-600
-        dark:text-zinc-400
-      ">{{ project().description }}</p>
+      </ng-template>
+      @if (headingLevel() === 3) {
+        <h3 class="
+          mt-6 text-base font-semibold text-zinc-800
+          dark:text-zinc-100
+        "><ng-container [ngTemplateOutlet]="title" /></h3>
+      } @else {
+        <h2 class="
+          mt-6 text-base font-semibold text-zinc-800
+          dark:text-zinc-100
+        "><ng-container [ngTemplateOutlet]="title" /></h2>
+      }
+      @if (project().description) {
+        <p class="
+          relative z-10 mt-2 text-sm text-zinc-600
+          dark:text-zinc-400
+        " data-testid="projectDescription">{{ project().description }}</p>
+      }
       @if (project().languages.length > 0) {
         <ul aria-label="Languages" class="
           relative z-10 mt-4 flex flex-wrap gap-2
@@ -74,7 +84,7 @@ import { lucideFolderGit2, lucideGithub } from '@ng-icons/lucide';
           }
         </ul>
       }
-      @if (hasHomepage()) {
+      @if (project().homepage) {
         <a class="
           relative z-30 mt-6 flex items-center gap-2 text-sm font-medium
           text-zinc-500 transition
@@ -92,6 +102,9 @@ import { lucideFolderGit2, lucideGithub } from '@ng-icons/lucide';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectCard {
-  protected readonly hasHomepage = computed(() => this.project().link !== this.project().repositoryUrl);
+  /** Where the card leads: the homepage when the Project has one, else the repository. */
+  protected readonly link = computed(() => this.project().homepage ?? this.project().repositoryUrl);
+  /** The heading level of the card title: 2 under a page's h1, 3 under a section's h2. */
+  readonly headingLevel = input<2 | 3>(2);
   readonly project = input.required<Project>();
 }

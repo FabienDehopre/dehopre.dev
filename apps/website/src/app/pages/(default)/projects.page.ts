@@ -1,5 +1,5 @@
 import type { LoadResult, RouteMeta } from '@analogjs/router';
-import type { Projects as ProjectList } from '../../../models/project';
+import type { Projects } from '../../../models/project';
 import type { load } from './projects.server';
 
 import { getLoadResolver } from '@analogjs/router';
@@ -7,19 +7,19 @@ import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core
 
 import { ProjectCard } from '../../components/project-card';
 
-const TITLE = 'Projects';
+const PAGE_TITLE = 'Projects - Fabien Dehopré';
 const HEADLINE = 'Things I\'ve made: apps, tools and experiments.';
 const DESCRIPTION = 'A hand-picked selection of the things I\'ve built and published on GitHub. They are all open source, so feel free to dig into the code.';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention -- required by AnalogJS
 export const routeMeta: RouteMeta = {
-  title: `${TITLE} - Fabien Dehopré`,
+  title: PAGE_TITLE,
   meta: [
     { name: 'description', content: DESCRIPTION },
     { name: 'og:type', content: 'website' },
-    { name: 'og:title', content: `${TITLE} - Fabien Dehopré` },
+    { name: 'og:title', content: PAGE_TITLE },
     { name: 'og:description', content: DESCRIPTION },
-    { name: 'og:image', content: `https://dehopre.dev/api/v1/og-images?title=${encodeURIComponent(`${TITLE} - Fabien Dehopré`)}` },
+    { name: 'og:image', content: `https://dehopre.dev/api/v1/og-images?title=${encodeURIComponent(PAGE_TITLE)}` },
     { name: 'og:url', content: 'https://dehopre.dev/projects' },
   ],
   resolve: {
@@ -59,8 +59,8 @@ export const routeMeta: RouteMeta = {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class Projects {
+export default class ProjectsPage {
   protected readonly headline = signal(HEADLINE).asReadonly();
   protected readonly description = signal(DESCRIPTION).asReadonly();
-  protected readonly projects = input.required<ProjectList>();
+  protected readonly projects = input.required<Projects>();
 }

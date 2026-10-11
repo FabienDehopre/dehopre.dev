@@ -26,35 +26,24 @@ type GitHubLanguages = Record<string, number>;
  * @param curatedProjects the curated Project list, in display order
  */
 export async function loadProjects(curatedProjects: readonly CuratedProject[]): Promise<Project[]> {
-  const headers = gitHubHeaders(env['GITHUB_TOKEN']);
+  const fetchFromGitHub = gitHubClient(env['GITHUB_TOKEN']);
   return Promise.all(curatedProjects.map(async (curated) => {
     const [repository, languages] = await Promise.all([
-      fetchFromGitHub<GitHubRepository>(curated.repository, '', headers),
-      fetchFromGitHub<GitHubLanguages>(curated.repository, '/languages', headers),
+      fetchFromGitHub<GitHubRepository>(curated.repository, ''),
+      fetchFromGitHub<GitHubLanguages>(curated.repository, '/languages'),
     ]);
     return {
       name: repository.name,
       description: curated.description ?? repository.description ?? '',
       languages: mainLanguages(languages),
-      link: primaryLink(repository),
       repositoryUrl: repository.html_url,
+      // GitHub sends `null` or `''` when the repository has no homepage.
+      ...(repository.homepage ? { homepage: repository.homepage } : {}),
       archived: repository.archived,
       ...(curated.logo === undefined ? {} : { logo: curated.logo }),
       featured: curated.featured ?? false,
     };
   }));
-}
-
-/**
- * The homepage when the repository has one (GitHub sends `null` or `''` when it has none), else the repository.
- * @param repository the repository metadata
- */
-function primaryLink(repository: GitHubRepository): string {
-  if (repository.homepage) {
-    return repository.homepage;
-  }
-
-  return repository.html_url;
 }
 
 /**
@@ -72,9 +61,11 @@ function mainLanguages(languages: GitHubLanguages): string[] {
 }
 
 /**
- * @param token the optional GitHub token
+ * Builds the request headers once and returns a function that fetches a resource of a repository from the GitHub REST API.
+ * That function throws an error naming the repository when the request fails.
+ * @param token the optional GitHub token, sent as a bearer token when set
  */
-function gitHubHeaders(token: string | undefined): Headers {
+function gitHubClient(token: string | undefined) {
   const headers = new Headers({
     accept: 'application/vnd.github+json',
     'x-github-api-version': '2022-11-28',
@@ -83,25 +74,18 @@ function gitHubHeaders(token: string | undefined): Headers {
     headers.set('authorization', `Bearer ${token}`);
   }
 
-  return headers;
-}
+  return async <T>(repository: CuratedProject['repository'], resource: '' | `/${string}`): Promise<T> => {
+    let response: Response;
+    try {
+      response = await fetch(`${GITHUB_API_URL}/repos/${repository}${resource}`, { headers });
+    } catch (error) {
+      throw new Error(`Failed to load Project ${repository} from GitHub: ${String(error)}`, { cause: error });
+    }
 
-/**
- * @param repository the repository, as `owner/name`
- * @param resource the path under the repository (`''` for the repository itself, `/languages`, …)
- * @param headers the request headers
- */
-async function fetchFromGitHub<T>(repository: string, resource: string, headers: Headers): Promise<T> {
-  let response: Response;
-  try {
-    response = await fetch(`${GITHUB_API_URL}/repos/${repository}${resource}`, { headers });
-  } catch (error) {
-    throw new Error(`Failed to load Project ${repository} from GitHub: ${String(error)}`, { cause: error });
-  }
+    if (!response.ok) {
+      throw new Error(`Failed to load Project ${repository} from GitHub: ${response.status} ${response.statusText}`.trimEnd());
+    }
 
-  if (!response.ok) {
-    throw new Error(`Failed to load Project ${repository} from GitHub: ${response.status} ${response.statusText}`.trimEnd());
-  }
-
-  return await response.json() as T;
+    return await response.json() as T;
+  };
 }

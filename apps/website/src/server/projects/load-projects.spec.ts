@@ -70,7 +70,7 @@ describe(loadProjects.name, () => {
     vi.unstubAllEnvs();
   });
 
-  test('returns the Project with its GitHub name, description and repository link', async () => {
+  test('returns the Project with its GitHub name, description and repository URL', async () => {
     fakeGitHub(repo('FabienDehopre/game-of-life', { description: 'Conway\'s Game of Life', languages: [['TypeScript', 9000]] }));
 
     const projects = await loadProjects([{ repository: 'FabienDehopre/game-of-life' }]);
@@ -80,7 +80,6 @@ describe(loadProjects.name, () => {
         name: 'game-of-life',
         description: 'Conway\'s Game of Life',
         languages: ['TypeScript'],
-        link: 'https://github.com/FabienDehopre/game-of-life',
         repositoryUrl: 'https://github.com/FabienDehopre/game-of-life',
         archived: false,
         featured: false,
@@ -120,21 +119,21 @@ describe(loadProjects.name, () => {
     expect(project.languages).toEqual([]);
   });
 
-  test('links to the homepage when the repository has one, and still exposes the repository URL', async () => {
+  test('includes the homepage when the repository has one, alongside the repository URL', async () => {
     fakeGitHub(repo('FabienDehopre/my-netatmo-24', { homepage: 'https://netatmo.dehopre.dev' }));
 
     const [project] = await loadProjects([{ repository: 'FabienDehopre/my-netatmo-24' }]);
 
-    expect(project.link).toBe('https://netatmo.dehopre.dev');
+    expect(project.homepage).toBe('https://netatmo.dehopre.dev');
     expect(project.repositoryUrl).toBe('https://github.com/FabienDehopre/my-netatmo-24');
   });
 
-  test('links to the repository when the homepage is empty', async () => {
+  test('has no homepage when the repository homepage is empty', async () => {
     fakeGitHub(repo('FabienDehopre/game-of-life', { homepage: '' }));
 
     const [project] = await loadProjects([{ repository: 'FabienDehopre/game-of-life' }]);
 
-    expect(project.link).toBe('https://github.com/FabienDehopre/game-of-life');
+    expect(project).not.toHaveProperty('homepage');
   });
 
   test('marks an archived repository as archived', async () => {

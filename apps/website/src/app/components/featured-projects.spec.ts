@@ -46,11 +46,18 @@ describe(FeaturedProjects.name, () => {
 
   test('each Featured Project card links the same way as on the Projects page', async () => {
     await renderFeaturedProjects([
-      aProject({ name: 'FordConnectToAbrpSync', featured: true, link: 'https://ford.dehopre.dev', repositoryUrl: 'https://github.com/FabienDehopre/FordConnectToAbrpSync' }),
+      aProject({ name: 'FordConnectToAbrpSync', featured: true, homepage: 'https://ford.dehopre.dev', repositoryUrl: 'https://github.com/FabienDehopre/FordConnectToAbrpSync' }),
     ]);
 
     expect(screen.getByRole('link', { name: 'FordConnectToAbrpSync' }).getAttribute('href')).toBe('https://ford.dehopre.dev');
     expect(screen.getByRole('link', { name: 'FordConnectToAbrpSync on GitHub' }).getAttribute('href')).toBe('https://github.com/FabienDehopre/FordConnectToAbrpSync');
+  });
+
+  test('titles each card one level below the section heading', async () => {
+    await renderFeaturedProjects([aProject({ name: 'FordConnectToAbrpSync', featured: true })]);
+
+    expect(screen.getByRole('heading', { level: 2, name: 'Featured Projects' })).toBeTruthy();
+    expect(screen.getByRole('heading', { level: 3, name: 'FordConnectToAbrpSync' })).toBeTruthy();
   });
 
   test('links to the full Projects page', async () => {
