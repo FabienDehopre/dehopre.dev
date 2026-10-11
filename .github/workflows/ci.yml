@@ -49,3 +49,6 @@ jobs:
       # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
       # When you enable task distribution, run the e2e-ci task instead of e2e
       - run: pnpm exec nx affected -t lint test build e2e
+        env:
+          # The build fetches Project data from the GitHub API (see docs/adr/0001-build-time-github-projects.md).
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
