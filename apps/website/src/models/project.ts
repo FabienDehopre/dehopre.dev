@@ -11,6 +11,8 @@ export const PROJECT_SCHEMA = type({
   archived: 'boolean',
   /** The logo set in the curated list, as an image path relative to the site root. */
   'logo?': 'string',
+  /** Flagged in the curated list to be shown on the Home page as a Featured Project. */
+  featured: 'boolean',
 }).onUndeclaredKey('reject').readonly();
 export const PROJECTS_SCHEMA = type(PROJECT_SCHEMA, '[]').readonly();
 
