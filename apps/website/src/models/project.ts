@@ -1,0 +1,20 @@
+import { type } from 'arktype';
+
+export const PROJECT_SCHEMA = type({
+  name: 'string',
+  description: 'string',
+  /** Up to three languages, each at least 10% of the code by bytes, largest share first. */
+  languages: type('string[]').readonly(),
+  repositoryUrl: 'string.url',
+  /** The repository's homepage, when it has one. */
+  'homepage?': 'string.url',
+  archived: 'boolean',
+  /** The logo set in the curated list, as an image path relative to the site root. */
+  'logo?': 'string',
+  /** Flagged in the curated list to be shown on the Home page as a Featured Project. */
+  featured: 'boolean',
+}).onUndeclaredKey('reject').readonly();
+export const PROJECTS_SCHEMA = type(PROJECT_SCHEMA, '[]').readonly();
+
+export type Project = typeof PROJECT_SCHEMA.infer;
+export type Projects = typeof PROJECTS_SCHEMA.infer;

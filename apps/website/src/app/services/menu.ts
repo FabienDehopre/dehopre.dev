@@ -13,6 +13,10 @@ export class Menu {
         label: 'About',
         href: this.#router.createUrlTree(['/', 'about']),
       },
+      {
+        label: 'Projects',
+        href: this.#router.createUrlTree(['/', 'projects']),
+      },
     ];
   }
 }

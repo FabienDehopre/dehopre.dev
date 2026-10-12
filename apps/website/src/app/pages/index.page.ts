@@ -1,4 +1,5 @@
 import type { LoadResult, RouteMeta } from '@analogjs/router';
+import type { Projects } from '../../models/project';
 import type { SocialLinks } from '../../models/social-link';
 import type { load } from './index.server';
 
@@ -6,6 +7,7 @@ import { getLoadResolver } from '@analogjs/router';
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 
 import { Container } from '../components/container/container';
+import { FeaturedProjects } from '../components/featured-projects';
 import { SocialLink } from '../components/social-link';
 
 export const TITLE = 'Fullstack developer (Angular, ASP.NET Web API)';
@@ -27,12 +29,16 @@ export const routeMeta: RouteMeta = {
       const data = await getLoadResolver<LoadResult<typeof load>>(route);
       return data.socialLinks;
     },
+    projects: async (route) => {
+      const data = await getLoadResolver<LoadResult<typeof load>>(route);
+      return data.projects;
+    },
   },
 };
 
 @Component({
   selector: 'app-home',
-  imports: [Container, SocialLink],
+  imports: [Container, FeaturedProjects, SocialLink],
   template: `
     <app-container cssClass="mt-9">
       <div class="max-w-2xl">
@@ -54,6 +60,19 @@ export const routeMeta: RouteMeta = {
         </div>
       </div>
     </app-container>
+    <app-container cssClass="mt-24 md:mt-28">
+      <div class="
+        mx-auto grid max-w-xl grid-cols-1 gap-y-20
+        lg:max-w-none lg:grid-cols-2
+      ">
+        <app-featured-projects [projects]="projects()" />
+        <!-- Right column: reserved for the upcoming Work section (Roles). -->
+        <div class="
+          lg:pl-16
+          xl:pl-24
+        "></div>
+      </div>
+    </app-container>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -61,6 +80,7 @@ export default class Home {
   protected readonly title = signal(TITLE).asReadonly();
   protected readonly description = signal(DESCRIPTION).asReadonly();
   protected readonly socialLinks = input.required<SocialLinks>();
+  protected readonly projects = input.required<Projects>();
   // protected readonly socialLinks = httpResource<SocialLinks>(
   //   () => '/api/v1/social-links',
   //   {

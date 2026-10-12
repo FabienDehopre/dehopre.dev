@@ -23,13 +23,17 @@ export default defineConfig(({ mode }) => {
       analog({
         ssr: true,
         prerender: {
-          routes: mode === 'production' ? ['/', '/about'] : [],
+          routes: mode === 'production' ? ['/', '/about', '/projects'] : [],
           sitemap: {
             host: 'https://dehopre.dev',
           },
         },
         content: {
           highlighter: 'prism',
+        },
+        nitro: {
+          // A prerendered page that answers non-200 (e.g. a Project fetch from GitHub failed) fails the build (ADR 0001).
+          prerender: { failOnError: true },
         },
       }),
       tailwindcss(),
